@@ -1,0 +1,46 @@
+name: Editorial Pipeline
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'content/**'
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 14 * * 1,4'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  quality-gate:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install
+      - run: npm run build
+
+  create-editorial-review:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open research and drafting task
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().slice(0, 10);
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Editorial cycle: ${date}`,
+              body: `## Research queue\n\n1. Select one aviation maintenance, enterprise AI, or AWS modernization topic.\n2. Record primary sources.\n3. Draft the article and distribution copy on a new branch.\n4. Open a pull request.\n5. Publish only after human approval.\n\n### Quality gate\n- [ ] Original analysis\n- [ ] Primary sources\n- [ ] No confidential or employer-specific information\n- [ ] Claims traceable to evidence\n- [ ] Practical architecture or implementation guidance\n- [ ] LinkedIn and DEV distribution drafts included`,
+              labels: ['editorial']
+            });
