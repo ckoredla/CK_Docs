@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import Link from 'next/link';
 import { articleBySlug, formatIssue, formatPublished, type ArticleRecord } from '../lib/articles';
 
 export const IssueDate = ({ value }: { value: string }) => <span>Issue: {formatIssue(value)}</span>;
@@ -33,5 +34,5 @@ export function RelatedArticles({ article }: { article: ArticleRecord }) {
 export function PreviousNextNavigation({ article }: { article: ArticleRecord }) {
   const previous = article.previousArticleSlug ? articleBySlug.get(article.previousArticleSlug) : null;
   const next = article.nextArticleSlug ? articleBySlug.get(article.nextArticleSlug) : null;
-  return <nav className="previous-next" aria-label="Article navigation"><div>{previous ? <a href={`/articles/${previous.slug}`}><span>Previous issue</span><strong>{previous.title}</strong></a> : null}</div><div>{next ? <a href={`/articles/${next.slug}`}><span>Next issue</span><strong>{next.title}</strong></a> : null}</div></nav>;
+  return <nav className="previous-next" aria-label="Article navigation"><h2>Continue through the archive</h2><div>{previous ? <Link className="article-nav-button previous" href={`/articles/${previous.slug}`} aria-label={`Previous article: ${previous.title}`}><span>← Previous article</span><strong>{previous.title}</strong><small>{formatIssue(previous.issueDate)}</small></Link> : <span className="article-nav-end">Beginning of archive</span>}</div><div>{next ? <Link className="article-nav-button next" href={`/articles/${next.slug}`} aria-label={`Next article: ${next.title}`}><span>Next article →</span><strong>{next.title}</strong><small>{formatIssue(next.issueDate)}</small></Link> : <span className="article-nav-end">Latest article</span>}</div></nav>;
 }
