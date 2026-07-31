@@ -2,6 +2,7 @@ import { MaintenanceIntelligenceFigure } from '../../components/ArchitectureFigu
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
+import { SystemDiagram } from '../../components/DiagramSystem';
 
 const article = getArticle('2026-07-aircraft-maintenance-intelligence-platform');
 export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
@@ -67,11 +68,12 @@ export default function ArticlePage() {
         <h2>8. A practical delivery sequence</h2>
         <p>Start with one fleet, one maintenance decision, and a limited set of trusted sources. Build the feedback loop before expanding the number of models or use cases. Once evidence quality, workflow adoption, and outcome capture are stable, the platform can extend across fleets and domains.</p>
 
-        <div className="diagram"><div className="diagram-title">Incremental modernization roadmap</div>{`PHASE 1                 PHASE 2                  PHASE 3                 PHASE 4
-Trusted ingestion  →    Context + lineage   →   Decision support   →   Fleet-scale learning
-one use case             governed identity       rules/statistics/ML     reusable platform
-one fleet                quality controls         workflow integration    portfolio governance
-outcome capture          historical joins         explainability          continuous improvement`}</div>
+        <SystemDiagram id="modernization-roadmap" kind="timeline" title="A modernization sequence anchored in operational proof" caption="Each phase earns the next: a trustworthy source path precedes decision support, and captured outcomes precede fleet-scale learning." nodes={[
+          {id:'one',label:'Prove the path',detail:'one fleet · one decision',x:55,y:105,tone:'orange'},
+          {id:'two',label:'Govern context',detail:'identity · quality · lineage',x:285,y:265,tone:'blue'},
+          {id:'three',label:'Support the work',detail:'evidence · workflow · review',x:515,y:105,tone:'purple'},
+          {id:'four',label:'Scale what works',detail:'outcomes · reuse · governance',x:745,y:265,tone:'green'}
+        ]} edges={[{from:'one',to:'two',label:'evidence'},{from:'two',to:'three',label:'trust'},{from:'three',to:'four',label:'outcomes'}]} />
 
         <h2>Final principle</h2>
         <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>

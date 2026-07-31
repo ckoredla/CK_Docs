@@ -100,6 +100,17 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .figure-heading span { color: var(--accent); font-size: 11px; font-weight: 700; }
 .figure-heading strong { font-size: 13px; letter-spacing: .04em; }
 .architecture-svg { display: block; width: 100%; height: auto; border: 1px solid var(--ink); background: #f8f5ed; }
+.editorial-plate .architecture-svg { border: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: #eee9df; }
+.editorial-plate .arch-canvas { fill: #eee9df; }
+.plate-horizon { fill: none; stroke: #d1c9ba; stroke-width: 1.5; }
+.editorial-plate .arch-node { stroke: #17293b; stroke-width: 1; filter: drop-shadow(7px 8px 0 rgba(23,41,59,.12)); }
+.editorial-plate .arch-arrow { stroke: #17293b; stroke-width: 2; }
+.editorial-plate .arch-flow-label { fill: #a34f22; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.plate-accent { fill: #d66b32; }
+.plate-index-disc { fill: #17293b; }
+.plate-index { fill: #f8f5ed; font: 700 9px 'Courier New', monospace; }
+.editorial-plate .arch-label { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: 700; }
+.editorial-plate .arch-sublabel { font-family: 'Courier New', monospace; font-size: 8.5px; letter-spacing: .02em; }
 .arch-canvas { fill: #f8f5ed; }
 .arch-grid-line { fill: none; stroke: #d9d4ca; stroke-width: .55; }
 .arch-zone { fill: rgba(255,255,255,.64); stroke: #8d8a82; stroke-width: 1.2; stroke-dasharray: 5 4; }

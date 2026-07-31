@@ -27,9 +27,10 @@ for (const article of articles) {
   if (!fs.existsSync(route)) errors.push(`${article.slug}: registry entry has no route`);
   else {
     const source = fs.readFileSync(route, 'utf8');
-    if (!source.includes('ArticleShell')) errors.push(`${article.slug}: route does not use publication shell`);
-    if (!source.includes('application/ld+json')) errors.push(`${article.slug}: route lacks structured article data`);
-    if (!source.includes('datePublished: article.publishedAt')) errors.push(`${article.slug}: structured datePublished must use publishedAt`);
+    if (!source.includes('ArticleShell') && !source.includes('IssueArticle')) errors.push(`${article.slug}: route does not use publication shell`);
+    const structuredSource = source.includes('IssueArticle') ? fs.readFileSync(path.join(root, 'app/components/IssueArticle.tsx'), 'utf8') : source;
+    if (!structuredSource.includes('application/ld+json')) errors.push(`${article.slug}: route lacks structured article data`);
+    if (!structuredSource.includes('datePublished: article.publishedAt')) errors.push(`${article.slug}: structured datePublished must use publishedAt`);
   }
 }
 
