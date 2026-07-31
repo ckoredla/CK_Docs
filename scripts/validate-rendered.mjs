@@ -3,6 +3,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 const root=process.cwd();const articleRoot=path.join(root,'.next/server/app/articles');const errors=[];
+const expectedProfiles=new Map([['2017-12-rotable-history','component-lifecycle'],['2026-01-maintenance-decision-brief','maintenance-control'],['2025-03-repeat-defect-case-detection','defect-investigation'],['2025-09-digital-task-card-control','work-execution'],['2025-10-mro-cloud-migration','cloud-platform'],['2025-12-maintenance-copilot-boundaries','knowledge-assistance'],['2026-03-ai-agent-assurance','governance']]);
 const files=[];const familyCoverage=new Set();const modes=new Set();const profiles=new Set();const walk=(directory)=>{for(const entry of fs.readdirSync(directory,{withFileTypes:true})){const target=path.join(directory,entry.name);if(entry.isDirectory())walk(target);else if(entry.name.endsWith('.html'))files.push(target);}};walk(articleRoot);
 if(files.length!==140)errors.push(`expected 140 rendered article pages, found ${files.length}`);
 for(const file of files){const html=fs.readFileSync(file,'utf8');const slug=path.basename(file,'.html');const figures=(html.match(/<figure/g)||[]).length;const families=[...html.matchAll(/data-visual-family="([^"]+)"/g)].map(match=>match[1]);const articleProfiles=[...html.matchAll(/data-visual-profile="([^"]+)"/g)].map(match=>match[1]);const mode=html.match(/data-publication-mode="([^"]+)"/)?.[1];const text=html.replace(/<script[\s\S]*?<\/script>/g,' ').replace(/<style[\s\S]*?<\/style>/g,' ').replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ');const words=(text.match(/[A-Za-z][A-Za-z'-]*/g)||[]).length;
@@ -12,7 +13,8 @@ for(const file of files){const html=fs.readFileSync(file,'utf8');const slug=path
   if(new Set(families).size<3)errors.push(`${slug}: visual story uses fewer than three families (${families.join(', ')})`);
   if(!mode)errors.push(`${slug}: missing publication mode`);else modes.add(mode);
   if(articleProfiles.length!==4||new Set(articleProfiles).size!==1)errors.push(`${slug}: expected one coherent content profile across four visuals`);else profiles.add(articleProfiles[0]);
-  if(families.includes('aws-architecture')&&articleProfiles[0]!=='cloud')errors.push(`${slug}: AWS architecture used outside the cloud profile`);
+  if(expectedProfiles.has(slug)&&articleProfiles[0]!==expectedProfiles.get(slug))errors.push(`${slug}: expected ${expectedProfiles.get(slug)} visual plan, found ${articleProfiles[0]}`);
+  if(families.includes('aws-architecture')&&articleProfiles[0]!=='cloud-platform')errors.push(`${slug}: AWS architecture used outside the cloud-platform profile`);
   if((html.match(/data-visual-question="[^"]+"/g)||[]).length!==4)errors.push(`${slug}: each visual must state its technical question`);
   families.forEach((family)=>familyCoverage.add(family));
   if(words<800)errors.push(`${slug}: expected at least 800 rendered words, found ${words}`);

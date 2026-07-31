@@ -1,24 +1,119 @@
 import type { PublicationMode, PublicationVisualContext, VisualRole, VisualVariant } from './types';
 
 export type VisualFamily='aws-architecture'|'architecture'|'topology'|'dashboard'|'timeline'|'decision-tree'|'heatmap'|'service-blueprint'|'journey-map'|'knowledge-graph'|'aircraft'|'metrics'|'infographic'|'risk'|'table';
-export type VisualProfile='cloud'|'aircraft-system'|'reliability'|'workflow'|'materials'|'records'|'ai-assurance'|'governance'|'general';
+export type VisualProfile='cloud-platform'|'aircraft-system'|'component-lifecycle'|'material-planning'|'technical-records'|'work-execution'|'maintenance-control'|'defect-investigation'|'reliability-analysis'|'inspection-ai'|'knowledge-assistance'|'ai-assurance'|'governance'|'general';
 type RolePlan={family:VisualFamily;variant:VisualVariant;question:string};
+type VisualPlan=Record<VisualRole,RolePlan>;
 
 const modes:PublicationMode[]=['research','briefing','handbook','field-guide','technical-manual','playbook','decision-record','case-study'];
-const profilePlans:Record<VisualProfile,Record<VisualRole,RolePlan>>={
-  cloud:{hero:{family:'aws-architecture',variant:'a',question:'Which AWS and MRO boundaries carry the workload from operational intake to a controlled system-of-record update?'},evidence:{family:'topology',variant:'a',question:'Where does evidence change custody, connectivity, or persistence?'},analysis:{family:'dashboard',variant:'a',question:'Which signals reveal workload health, delay, and failure recovery?'},decision:{family:'risk',variant:'a',question:'Which failure modes require control, escalation, or a stop boundary?'}},
-  'aircraft-system':{hero:{family:'aircraft',variant:'a',question:'Where is the affected system installed and which configuration boundary governs applicability?'},evidence:{family:'topology',variant:'b',question:'How do energy, signal, and fault effects propagate through the aircraft system?'},analysis:{family:'metrics',variant:'a',question:'How does observed behavior compare across operating regimes and exposure?'},decision:{family:'timeline',variant:'a',question:'Which evidence and review gates must be satisfied before action?'}},
-  reliability:{hero:{family:'metrics',variant:'a',question:'What distribution, exposure, or trend establishes the reliability concern?'},evidence:{family:'timeline',variant:'b',question:'How do events, maintenance actions, and confirmed outcomes relate over time?'},analysis:{family:'heatmap',variant:'a',question:'Where is the concern concentrated by fleet, configuration, position, or cohort?'},decision:{family:'risk',variant:'a',question:'Which reliability signals warrant monitoring, investigation, or intervention?'}},
-  workflow:{hero:{family:'service-blueprint',variant:'a',question:'How do people, interfaces, services, and records coordinate the maintenance decision?'},evidence:{family:'journey-map',variant:'a',question:'Where does the operator encounter delay, ambiguity, or authority handoff?'},analysis:{family:'timeline',variant:'a',question:'Which states and gates control progression and recovery?'},decision:{family:'decision-tree',variant:'a',question:'Which explicit conditions lead to action, rework, abstention, or escalation?'}},
-  materials:{hero:{family:'topology',variant:'a',question:'How do part identity, condition, custody, and demand connect across the network?'},evidence:{family:'timeline',variant:'a',question:'Which lifecycle events establish the component or material state?'},analysis:{family:'heatmap',variant:'a',question:'Where are shortages, removals, or repair constraints concentrated?'},decision:{family:'table',variant:'a',question:'Which planning choice follows from each evidence and uncertainty condition?'}},
-  records:{hero:{family:'knowledge-graph',variant:'a',question:'Which governed identities and relationships connect the technical evidence?'},evidence:{family:'service-blueprint',variant:'c',question:'How is evidence created, reviewed, corrected, and accepted into the record?'},analysis:{family:'table',variant:'a',question:'Which information classes require provenance, version, and authority controls?'},decision:{family:'timeline',variant:'a',question:'Which record states and review gates establish completeness?'}},
-  'ai-assurance':{hero:{family:'architecture',variant:'a',question:'Where do evidence, model inference, safeguards, and human authority sit in the decision system?'},evidence:{family:'knowledge-graph',variant:'a',question:'Which sources support each model claim and where can applicability break?'},analysis:{family:'risk',variant:'a',question:'Which AI failure modes change operational consequence or required control?'},decision:{family:'decision-tree',variant:'a',question:'When should the system answer, abstain, or escalate to qualified review?'}},
-  governance:{hero:{family:'risk',variant:'a',question:'Which hazards and uncertainties determine control intensity?'},evidence:{family:'table',variant:'a',question:'Which claim, evidence, owner, and control must be traceable?'},analysis:{family:'heatmap',variant:'a',question:'Where are assurance gaps concentrated across the operating envelope?'},decision:{family:'decision-tree',variant:'a',question:'Which evidence permits release, restriction, rollback, or withdrawal?'}},
-  general:{hero:{family:'infographic',variant:'a',question:'What is the essential engineering model the reader must retain?'},evidence:{family:'table',variant:'a',question:'Which evidence classes and controls must be compared directly?'},analysis:{family:'metrics',variant:'a',question:'What measurable behavior distinguishes the important conditions?'},decision:{family:'decision-tree',variant:'a',question:'Which conditions determine the next accountable action?'}}
+const plan=(hero:RolePlan,evidence:RolePlan,analysis:RolePlan,decision:RolePlan):VisualPlan=>({hero,evidence,analysis,decision});
+const item=(family:VisualFamily,question:string,variant:VisualVariant='a'):RolePlan=>({family,question,variant});
+
+const plans:Record<VisualProfile,VisualPlan>={
+  'cloud-platform':plan(
+    item('aws-architecture','Which AWS, airline, and MRO boundaries carry this workload from intake to an authoritative update?'),
+    item('topology','Where does evidence change custody, connectivity, or persistence?','b'),
+    item('dashboard','Which operating signals reveal delay, failure, recovery, and evidence health?'),
+    item('risk','Which architecture failures require isolation, replay, escalation, or shutdown?')
+  ),
+  'aircraft-system':plan(
+    item('aircraft','Which aircraft functions, signal paths, and configuration boundaries govern this system?'),
+    item('topology','How do energy, commands, responses, and fault effects propagate?','b'),
+    item('metrics','How does observed behavior compare across regime, exposure, and configuration?'),
+    item('timeline','Which evidence and review gates must be satisfied before maintenance action?')
+  ),
+  'component-lifecycle':plan(
+    item('topology','How do component identity, condition, custody, and installed position move through the network?'),
+    item('timeline','Which installation, removal, repair, modification, and release events establish technical status?'),
+    item('knowledge-graph','Which aircraft, position, component, document, shop finding, and custody relationships must remain traceable?'),
+    item('table','Which evidence is required before each component disposition can be accepted?')
+  ),
+  'material-planning':plan(
+    item('topology','How do demand, stock, repair, pooling, substitution, and station supply interact?'),
+    item('metrics','What distribution and uncertainty describe demand or repair-cycle exposure?'),
+    item('heatmap','Where are shortages, expedites, removals, or repair constraints concentrated?'),
+    item('risk','Which material decisions create AOG, excess-stock, or traceability consequence?')
+  ),
+  'technical-records':plan(
+    item('knowledge-graph','Which governed identities and relationships connect the technical record?'),
+    item('service-blueprint','How is evidence created, reviewed, corrected, signed, and accepted into the aircraft record?'),
+    item('table','Which information classes require provenance, revision, signature, and authority controls?'),
+    item('timeline','Which record states and review gates establish completeness and auditability?')
+  ),
+  'work-execution':plan(
+    item('service-blueprint','How do technicians, inspectors, interfaces, services, and records coordinate execution?'),
+    item('journey-map','Where do interruption, revision, evidence capture, and authority handoff create friction?'),
+    item('timeline','Which task states, findings, inspections, and recovery gates control progression?'),
+    item('decision-tree','Which conditions release work, open rework, require inspection, or prevent closure?')
+  ),
+  'maintenance-control':plan(
+    item('service-blueprint','How do maintenance control, engineering, stations, materials, and records coordinate the decision?'),
+    item('infographic','Which evidence classes should the decision brief preserve, qualify, cite, or reject?'),
+    item('journey-map','Where do time pressure, ambiguity, ownership, and authority change the controller experience?'),
+    item('decision-tree','Which conditions lead to action, more evidence, engineering escalation, or abstention?')
+  ),
+  'defect-investigation':plan(
+    item('timeline','How do the initial discrepancy, corrective action, recurrence, finding, and verification form one case?'),
+    item('knowledge-graph','Which symptoms, positions, components, tasks, and findings belong to the candidate defect case?'),
+    item('heatmap','Where does recurrence concentrate by tail, position, configuration, station, or action?'),
+    item('decision-tree','Which evidence confirms recurrence, separates a similar symptom, or returns the case for investigation?')
+  ),
+  'reliability-analysis':plan(
+    item('metrics','What exposure-normalized distribution or trend establishes the reliability concern?'),
+    item('timeline','How do events, maintenance actions, modification state, and confirmed outcomes relate over time?'),
+    item('heatmap','Where is the concern concentrated by fleet, configuration, position, or operating cohort?'),
+    item('risk','Which signals warrant monitoring, engineering investigation, program action, or an operating limit?')
+  ),
+  'inspection-ai':plan(
+    item('aircraft','Where is the inspection target, and which effectivity, access, and physical scale govern interpretation?'),
+    item('journey-map','How do capture quality, localization, model review, measurement, and inspector authority interact?'),
+    item('metrics','How does performance vary by lighting, angle, surface, equipment, and finding class?'),
+    item('decision-tree','When is visual evidence sufficient to screen, recapture, escalate, or abstain?')
+  ),
+  'knowledge-assistance':plan(
+    item('knowledge-graph','Which documents, effectivity rules, aircraft history, and claims form the evidence context?'),
+    item('service-blueprint','How do retrieval, citation, synthesis, user review, and correction work together?'),
+    item('infographic','Which output is recorded fact, retrieved evidence, generated synthesis, or unsupported claim?'),
+    item('decision-tree','When should the assistant answer with citations, request context, abstain, or escalate?')
+  ),
+  'ai-assurance':plan(
+    item('architecture','Where do governed evidence, model inference, tool access, safeguards, and human authority sit?'),
+    item('table','Which claims, tests, limitations, owners, and release controls must be traceable?'),
+    item('risk','Which model or agent failures change operational consequence or required control?'),
+    item('decision-tree','Which evidence permits recommendation, restricted use, abstention, rollback, or escalation?')
+  ),
+  governance:plan(
+    item('risk','Which hazards, threats, and uncertainties determine control intensity?'),
+    item('table','Which requirement, evidence, owner, control, and review status must remain traceable?'),
+    item('heatmap','Where are assurance or control gaps concentrated across the operating envelope?'),
+    item('decision-tree','Which evidence permits release, restriction, rollback, or withdrawal?')
+  ),
+  general:plan(
+    item('infographic','What is the essential engineering model the reader must retain?'),
+    item('table','Which evidence classes, owners, and controls must be compared directly?'),
+    item('metrics','What measurable behavior distinguishes the important operating conditions?'),
+    item('decision-tree','Which conditions determine the next accountable action?')
+  )
 };
 
 function contextText(context:PublicationVisualContext){return `${context.title} ${context.domain} ${context.tags.join(' ')}`.toLowerCase()}
-export function visualProfile(context:PublicationVisualContext):VisualProfile{const text=contextText(context);if(/cloud|serverless|aws|event-driven|event stream|telemetry|edge analytics|integration|observability|migration/.test(text))return'cloud';if(context.ata.length||/apu|landing gear|flight control|electrical|pneumatic|aircraft system/.test(text))return'aircraft-system';if(/ai|machine learning|copilot|agent|computer vision|generative|nlp|model/.test(text))return /governance|assurance|safety case/.test(text)?'governance':'ai-assurance';if(/part|material|inventory|supply|rotable|aog|repair cycle/.test(text))return'materials';if(/record|document|lineage|knowledge graph|configuration|traceability/.test(text))return'records';if(/workflow|task card|work package|maintenance control|dispatch|inspection|execution|handover/.test(text))return'workflow';if(/reliability|defect|failure|predictive|condition|health|trend|recurrence/.test(text))return'reliability';if(/security|risk|governance|assurance|authority/.test(text))return'governance';return'general'}
-export function visualSelection(context:PublicationVisualContext,role:VisualRole){const profile=visualProfile(context);return{...profilePlans[profile][role],profile}}
+export function visualProfile(context:PublicationVisualContext):VisualProfile{
+  const text=contextText(context);
+  if(/cloud|serverless|aws|event-driven|event stream|telemetry|edge analytics|api modernization|system integration|observability|migration/.test(text))return'cloud-platform';
+  if(context.ata.length||/apu|landing gear|flight control|electrical power|pneumatic|fuel system|fire protection|aircraft system/.test(text))return'aircraft-system';
+  if(/rotable|component history|part trace|parts trace|custody|serialized part|repair vendor/.test(text))return'component-lifecycle';
+  if(/parts demand|material planning|inventory|supply chain|aog|stock|spares|repair cycle/.test(text))return'material-planning';
+  if(/technical record|electronic record|document|lineage|configuration|logbook|record completeness/.test(text))return'technical-records';
+  if(/task card|work package|work instruction|hangar work|maintenance execution|digital task/.test(text))return'work-execution';
+  if(/maintenance control|dispatch|decision brief|queue|operational disruption|remote engineering/.test(text))return'maintenance-control';
+  if(/repeat defect|chronic defect|no.fault.found|fault isolation|alert correlation|recurrence/.test(text))return'defect-investigation';
+  if(/computer vision|multimodal|image|visual inspection|remote inspection|corrosion screening|vision-assisted/.test(text))return'inspection-ai';
+  if(/copilot|retrieval|knowledge|nlp|generative ai|assistant|decision brief/.test(text))return'knowledge-assistance';
+  if(/\bai\b|machine learning|\bml\b|agent|model assurance|predictive model|fault classification/.test(text))return /governance|assurance|safety case/.test(text)?'governance':'ai-assurance';
+  if(/reliability|defect|failure|predictive|condition|health|trend|removal|program effectiveness/.test(text))return'reliability-analysis';
+  if(/security|cyber|risk|governance|assurance|authority/.test(text))return'governance';
+  return'general';
+}
+export function visualSelection(context:PublicationVisualContext,role:VisualRole){const profile=visualProfile(context);return{...plans[profile][role],profile}}
 export function publicationMode(context:Pick<PublicationVisualContext,'slug'|'issueDate'>):PublicationMode{const year=Number(context.issueDate.slice(0,4));const month=Number(context.issueDate.slice(5,7));return modes[(year+month)%modes.length]}
-export const visualFamilies=[...new Set(Object.values(profilePlans).flatMap(plan=>Object.values(plan).map(item=>item.family)))];
+export const visualFamilies=[...new Set(Object.values(plans).flatMap(p=>Object.values(p).map(i=>i.family)))];
