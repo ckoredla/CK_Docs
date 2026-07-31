@@ -3,7 +3,9 @@ import path from 'node:path';
 import process from 'node:process';
 
 const root = process.cwd();
-const articles = JSON.parse(fs.readFileSync(path.join(root, 'content/articles.json'), 'utf8'));
+const baseArticles = JSON.parse(fs.readFileSync(path.join(root, 'content/articles.json'), 'utf8'));
+const { historicalRecords, historicalIssues } = await import(path.join(root, 'app/lib/historicalCatalog.ts'));
+const articles = [...baseArticles, ...historicalRecords];
 const errors = [];
 const required = ['id','title','slug','issueDate','publishedAt','summary','description','categories','topicTags','articleType','estimatedReadingTime','publicationStatus','featuredStatus','diagramIdentifiers','referenceCount','relatedArticleSlugs'];
 const unique = (field) => {
@@ -23,22 +25,26 @@ for (const article of articles) {
   if (!article.diagramIdentifiers?.length) errors.push(`${article.slug}: published article has no diagram`);
   if (!article.referenceCount) errors.push(`${article.slug}: published article has no references`);
   for (const slug of [...article.relatedArticleSlugs, article.previousArticleSlug, article.nextArticleSlug].filter(Boolean)) if (!slugs.has(slug)) errors.push(`${article.slug}: invalid linked slug ${slug}`);
-  const route = path.join(root, 'app/articles', article.slug, 'page.tsx');
+  const directRoute = path.join(root, 'app/articles', article.slug, 'page.tsx');
+  const dynamicRoute = path.join(root, 'app/articles/[slug]/page.tsx');
+  const route = fs.existsSync(directRoute) ? directRoute : dynamicRoute;
   if (!fs.existsSync(route)) errors.push(`${article.slug}: registry entry has no route`);
   else {
     const source = fs.readFileSync(route, 'utf8');
-    if (!source.includes('ArticleShell') && !source.includes('IssueArticle')) errors.push(`${article.slug}: route does not use publication shell`);
-    const structuredSource = source.includes('IssueArticle') ? fs.readFileSync(path.join(root, 'app/components/IssueArticle.tsx'), 'utf8') : source;
+    if (!source.includes('ArticleShell') && !source.includes('IssueArticle') && !source.includes('HistoricalArticle')) errors.push(`${article.slug}: route does not use publication shell`);
+    const structuredSource = source.includes('IssueArticle') ? fs.readFileSync(path.join(root, 'app/components/IssueArticle.tsx'), 'utf8') : source.includes('HistoricalArticle') ? fs.readFileSync(path.join(root, 'app/components/HistoricalArticle.tsx'),'utf8') : source;
     if (!structuredSource.includes('application/ld+json')) errors.push(`${article.slug}: route lacks structured article data`);
     if (!structuredSource.includes('datePublished: article.publishedAt')) errors.push(`${article.slug}: structured datePublished must use publishedAt`);
-    const visualCount = source.includes('IssueArticle') ? 4 : (source.match(/<(?:ArticleVisual|SystemDiagram|HumanAuthorityFigure|MaintenanceIntelligenceFigure)/g) || []).length;
+    const visualCount = source.includes('IssueArticle') || source.includes('HistoricalArticle') ? 4 : (source.match(/<(?:ArticleVisual|SystemDiagram|HumanAuthorityFigure|MaintenanceIntelligenceFigure)/g) || []).length;
     if (visualCount < 2 || visualCount > 5) errors.push(`${article.slug}: expected 2–5 visual figures, found ${visualCount}`);
   }
 }
 
 for (const entry of fs.readdirSync(path.join(root, 'app/articles'), { withFileTypes: true })) {
-  if (entry.isDirectory() && fs.existsSync(path.join(root, 'app/articles', entry.name, 'page.tsx')) && !slugs.has(entry.name)) errors.push(`${entry.name}: route has no registry entry`);
+  if (entry.name !== '[slug]' && entry.isDirectory() && fs.existsSync(path.join(root, 'app/articles', entry.name, 'page.tsx')) && !slugs.has(entry.name)) errors.push(`${entry.name}: route has no registry entry`);
 }
+
+for (const issue of historicalIssues) for (const field of ['challenge','design','failure','practice']) if (!issue[field] || issue[field].length < 40) errors.push(`${issue.slug}: insufficient original ${field} content`);
 
 const sourceFiles = [];
 const walk = (directory) => { for (const entry of fs.readdirSync(directory, { withFileTypes: true })) { const target = path.join(directory, entry.name); if (entry.isDirectory()) walk(target); else if (/\.(tsx|ts)$/.test(entry.name)) sourceFiles.push(target); } };
