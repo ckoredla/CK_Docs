@@ -139,10 +139,11 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .footer-brand,.footer-links { display:flex; align-items:center; gap:10px; font-weight:700; }
 .site-footer p { margin: 0; color: var(--muted); line-height: 1.5; text-transform: none; }
 .footer-about { display:grid; gap:22px; }
-.author-credit { display:flex; flex-wrap:wrap; align-items:baseline; gap:7px 12px; padding-top:18px; border-top:1px solid var(--line); }
-.author-credit strong { color:var(--ink); font-family:Georgia,'Times New Roman',serif; font-size:20px; font-weight:400; }
-.author-credit span { color:var(--accent); font:700 11px 'Courier New',monospace; letter-spacing:.06em; text-transform:uppercase; }
-.author-email { margin-left:auto; color:var(--ink); font-size:13px; font-weight:700; text-transform:none; }
+.author-credit { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:5px 24px; margin:0; padding:18px 0 0 16px; border-top:1px solid var(--line); border-left:3px solid var(--accent); font-style:normal; }
+.author-label { grid-column:1/-1; margin-bottom:3px; color:var(--accent); font:700 10px 'Courier New',monospace; letter-spacing:.1em; text-transform:uppercase; }
+.author-credit strong { color:var(--ink); font-family:Georgia,'Times New Roman',serif; font-size:23px; font-weight:400; line-height:1.1; }
+.author-role { grid-column:1; color:var(--muted); font:700 11px Arial,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+.author-email { grid-column:2; grid-row:2 / span 2; align-self:center; color:var(--ink); font-size:13px; font-weight:700; text-transform:none; }
 .author-email:hover,.author-email:focus-visible { color:var(--accent); text-decoration:underline; text-underline-offset:4px; }
 .footer-links { justify-content:flex-end; }
 .article { max-width: 960px; margin: 0 auto; padding-top: 48px; }
@@ -329,7 +330,9 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   .site-footer { grid-template-columns: 1fr; }
   .site-footer > div:last-child { text-align: left; }
   .footer-links { justify-content:flex-start; }
-  .author-email { width:100%; margin-left:0; }
+  .author-credit { grid-template-columns:1fr; }
+  .author-label,.author-credit strong,.author-role,.author-email { grid-column:1; }
+  .author-email { grid-row:auto; width:100%; margin-top:7px; }
   .human-workflow { grid-template-columns: 1fr; }
   .workflow-step, .workflow-step:nth-child(3n), .workflow-step:nth-child(n+4) { border-right: 0; border-bottom: 1px solid var(--line); }
   .workflow-step:last-child { border-bottom: 0; }
