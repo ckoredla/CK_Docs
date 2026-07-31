@@ -7,6 +7,7 @@ const baseArticles = JSON.parse(fs.readFileSync(path.join(root, 'content/article
 const { historicalRecords, historicalIssues } = await import(path.join(root, 'app/lib/historicalCatalog.ts'));
 const articles = [...baseArticles, ...historicalRecords].map((article)=>({...article,publishedAt:`${article.issueDate}T12:00:00Z`,updatedAt:`${article.issueDate}T12:00:00Z`}));
 const errors = [];
+const today = new Date().toISOString().slice(0,10);
 const required = ['id','title','slug','issueDate','publishedAt','summary','description','categories','topicTags','articleType','estimatedReadingTime','publicationStatus','featuredStatus','diagramIdentifiers','referenceCount','relatedArticleSlugs'];
 const unique = (field) => {
   const seen = new Set();
@@ -20,13 +21,15 @@ chronological.forEach((article,index)=>{article.previousArticleSlug=chronologica
 for (let year=2017;year<=2026;year++) {
   const issues=articles.filter((article)=>article.issueDate.startsWith(`${year}-`));
   if (issues.length<14) errors.push(`${year}: expected at least 14 issues, found ${issues.length}`);
-  for(let month=1;month<=12;month++) if(!issues.some((article)=>article.issueDate.startsWith(`${year}-${String(month).padStart(2,'0')}-`))) errors.push(`${year}: missing month ${month}`);
+  const requiredMonthCount = year === Number(today.slice(0,4)) ? Number(today.slice(5,7)) : 12;
+  for(let month=1;month<=requiredMonthCount;month++) if(!issues.some((article)=>article.issueDate.startsWith(`${year}-${String(month).padStart(2,'0')}-`))) errors.push(`${year}: missing month ${month}`);
 }
 if (!articles.some((article)=>article.issueDate==='2017-01-01'&&article.slug==='2017-01-technical-record-digitization')) errors.push('January 2017 canonical issue is not reachable');
 
 for (const article of articles) {
   for (const field of required) if (article[field] === undefined || article[field] === '' || article[field] === null) errors.push(`${article.slug}: missing ${field}`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(article.issueDate) || Number.isNaN(Date.parse(`${article.issueDate}T00:00:00Z`))) errors.push(`${article.slug}: invalid issueDate`);
+  if (article.issueDate > today) errors.push(`${article.slug}: future issueDate ${article.issueDate}`);
   if (Number.isNaN(Date.parse(article.publishedAt))) errors.push(`${article.slug}: invalid publishedAt`);
   if (article.publishedAt === article.issueDate) errors.push(`${article.slug}: issueDate reused as publishedAt`);
   if (!article.publishedAt.startsWith(article.issueDate)) errors.push(`${article.slug}: publishedAt does not match issueDate`);

@@ -33,12 +33,12 @@ main { width: min(1480px, 100%); margin: 0 auto; padding: 0 34px 46px; }
 .navlinks { justify-self: end; display: flex; gap: 28px; font-size: 14px; font-weight: 700; }
 .navlinks a { border-bottom: 1px solid transparent; padding-bottom: 3px; }
 .navlinks a:hover { border-color: var(--ink); }
-.layout { display:grid; grid-template-columns:minmax(0,1fr); }
+.layout { display:grid; grid-template-columns:280px minmax(0,1fr); column-gap:46px; }
 .main-column { display:contents; }
-.hero { order:1; }
-.year-rail { order:2; }
-.research-index { order:3; }
-.publications { order:4; }
+.hero { grid-column:1/-1; order:1; }
+.year-rail { grid-column:1; order:2; }
+.research-index { grid-column:2; order:2; }
+.publications { grid-column:2; order:3; }
 .hero { position:relative; min-height:0; padding:38px 0 54px; border-bottom:1px solid var(--ink); }
 .issue-line { display: flex; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid var(--line); color: var(--muted); font-family: 'Courier New', monospace; font-size: 13px; }
 .eyebrow { margin: 48px 0 12px; color: var(--accent); font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
@@ -107,19 +107,23 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .publication-meta { display: flex; gap: 14px; margin-bottom: 9px; color: var(--accent); font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .publication-copy h3 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 31px; font-weight: 400; line-height: 1.1; }
 .publication-copy p { max-width: 720px; margin: 12px 0 0; color: var(--muted); line-height: 1.55; }
-.year-rail { margin-top:24px; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); }
-.archive-drawer>summary { list-style:none; display:flex; justify-content:space-between; align-items:center; min-height:64px; padding:0 4px; color:var(--ink); font-size:14px; font-weight:700; text-transform:uppercase; }
+.year-rail { align-self:start; margin-top:90px; padding-right:24px; border-right:1px solid var(--ink); }
+.archive-drawer { position:sticky; top:18px; display:block; }
+.archive-drawer>summary { list-style:none; display:flex; justify-content:space-between; align-items:center; min-height:64px; padding:0 4px; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); color:var(--ink); font-size:14px; font-weight:700; text-transform:uppercase; }
 .archive-drawer>summary::-webkit-details-marker { display:none; }
 .archive-drawer>summary span:last-child { color:var(--muted); font:12px 'Courier New',monospace; }
-.archive-drawer>summary::after { content:'+'; margin-left:18px; color:var(--accent); font-size:24px; font-weight:400; }
-.archive-drawer[open]>summary::after { content:'−'; }
+.archive-drawer>summary::after { content:'ARCHIVE'; margin-left:18px; color:var(--accent); font:700 10px 'Courier New',monospace; letter-spacing:.08em; }
+.archive-drawer>.rail-sticky { display:block !important; }
 .rail-sticky { padding:8px 0 30px; }
 .rail-label { padding-bottom: 14px; border-bottom: 1px solid var(--ink); color: var(--accent); font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .rail-current { display: flex; justify-content: space-between; align-items: flex-end; padding: 24px 0; border-bottom: 1px solid var(--line); }
 .rail-current span { color: var(--muted); font-size: 12px; text-transform: uppercase; }
 .rail-current strong { font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: 400; }
-.year-list details { border-bottom: 1px solid var(--line); }
-.year-list { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0 22px; }
+.year-list { display:grid; grid-template-columns:1fr; }
+.year-list details { position:relative; padding-left:18px; border-bottom:1px solid var(--line); }
+.year-list details::before { content:''; position:absolute; left:4px; top:0; bottom:0; border-left:1px solid var(--line); }
+.year-list summary::before { content:''; position:absolute; left:0; width:9px; height:9px; border:2px solid var(--accent); border-radius:50%; background:var(--paper); }
+.year-list details[open] summary::before { background:var(--accent); }
 .year-list summary { list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 15px 0; cursor: pointer; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; }
 .year-list summary::-webkit-details-marker { display: none; }
 .year-list summary span:last-child { color: var(--muted); font-family: 'Courier New', monospace; font-size: 12px; text-transform: uppercase; }
@@ -273,7 +277,7 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .authority-band strong { font-family: 'Courier New', monospace; text-transform: uppercase; }
 .authority-band span { color: #dce8ef; font-family: Georgia, 'Times New Roman', serif; }
 
-@media (max-width: 1050px) { .layout { grid-template-columns: 1fr; } .year-rail { border-left: 0; border-top: 1px solid var(--ink); } .rail-sticky { position: static; padding-left: 0; } .year-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; } }
+@media (max-width: 1050px) { .layout { grid-template-columns:1fr; } .hero,.year-rail,.research-index,.publications { grid-column:1; } .year-rail { margin-top:24px; padding-right:0; border-right:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); } .archive-drawer { position:static; } .archive-drawer>summary { border:0; } .archive-drawer>summary::after { content:'+'; font:400 24px Arial,sans-serif; } .archive-drawer[open]>summary::after { content:'−'; } .archive-drawer:not([open])>.rail-sticky { display:none !important; } .archive-drawer[open]>.rail-sticky { display:block !important; } .rail-sticky { position:static; padding-left:0; } .year-list { display:grid; grid-template-columns:repeat(2,1fr); gap:0 24px; } }
 @media (max-width: 1320px) { .article-toc { display: none; } }
 @media (max-width: 760px) {
   main { width:100%; max-width:100%; padding:0 18px 36px; }
