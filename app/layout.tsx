@@ -16,7 +16,9 @@ export const metadata: Metadata = {
     url: 'https://northboundlabs.ai',
     siteName: 'Northbound Labs',
     type: 'website'
-  }
+  },
+  alternates: { canonical: '/', types: { 'application/rss+xml': '/feed.xml' } },
+  robots: { index: true, follow: true }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -55,7 +55,7 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .year-rail { border-left: 1px solid var(--ink); }
 .rail-sticky { position: sticky; top: 0; padding: 34px 0 30px 28px; }
 .rail-label { padding-bottom: 14px; border-bottom: 1px solid var(--ink); color: var(--accent); font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.rail-current { display: flex; justify-content: space-between; align-items: end; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.rail-current { display: flex; justify-content: space-between; align-items: flex-end; padding: 24px 0; border-bottom: 1px solid var(--line); }
 .rail-current span { color: var(--muted); font-size: 12px; text-transform: uppercase; }
 .rail-current strong { font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: 400; }
 .year-list details { border-bottom: 1px solid var(--line); }
@@ -71,6 +71,23 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .site-footer p { margin: 0; color: var(--muted); line-height: 1.5; text-transform: none; }
 .site-footer > div:last-child { text-align: right; }
 .article { max-width: 960px; margin: 0 auto; padding-top: 48px; }
+.article-header { padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.issue-title { margin-top: 20px; color: var(--accent); font: 700 13px 'Courier New', monospace; letter-spacing: .08em; text-transform: uppercase; }
+.article-metadata { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font: 12px 'Courier New', monospace; text-transform: uppercase; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.topic-badge, .ata-badge, .publication-status { padding: 6px 9px; border: 1px solid var(--line); color: var(--muted); font: 10px 'Courier New', monospace; text-transform: uppercase; }
+.executive-summary, .key-takeaways { margin: 34px 0; padding: 24px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--accent-soft); }
+.executive-summary h2, .key-takeaways h2 { margin: 0 0 12px; color: var(--accent); font: 700 12px 'Courier New', monospace; letter-spacing: .08em; text-transform: uppercase; }
+.executive-summary p:last-child { margin-bottom: 0; }
+.diagram-legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font: 11px 'Courier New', monospace; }
+.related-articles { margin-top: 68px; padding-top: 24px; border-top: 1px solid var(--ink); }
+.related-articles > div { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 22px; }
+.related-articles a { display: grid; gap: 8px; padding: 18px; border: 1px solid var(--line); }
+.related-articles a:hover { border-color: var(--accent); }
+.related-articles span, .previous-next span { color: var(--accent); font: 10px 'Courier New', monospace; text-transform: uppercase; }
+.previous-next { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 38px; padding: 28px 0; border-top: 1px solid var(--ink); }
+.previous-next > div:last-child { text-align: right; }
+.previous-next a { display: grid; gap: 8px; }
 .article h1 { margin: 20px 0; font-size: clamp(52px, 7vw, 92px); line-height: .92; }
 .article h2 { margin-top: 62px; font-size: 42px; }
 .article p, .article li { color: #343a3d; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 1.72; }
@@ -78,8 +95,6 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .callout { margin: 34px 0; padding: 24px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--accent-soft); }
 .diagram { white-space: pre-wrap; font-family: 'Courier New', monospace; border: 1px solid var(--ink); padding: 24px; overflow: auto; background: var(--navy); color: #dce8ef; line-height: 1.6; }
 .diagram-title { margin-bottom: 14px; color: var(--white); font-family: Arial, Helvetica, sans-serif; font-weight: 800; }
-.archive-note { margin: 28px 0; padding: 19px 20px; border-left: 5px solid var(--accent); background: var(--accent-soft); color: #4c504c; }
-
 .architecture-figure { margin: 38px 0 48px; }
 .figure-heading { display: grid; grid-template-columns: 74px 1fr; gap: 18px; align-items: baseline; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--ink); font-family: 'Courier New', monospace; text-transform: uppercase; }
 .figure-heading span { color: var(--accent); font-size: 11px; font-weight: 700; }
@@ -136,4 +151,6 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   .workflow-step:last-child { border-bottom: 0; }
   .workflow-connector { display: none; }
   .authority-band { grid-template-columns: 1fr; }
+  .related-articles, .previous-next { grid-template-columns: 1fr; }
+  .previous-next > div:last-child { text-align: left; }
 }

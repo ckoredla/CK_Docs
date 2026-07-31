@@ -1,18 +1,18 @@
-export const metadata = {
-  title: 'How AI Is Quietly Transforming Aircraft Maintenance',
-  description: 'A practical architecture-led guide to using AI in aircraft maintenance without confusing prediction with operational truth.'
-};
+import { ArticleShell } from '../../components/ArticleShell';
+import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
+import { getArticle } from '../../lib/articles';
+
+const article = getArticle('ai-aircraft-maintenance');
+export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
 
 export default function ArticlePage() {
   return (
-    <main>
-      <nav><a className="brand" href="/">AVIATION AI MODERNIZATION</a><div className="navlinks"><a href="/">Home</a><a href="#references">References</a></div></nav>
-      <article className="article">
-        <div className="kicker">Airline Maintenance · AI Modernization</div>
-        <h1>How AI Is Quietly Transforming Aircraft Maintenance</h1>
-        <p className="meta">A practical field guide for engineering and maintenance leaders · 10 minute read</p>
+    <ArticleShell article={article}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
+        <ExecutiveSummary>
         <p>Aircraft maintenance does not need another chatbot wearing an aviation badge. It needs better decisions from fragmented operational data, delivered early enough for people to act.</p>
         <p>The strongest use of AI is not replacing licensed professionals. It is reducing the time between a weak signal appearing and the right human understanding what it might mean.</p>
+        </ExecutiveSummary>
 
         <div className="callout"><strong>The useful question:</strong> not “Can AI predict a failure?” but “Can the operation turn a probabilistic signal into a safe, explainable and timely maintenance decision?”</div>
 
@@ -40,7 +40,7 @@ Outcome captured for continuous learning`}</div>
 
         <h2>3. Combine rules, statistics and machine learning</h2>
         <p>Not every maintenance problem deserves a neural network. Deterministic rules remain valuable when limits are known. Statistical methods are often sufficient for drift and anomaly detection. Machine learning becomes useful when patterns span many variables, operating conditions and historical outcomes.</p>
-        <p>A mature platform can route each use case through the simplest method that works, because complexity is not a business outcome despite the technology industry's heroic attempts to sell it as one.</p>
+        <p>A mature platform can route each use case through the simplest method that works, because complexity is not a business outcome despite the technology industry&apos;s heroic attempts to sell it as one.</p>
 
         <h2>4. Make every recommendation explainable</h2>
         <p>A useful alert should show the supporting signals, relevant history, confidence, known limitations and the reason it appeared now. Generative AI can summarize this evidence, but it should retrieve from governed sources and clearly separate recorded facts from generated interpretation.</p>
@@ -66,14 +66,14 @@ Outcome captured for continuous learning`}</div>
         <h2>Final principle</h2>
         <p>AI modernization succeeds when it improves a real operational decision, fits the existing safety and maintenance process, and earns trust through evidence. The model is only one component. The product is the complete decision system around it.</p>
 
-        <h2 id="references">Starting references</h2>
-        <ul>
-          <li><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation" target="_blank">FAA aviation handbooks and manuals</a></li>
-          <li><a href="https://ntrs.nasa.gov/" target="_blank">NASA Technical Reports Server</a></li>
-          <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank">AWS Well-Architected Framework</a></li>
-          <li><a href="https://docs.aws.amazon.com/whitepapers/latest/serverless-architectures-lambda/welcome.html" target="_blank">AWS serverless architecture guidance</a></li>
-        </ul>
-      </article>
-    </main>
+        <KeyTakeaways><ul><li>Choose a real operational decision before choosing a model.</li><li>Use the simplest analytical method that can support the decision.</li><li>Capture technician and engineering outcomes as feedback.</li></ul></KeyTakeaways>
+
+        <ReferenceList>
+          <li><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation" target="_blank" rel="noreferrer">FAA aviation handbooks and manuals</a></li>
+          <li><a href="https://ntrs.nasa.gov/" target="_blank" rel="noreferrer">NASA Technical Reports Server</a></li>
+          <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noreferrer">AWS Well-Architected Framework</a></li>
+          <li><a href="https://docs.aws.amazon.com/whitepapers/latest/serverless-architectures-lambda/welcome.html" target="_blank" rel="noreferrer">AWS serverless architecture guidance</a></li>
+        </ReferenceList>
+    </ArticleShell>
   );
 }

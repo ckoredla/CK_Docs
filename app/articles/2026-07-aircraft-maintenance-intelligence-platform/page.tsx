@@ -1,23 +1,19 @@
 import { MaintenanceIntelligenceFigure } from '../../components/ArchitectureFigures';
+import { ArticleShell } from '../../components/ArticleShell';
+import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
+import { getArticle } from '../../lib/articles';
 
-export const metadata = {
-  title: 'Building a Modern Aircraft Maintenance Intelligence Platform | Northbound Labs',
-  description: 'A reference architecture for transforming aircraft telemetry, maintenance history, and operational context into explainable maintenance decisions.'
-};
+const article = getArticle('2026-07-aircraft-maintenance-intelligence-platform');
+export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
 
 export default function ArticlePage() {
   return (
-    <main>
-      <nav><a className="brand" href="/">NORTHBOUND LABS</a><div className="navlinks"><a href="/">Home</a><a href="#architecture">Architecture</a><a href="#references">References</a></div></nav>
-      <article className="article">
-        <div className="kicker">Aviation Maintenance · MRO Modernization · July 2026</div>
-        <h1>Building a Modern Aircraft Maintenance Intelligence Platform</h1>
-        <p className="meta">Reference architecture for engineering, reliability, and maintenance-technology leaders · 14 minute read</p>
-
-        <div className="archive-note"><strong>Archive note:</strong> This publication begins the Northbound Labs monthly retrospective archive. It was published in 2026 and examines the architectural direction of aviation maintenance technology through the lens of current engineering practice.</div>
-
+    <ArticleShell article={article}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
+        <ExecutiveSummary>
         <p>Most airlines do not suffer from a shortage of maintenance data. They suffer from data arriving through different channels, carrying different identifiers, moving at different speeds, and reaching the people who need it after too much manual interpretation.</p>
         <p>A modern maintenance intelligence platform should not be another dashboard placed beside the maintenance system of record. It should create a governed decision path from aircraft signals and operational history to explainable, workflow-ready maintenance insight.</p>
+        </ExecutiveSummary>
 
         <div className="callout"><strong>Core principle:</strong> the platform does not replace approved maintenance procedures, licensed professionals, or the system of record. It shortens the distance between weak evidence and a well-supported human decision.</div>
 
@@ -80,14 +76,14 @@ outcome capture          historical joins         explainability          contin
         <h2>Final principle</h2>
         <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>
 
-        <h2 id="references">Starting references</h2>
-        <ul>
+        <KeyTakeaways><ul><li>Begin with a named maintenance decision and an operational owner.</li><li>Preserve context and lineage before applying inference.</li><li>Return confirmed outcomes to the platform as governed feedback.</li></ul></KeyTakeaways>
+
+        <ReferenceList>
           <li><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation" target="_blank" rel="noreferrer">FAA aviation handbooks and manuals</a></li>
           <li><a href="https://ntrs.nasa.gov/" target="_blank" rel="noreferrer">NASA Technical Reports Server</a></li>
           <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noreferrer">AWS Well-Architected Framework</a></li>
           <li><a href="https://docs.aws.amazon.com/whitepapers/latest/aws-overview/analytics.html" target="_blank" rel="noreferrer">AWS analytics services overview</a></li>
-        </ul>
-      </article>
-    </main>
+        </ReferenceList>
+    </ArticleShell>
   );
 }

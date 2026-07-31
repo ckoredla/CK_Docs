@@ -1,0 +1,39 @@
+import records from '../../content/articles.json';
+
+export type ArticleRecord = {
+  id: string; title: string; slug: string; issueDate: string; publishedAt: string;
+  updatedAt: string | null; summary: string; description: string; categories: string[];
+  topicTags: string[]; ataChapters: string[]; articleType: string;
+  estimatedReadingTime: number; publicationStatus: 'draft' | 'published';
+  featuredStatus: 'featured' | 'standard'; diagramIdentifiers: string[];
+  referenceCount: number; relatedArticleSlugs: string[];
+  previousArticleSlug: string | null; nextArticleSlug: string | null;
+};
+
+export const articles = (records as ArticleRecord[])
+  .filter((article) => article.publicationStatus === 'published')
+  .sort((a, b) => b.issueDate.localeCompare(a.issueDate));
+
+export const articleBySlug = new Map(articles.map((article) => [article.slug, article]));
+export const getArticle = (slug: string) => {
+  const article = articleBySlug.get(slug);
+  if (!article) throw new Error(`Unknown article slug: ${slug}`);
+  return article;
+};
+
+export const formatIssue = (date: string) => new Intl.DateTimeFormat('en-US', {
+  month: 'long', year: 'numeric', timeZone: 'UTC'
+}).format(new Date(`${date}T00:00:00Z`));
+
+export const formatPublished = (date: string) => new Intl.DateTimeFormat('en-US', {
+  month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago'
+}).format(new Date(date));
+
+export const archiveYears = Array.from({ length: 10 }, (_, index) => 2026 - index).map((year) => ({
+  year,
+  articles: articles.filter((article) => Number(article.issueDate.slice(0, 4)) === year)
+}));
+
+export const searchRecords = articles.map(({ slug, title, summary, categories, topicTags, issueDate }) => ({
+  slug, title, summary, categories, topicTags, issueDate, href: `/articles/${slug}`
+}));

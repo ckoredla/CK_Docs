@@ -1,23 +1,19 @@
 import { HumanAuthorityFigure } from '../../components/ArchitectureFigures';
+import { ArticleShell } from '../../components/ArticleShell';
+import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
+import { getArticle } from '../../lib/articles';
 
-export const metadata = {
-  title: 'AI-Assisted Maintenance Control Without Losing Human Authority | Northbound Labs',
-  description: 'A practical operating model for using AI in airline maintenance control while preserving traceability, accountability, and licensed human decision-making.'
-};
+const article = getArticle('2026-06-ai-assisted-maintenance-control');
+export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
 
 export default function ArticlePage() {
   return (
-    <main>
-      <nav><a className="brand" href="/">NORTHBOUND LABS</a><div className="navlinks"><a href="/">Home</a><a href="#operating-model">Operating model</a><a href="#references">References</a></div></nav>
-      <article className="article">
-        <div className="kicker">Maintenance Control · Human Factors · June 2026</div>
-        <h1>AI-Assisted Maintenance Control Without Losing Human Authority</h1>
-        <p className="meta">Operating model for MCC, engineering, reliability, and digital-product leaders · 12 minute read</p>
-
-        <div className="archive-note"><strong>Archive note:</strong> This retrospective article was assembled and published by Northbound Labs in 2026. The month identifies the period examined, not a fabricated historical publication date.</div>
-
+    <ArticleShell article={article}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
+        <ExecutiveSummary>
         <p>Maintenance control is not a generic service desk with aircraft terminology added. Its decisions sit inside a regulated operating system shaped by technical evidence, approved procedures, time pressure, network consequences, and professional accountability.</p>
         <p>That makes maintenance control an attractive place for AI assistance and a dangerous place for careless automation. The useful design question is not whether AI can recommend an action. It is where machine assistance should stop, where qualified review must begin, and how the evidence should travel with the decision.</p>
+        </ExecutiveSummary>
 
         <div className="callout"><strong>Operating principle:</strong> AI may assemble evidence, identify patterns, retrieve relevant history, and structure a hypothesis. Authority for maintenance disposition remains inside approved human and organizational controls.</div>
 
@@ -71,14 +67,14 @@ export default function ArticlePage() {
         <h2>Final principle</h2>
         <p>The strongest maintenance-control AI system is not the one that appears most autonomous. It is the one that makes evidence easier to inspect, uncertainty harder to hide, human authority unmistakable, and outcomes useful for learning.</p>
 
-        <h2 id="references">Starting references</h2>
-        <ul>
+        <KeyTakeaways><ul><li>Separate recorded facts, machine hypotheses, and human conclusions.</li><li>Keep qualified approval inside the operational workflow.</li><li>Measure evidence completeness and reviewer corrections, not adoption alone.</li></ul></KeyTakeaways>
+
+        <ReferenceList>
           <li><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation" target="_blank" rel="noreferrer">FAA aviation handbooks and manuals</a></li>
           <li><a href="https://www.faa.gov/about/initiatives/maintenance_hf" target="_blank" rel="noreferrer">FAA maintenance human factors resources</a></li>
           <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noreferrer">NIST AI Risk Management Framework</a></li>
           <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/welcome.html" target="_blank" rel="noreferrer">AWS Machine Learning Lens</a></li>
-        </ul>
-      </article>
-    </main>
+        </ReferenceList>
+    </ArticleShell>
   );
 }
