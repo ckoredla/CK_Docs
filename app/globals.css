@@ -35,10 +35,10 @@ main { width: min(1480px, 100%); margin: 0 auto; padding: 0 34px 46px; }
 .navlinks a:hover { border-color: var(--ink); }
 .layout { display:grid; grid-template-columns:280px minmax(0,1fr); column-gap:46px; }
 .main-column { display:contents; }
-.hero { grid-column:1/-1; order:1; }
-.year-rail { grid-column:1; order:2; }
-.research-index { grid-column:2; order:2; }
-.publications { grid-column:2; order:3; }
+.hero { grid-column:1/-1; grid-row:1; order:1; }
+.year-rail { grid-column:1; grid-row:2 / span 2; order:2; }
+.research-index { grid-column:2; grid-row:2; order:2; }
+.publications { grid-column:2; grid-row:3; order:3; }
 .hero { position:relative; min-height:0; padding:38px 0 54px; border-bottom:1px solid var(--ink); }
 .issue-line { display: flex; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid var(--line); color: var(--muted); font-family: 'Courier New', monospace; font-size: 13px; }
 .eyebrow { margin: 48px 0 12px; color: var(--accent); font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
@@ -99,7 +99,9 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .topic-row:hover h3,.topic-row:hover .topic-arrow { color: var(--accent); }
 .topic-arrow, .publication-arrow { font-size: 20px; }
 .publications { padding-bottom: 70px; }
-.archive-header { align-items: start; }
+.archive-header { grid-template-columns:1fr; justify-items:center; align-items:start; text-align:center; }
+.archive-header > span { justify-self:center; }
+.archive-header > div { display:grid; justify-items:center; }
 .archive-header p { max-width: 760px; margin: 20px 0 0; color: var(--muted); font-family: Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 1.55; }
 .publication { display: grid; grid-template-columns: 55px 125px 1fr 28px; gap: 24px; align-items: start; padding: 32px 0; border-bottom: 1px solid var(--line); }
 .publication:hover { background: var(--accent-soft); }
@@ -277,7 +279,7 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .authority-band strong { font-family: 'Courier New', monospace; text-transform: uppercase; }
 .authority-band span { color: #dce8ef; font-family: Georgia, 'Times New Roman', serif; }
 
-@media (max-width: 1050px) { .layout { grid-template-columns:1fr; } .hero,.year-rail,.research-index,.publications { grid-column:1; } .year-rail { margin-top:24px; padding-right:0; border-right:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); } .archive-drawer { position:static; } .archive-drawer>summary { border:0; } .archive-drawer>summary::after { content:'+'; font:400 24px Arial,sans-serif; } .archive-drawer[open]>summary::after { content:'−'; } .archive-drawer:not([open])>.rail-sticky { display:none !important; } .archive-drawer[open]>.rail-sticky { display:block !important; } .rail-sticky { position:static; padding-left:0; } .year-list { display:grid; grid-template-columns:repeat(2,1fr); gap:0 24px; } }
+@media (max-width: 1050px) { .layout { grid-template-columns:1fr; } .hero,.year-rail,.research-index,.publications { grid-column:1; grid-row:auto; } .year-rail { margin-top:24px; padding-right:0; border-right:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); } .archive-drawer { position:static; } .archive-drawer>summary { border:0; } .archive-drawer>summary::after { content:'+'; font:400 24px Arial,sans-serif; } .archive-drawer[open]>summary::after { content:'−'; } .archive-drawer:not([open])>.rail-sticky { display:none !important; } .archive-drawer[open]>.rail-sticky { display:block !important; } .rail-sticky { position:static; padding-left:0; } .year-list { display:grid; grid-template-columns:repeat(2,1fr); gap:0 24px; } }
 @media (max-width: 1320px) { .article-toc { display: none; } }
 @media (max-width: 760px) {
   main { width:100%; max-width:100%; padding:0 18px 36px; }
