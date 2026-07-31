@@ -2,6 +2,7 @@ import { HumanAuthorityFigure } from '../../components/ArchitectureFigures';
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
+import { ArticleVisual } from '../../components/WhitepaperVisuals';
 
 const article = getArticle('2026-06-ai-assisted-maintenance-control');
 export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
@@ -26,6 +27,7 @@ export default function ArticlePage() {
           title="Maintenance-control decision cycle with a visible human authority boundary"
           caption="Machine assistance accelerates evidence assembly and pattern recognition. Qualified personnel retain responsibility for interpreting the evidence, selecting approved action, and recording the operational outcome."
         />
+        <ArticleVisual slug={article.slug} index={0} />
 
         <h2>3. Design the brief, not merely the chatbot</h2>
         <p>The most valuable interface may not be conversational. A structured maintenance decision brief can be faster to inspect, easier to compare, and more defensible after the event.</p>
@@ -59,11 +61,13 @@ export default function ArticlePage() {
         <h2>7. Measure whether the assistance helps</h2>
         <p>Adoption and model accuracy are insufficient. The program should measure decision latency, evidence completeness, repeat review, troubleshooting efficiency, false escalation, missed significant cases, user corrections, and downstream outcomes.</p>
         <p>The most revealing metric may be how often a reviewer changes the machine-created brief and why. Those edits expose gaps in data, retrieval, terminology, context, and workflow design.</p>
+        <ArticleVisual slug={article.slug} index={1} />
 
         <h2>8. Governance belongs in the product</h2>
         <p>Governance should not live only in a policy document. The interface and services should enforce role boundaries, version control, citations, approval, traceability, retention, and auditable override.</p>
         <p>The platform should make the safe path the easy path. Asking professionals to compensate manually for weak product controls is not governance. It is wishful thinking with a steering committee.</p>
 
+        <ArticleVisual slug={article.slug} index={2} />
         <h2>Final principle</h2>
         <p>The strongest maintenance-control AI system is not the one that appears most autonomous. It is the one that makes evidence easier to inspect, uncertainty harder to hide, human authority unmistakable, and outcomes useful for learning.</p>
 

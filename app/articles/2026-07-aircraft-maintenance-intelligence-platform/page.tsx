@@ -3,6 +3,7 @@ import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
 import { SystemDiagram } from '../../components/DiagramSystem';
+import { ArticleVisual } from '../../components/WhitepaperVisuals';
 
 const article = getArticle('2026-07-aircraft-maintenance-intelligence-platform');
 export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
@@ -33,6 +34,7 @@ export default function ArticlePage() {
         <h2>3. Preserve meaning before applying intelligence</h2>
         <p>A fault code without aircraft configuration, flight phase, component position, software standard, and maintenance history is often incomplete evidence. The context layer is therefore one of the most important parts of the platform.</p>
         <p>Every event should preserve source identity, event time, ingestion time, aircraft identity, schema version, and data-quality status. Where possible, component identity and installation history should also be resolved. This is what allows a platform to distinguish a true fleet pattern from a change in configuration, reporting behavior, or data quality.</p>
+        <ArticleVisual slug={article.slug} index={0} />
 
         <h2>4. Use the simplest decision method that works</h2>
         <p>Known limits and approved deterministic logic belong in a rules engine. Drift, trend, and outlier problems may be solved with statistical methods. Machine learning becomes useful when the relationship spans many variables, operating environments, or historical outcomes.</p>
@@ -52,6 +54,7 @@ export default function ArticlePage() {
           <li>Require qualified human review for safety-sensitive decisions.</li>
         </ul>
 
+        <ArticleVisual slug={article.slug} index={1} />
         <h2>7. Measure operational value</h2>
         <p>Model accuracy alone does not prove that the platform helps the airline. The measures should connect technical performance to maintenance outcomes.</p>
         <ul>
@@ -75,6 +78,7 @@ export default function ArticlePage() {
           {id:'four',label:'Scale what works',detail:'outcomes · reuse · governance',x:745,y:265,tone:'green'}
         ]} edges={[{from:'one',to:'two',label:'evidence'},{from:'two',to:'three',label:'trust'},{from:'three',to:'four',label:'outcomes'}]} />
 
+        <ArticleVisual slug={article.slug} index={2} />
         <h2>Final principle</h2>
         <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>
 

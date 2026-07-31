@@ -2,6 +2,7 @@ import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
 import { SystemDiagram } from '../../components/DiagramSystem';
+import { ArticleVisual } from '../../components/WhitepaperVisuals';
 
 const article = getArticle('ai-aircraft-maintenance');
 export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
@@ -34,6 +35,7 @@ export default function ArticlePage() {
         <h2>3. Combine rules, statistics and machine learning</h2>
         <p>Not every maintenance problem deserves a neural network. Deterministic rules remain valuable when limits are known. Statistical methods are often sufficient for drift and anomaly detection. Machine learning becomes useful when patterns span many variables, operating conditions and historical outcomes.</p>
         <p>A mature platform can route each use case through the simplest method that works, because complexity is not a business outcome despite the technology industry&apos;s heroic attempts to sell it as one.</p>
+        <ArticleVisual slug={article.slug} index={0} />
 
         <h2>4. Make every recommendation explainable</h2>
         <p>A useful alert should show the supporting signals, relevant history, confidence, known limitations and the reason it appeared now. Generative AI can summarize this evidence, but it should retrieve from governed sources and clearly separate recorded facts from generated interpretation.</p>
@@ -42,6 +44,7 @@ export default function ArticlePage() {
         <h2>5. Design for feedback, not applause</h2>
         <p>The platform should capture whether an alert was useful, what action followed, what technicians found and whether the suspected condition was confirmed. That feedback is essential for measuring false positives, missed detections, lead time and operational value.</p>
         <p>Without outcome feedback, the organization owns a prediction machine. With feedback, it begins to own a learning system.</p>
+        <ArticleVisual slug={article.slug} index={1} />
 
         <h2>A practical AWS-oriented pattern</h2>
         <p>A representative implementation can use managed ingestion and streaming, durable object storage for immutable history, cataloged analytical data, container or serverless processing, governed model endpoints, and event-driven delivery into maintenance applications. The exact services matter less than the boundaries: ingestion, storage, context, inference, explanation, workflow and feedback must remain observable and independently evolvable.</p>
@@ -56,6 +59,7 @@ export default function ArticlePage() {
           <li>Traceability from recommendation to source evidence</li>
         </ul>
 
+        <ArticleVisual slug={article.slug} index={2} />
         <h2>Final principle</h2>
         <p>AI modernization succeeds when it improves a real operational decision, fits the existing safety and maintenance process, and earns trust through evidence. The model is only one component. The product is the complete decision system around it.</p>
 
