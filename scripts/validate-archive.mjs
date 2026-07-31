@@ -19,14 +19,14 @@ chronological.forEach((article,index)=>{article.previousArticleSlug=chronologica
 
 for (let year=2017;year<=2026;year++) {
   const issues=articles.filter((article)=>article.issueDate.startsWith(`${year}-`));
-  if (issues.length!==12) errors.push(`${year}: expected 12 monthly issues, found ${issues.length}`);
-  for(let month=1;month<=12;month++) if(!issues.some((article)=>article.issueDate===`${year}-${String(month).padStart(2,'0')}-01`)) errors.push(`${year}: missing month ${month}`);
+  if (issues.length<14) errors.push(`${year}: expected at least 14 issues, found ${issues.length}`);
+  for(let month=1;month<=12;month++) if(!issues.some((article)=>article.issueDate.startsWith(`${year}-${String(month).padStart(2,'0')}-`))) errors.push(`${year}: missing month ${month}`);
 }
 if (!articles.some((article)=>article.issueDate==='2017-01-01'&&article.slug==='2017-01-technical-record-digitization')) errors.push('January 2017 canonical issue is not reachable');
 
 for (const article of articles) {
   for (const field of required) if (article[field] === undefined || article[field] === '' || article[field] === null) errors.push(`${article.slug}: missing ${field}`);
-  if (!/^\d{4}-\d{2}-01$/.test(article.issueDate) || Number.isNaN(Date.parse(article.issueDate))) errors.push(`${article.slug}: invalid issueDate`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(article.issueDate) || Number.isNaN(Date.parse(`${article.issueDate}T00:00:00Z`))) errors.push(`${article.slug}: invalid issueDate`);
   if (Number.isNaN(Date.parse(article.publishedAt))) errors.push(`${article.slug}: invalid publishedAt`);
   if (article.publishedAt === article.issueDate) errors.push(`${article.slug}: issueDate reused as publishedAt`);
   if (!article.publishedAt.startsWith(article.issueDate)) errors.push(`${article.slug}: publishedAt does not match issueDate`);
