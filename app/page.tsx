@@ -26,6 +26,14 @@ const publications = [
     readTime: '14 min'
   },
   {
+    date: 'June 2026',
+    title: 'AI-Assisted Maintenance Control Without Losing Human Authority',
+    href: '/articles/2026-06-ai-assisted-maintenance-control',
+    summary: 'A practical operating model for evidence-aware AI assistance while preserving licensed review, accountability, and approved maintenance authority.',
+    type: 'Operating Model',
+    readTime: '12 min'
+  },
+  {
     date: 'Research Brief',
     title: 'How AI Is Quietly Transforming Aircraft Maintenance',
     href: '/articles/ai-aircraft-maintenance',
@@ -90,7 +98,7 @@ export default function HomePage() {
               <span>Publication log</span>
               <div>
                 <h2 id="archive-title">The maintenance archive</h2>
-                <p>A month-by-month retrospective tracing aviation maintenance technology from 2019 to the present. Historical pieces are assembled and published in 2026, then labeled plainly. No invented publication history, because credibility is harder to rebuild than a database.</p>
+                <p>A retrospective archive tracing aviation maintenance and enterprise technology from 2017 to the present. Most years will contain twelve monthly studies plus one or two special editions where the subject deserves more room. Historical pieces are assembled and published in 2026, then labeled plainly.</p>
               </div>
             </header>
 
@@ -123,17 +131,17 @@ export default function HomePage() {
                 <details key={year} open={year === 2026}>
                   <summary>
                     <span>{year}</span>
-                    <span>{year >= 2019 ? '12 issues' : 'planned'}</span>
+                    <span>{year === 2026 ? '7+ issues' : '12–14 issues'}</span>
                   </summary>
                   <div className="month-grid">
                     {['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'].map((month) => (
-                      <span className={year === 2026 && month === 'JUL' ? 'active-month' : ''} key={month}>{month}</span>
+                      <span className={year === 2026 && (month === 'JUN' || month === 'JUL') ? 'active-month' : ''} key={month}>{month}</span>
                     ))}
                   </div>
                 </details>
               ))}
             </div>
-            <div className="rail-note">2017–2018 are reserved for future historical collections. The active monthly archive begins in 2019.</div>
+            <div className="rail-note">The active archive now extends through 2017. Special editions will be added selectively for architecture, reliability, regulation, and major industry transitions.</div>
           </div>
         </aside>
       </div>
