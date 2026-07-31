@@ -9,9 +9,12 @@ export type PublicationVisualContext = {
   tags: string[];
   ata: string[];
   issueDate: string;
+  brief?: string;
 };
 
 export type FamilyProps = PublicationVisualContext & {
   role: VisualRole;
   variant: VisualVariant;
+  question: string;
+  profile: string;
 };

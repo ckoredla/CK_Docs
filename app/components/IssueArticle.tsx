@@ -7,7 +7,7 @@ import { PublicationVisual, type PublicationVisualContext } from '../../src/comp
 export function IssueArticle({ slug }: { slug: string }) {
   const article = getArticle(slug); const content = issueContent[slug];
   if (!content) throw new Error(`Missing issue content: ${slug}`);
-  const visualContext:PublicationVisualContext={slug,title:article.title,domain:article.categories.join(' · '),tags:article.topicTags,ata:article.ataChapters,issueDate:article.issueDate};
+  const visualContext:PublicationVisualContext={slug,title:article.title,domain:article.categories.join(' · '),tags:article.topicTags,ata:article.ataChapters,issueDate:article.issueDate,brief:[content.thesis,...content.context,...content.sections.flatMap(section=>[section.title,...section.paragraphs])].join(' ')};
   return <ArticleShell article={article}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,datePublished: article.publishedAt,dateModified:article.updatedAt || article.publishedAt,mainEntityOfPage:`https://northboundlabs.ai/articles/${slug}`,publisher:{'@type':'Organization',name:'Northbound Labs'}})}} />
     <ExecutiveSummary><p>{content.thesis}</p>{content.context.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</ExecutiveSummary>

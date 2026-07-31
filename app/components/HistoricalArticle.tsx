@@ -14,7 +14,7 @@ const references = [
 
 export function HistoricalArticle({slug}:{slug:string}){
   const issue=historicalIssues.find((item)=>item.slug===slug);if(!issue)notFound();const article=getArticle(slug);
-  const visualContext:PublicationVisualContext={slug,title:article.title,domain:issue.domain,tags:issue.tags,ata:issue.ata,issueDate:article.issueDate};
+  const visualContext:PublicationVisualContext={slug,title:article.title,domain:issue.domain,tags:issue.tags,ata:issue.ata,issueDate:article.issueDate,brief:`${issue.challenge}. ${issue.design}. Failure mode: ${issue.failure}.`};
   return <ArticleShell article={article}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,datePublished: article.publishedAt,dateModified:article.updatedAt||article.publishedAt,mainEntityOfPage:`https://northboundlabs.ai/articles/${slug}`,publisher:{'@type':'Organization',name:'Northbound Labs'}})}}/>
     <ExecutiveSummary><p>The central problem in {issue.domain} is not a shortage of technology. It is that {issue.challenge}. A useful design must preserve operational meaning while making the next decision easier to inspect.</p><p>This paper proposes a bounded approach: {issue.design}. The intent is decision support with explicit evidence and accountable authority—not an automated substitute for approved maintenance data, engineering judgment, or licensed action.</p></ExecutiveSummary>
