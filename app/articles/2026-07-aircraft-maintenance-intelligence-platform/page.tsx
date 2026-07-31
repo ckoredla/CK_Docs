@@ -1,3 +1,5 @@
+import { MaintenanceIntelligenceFigure } from '../../components/ArchitectureFigures';
+
 export const metadata = {
   title: 'Building a Modern Aircraft Maintenance Intelligence Platform | Northbound Labs',
   description: 'A reference architecture for transforming aircraft telemetry, maintenance history, and operational context into explainable maintenance decisions.'
@@ -24,47 +26,12 @@ export default function ArticlePage() {
         <p>Starting with the data lake, the model, or the cloud service often produces an elegant platform with no operational owner. Aviation has enough expensive objects that look impressive while sitting still.</p>
 
         <h2 id="architecture">2. Reference architecture</h2>
-        <p>The following pattern separates ingestion, operational context, analytics, decision support, workflow delivery, and learning feedback. The AWS services are representative rather than mandatory; the boundaries matter more than the logos.</p>
+        <p>The pattern below separates aircraft and airport-edge sources, governed ingestion, operational storage, decision services, and maintenance workflows. The AWS services are representative rather than mandatory. The important design decision is the ownership boundary between evidence, inference, and approved operational action.</p>
 
-        <div className="diagram"><div className="diagram-title">Aircraft maintenance intelligence flow</div>{`AIRCRAFT + GROUND SOURCES
-  ACARS / AHM / QAR / fault messages / eTechLog / MRO history
-                         │
-                         ▼
-SECURE INGESTION
-  API Gateway · AWS IoT Core · Kinesis · Managed Kafka
-                         │
-                         ▼
-IMMUTABLE OPERATIONAL STORE
-  Amazon S3 raw zones · event time · source lineage · schema version
-                         │
-             ┌───────────┴───────────┐
-             ▼                       ▼
-STREAM PROCESSING             BATCH / HISTORICAL PROCESSING
-  Lambda · ECS/Fargate          Glue · EMR · Athena
-  validation · enrichment       fleet trends · reliability analysis
-             └───────────┬───────────┘
-                         ▼
-AIRCRAFT + COMPONENT CONTEXT
-  tail · fleet · configuration · ATA chapter · installed position
-  flight phase · environment · maintenance history · parts history
-                         │
-             ┌───────────┼───────────┐
-             ▼           ▼           ▼
-RULES ENGINE       STATISTICAL      ML / AI SERVICES
-limits & logic     anomaly/drift    prediction · retrieval · summarization
-             └───────────┼───────────┘
-                         ▼
-EXPLAINABLE MAINTENANCE INSIGHT
-  evidence · confidence · limitations · recommended investigation path
-                         │
-                         ▼
-MRO / MCC / RELIABILITY WORKFLOW
-  alert triage · work package · planning · technician review
-                         │
-                         ▼
-OUTCOME FEEDBACK
-  confirmed condition · action taken · no fault found · useful/not useful
-                         └──────────────► continuous measurement and tuning`}</div>
+        <MaintenanceIntelligenceFigure
+          title="Aircraft maintenance intelligence platform — system context and decision path"
+          caption="A human-reviewed architecture linking aircraft and ground sources to governed AWS data services, evidence-aware decision support, and operational MRO workflows. Service choices may vary; the traceable path from source evidence to outcome feedback should not."
+        />
 
         <h2>3. Preserve meaning before applying intelligence</h2>
         <p>A fault code without aircraft configuration, flight phase, component position, software standard, and maintenance history is often incomplete evidence. The context layer is therefore one of the most important parts of the platform.</p>
