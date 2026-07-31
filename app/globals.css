@@ -101,9 +101,13 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .rail-note { margin-top: 22px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .rail-all { display: flex; justify-content: space-between; margin-top: 24px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-size: 13px; font-weight: 700; text-transform: uppercase; }
 .site-footer { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 30px; align-items: start; padding: 34px 0 0; border-top: 1px solid var(--ink); font-size: 13px; text-transform: uppercase; }
-.site-footer > div:first-child { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.footer-brand,.footer-links { display:flex; align-items:center; gap:10px; font-weight:700; }
 .site-footer p { margin: 0; color: var(--muted); line-height: 1.5; text-transform: none; }
-.site-footer > div:last-child { text-align: right; }
+.footer-about { display:grid; gap:22px; }
+.author-credit { display:flex; flex-wrap:wrap; align-items:baseline; gap:7px 12px; padding-top:18px; border-top:1px solid var(--line); }
+.author-credit strong { color:var(--ink); font-family:Georgia,'Times New Roman',serif; font-size:20px; font-weight:400; }
+.author-credit span { color:var(--accent); font:700 11px 'Courier New',monospace; letter-spacing:.06em; text-transform:uppercase; }
+.footer-links { justify-content:flex-end; }
 .article { max-width: 960px; margin: 0 auto; padding-top: 48px; }
 .reading-progress { position: fixed; top: 0; left: 0; z-index: 20; height: 3px; background: var(--accent); transition: width .12s linear; }
 .article-toc { position: fixed; top: 110px; left: max(18px,calc((100vw - 1320px)/2)); display: grid; gap: 10px; width: 145px; padding-left: 14px; border-left: 1px solid var(--line); }
@@ -282,6 +286,7 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   .year-list { grid-template-columns: 1fr; }
   .site-footer { grid-template-columns: 1fr; }
   .site-footer > div:last-child { text-align: left; }
+  .footer-links { justify-content:flex-start; }
   .human-workflow { grid-template-columns: 1fr; }
   .workflow-step, .workflow-step:nth-child(3n), .workflow-step:nth-child(n+4) { border-right: 0; border-bottom: 1px solid var(--line); }
   .workflow-step:last-child { border-bottom: 0; }
