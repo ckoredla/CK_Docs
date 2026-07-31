@@ -7,6 +7,7 @@ import './publication-risk.css';
 import './publication-aws.css';
 import './publication-premium.css';
 import './publication-semantic.css';
+import './visual-lab/visual-lab.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://northboundlabs.ai'),

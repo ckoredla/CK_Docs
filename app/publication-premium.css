@@ -24,3 +24,8 @@
 .publication-visual.pv-c>.pv-canvas{background:#eef2ef}
 .publication-visual.pv-c>header{grid-template-columns:190px 1fr;border-left:10px solid var(--pv-accent)}
 .publication-visual.pv-c figcaption{border-top:4px solid var(--pv-accent)}
+
+.article-lab-visual{--lab-ink:#122b3e;--lab-blue:#176f88;--lab-cyan:#52bfd3;--lab-green:#28775b;--lab-red:#b34f39;--lab-amber:#d69a33;--lab-line:#a8b7c0;--lab-paper:#f4f1e9;margin:64px 0}
+.article-lab-visual .lab-entry{padding:0;border:0}
+.article-lab-visual .lab-entry-header{display:none}
+.article-lab-visual .lab-figure{box-shadow:0 18px 44px rgba(17,42,57,.1)}

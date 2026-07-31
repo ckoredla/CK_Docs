@@ -1,6 +1,6 @@
 import type { PublicationMode, PublicationVisualContext, VisualRole, VisualVariant } from './types';
 
-export type VisualFamily='aws-architecture'|'architecture'|'topology'|'dashboard'|'timeline'|'decision-tree'|'heatmap'|'service-blueprint'|'journey-map'|'knowledge-graph'|'aircraft'|'metrics'|'infographic'|'risk'|'table';
+export type VisualFamily='aws-architecture'|'architecture'|'topology'|'dashboard'|'timeline'|'decision-tree'|'heatmap'|'service-blueprint'|'journey-map'|'knowledge-graph'|'aircraft'|'metrics'|'infographic'|'risk'|'table'|'lab-ai-authority'|'lab-aircraft-system'|'lab-defect-lifecycle'|'lab-maintenance-swimlane'|'lab-observability'|'lab-parts-network'|'lab-reliability'|'lab-telemetry-architecture'|'lab-telemetry-sequence'|'lab-work-package';
 export type VisualProfile='cloud-platform'|'aircraft-system'|'component-lifecycle'|'material-planning'|'technical-records'|'work-execution'|'maintenance-control'|'defect-investigation'|'reliability-analysis'|'outcome-learning'|'inspection-ai'|'knowledge-assistance'|'ai-assurance'|'governance'|'general';
 type RolePlan={family:VisualFamily;variant:VisualVariant;question:string};
 type VisualPlan=Partial<Record<VisualRole,RolePlan>>;
@@ -12,7 +12,7 @@ const item=(family:VisualFamily,question:string,variant:VisualVariant='a'):RoleP
 const plans:Record<VisualProfile,VisualPlan>={
   'cloud-platform':plan(
     item('aws-architecture','Which AWS, airline, and MRO boundaries carry this workload from intake to an authoritative update?'),
-    item('topology','Where does evidence change custody, connectivity, or persistence?','b'),
+    item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?','b'),
     item('table','Which workload, recovery, evidence, and authority controls must be observable?')
   ),
   'aircraft-system':plan(
@@ -27,7 +27,7 @@ const plans:Record<VisualProfile,VisualPlan>={
     item('knowledge-graph','Which aircraft, position, component, document, shop finding, and custody relationships must remain traceable?')
   ),
   'material-planning':plan(
-    item('topology','How do demand, stock, repair, pooling, substitution, and station supply interact?'),
+    item('lab-parts-network','How do serviceable and unserviceable material move while identity and custody remain traceable?'),
     item('timeline','Which demand, allocation, transfer, repair, and replenishment events control availability?'),
     item('table','Which material decisions require lead-time, traceability, substitution, and service controls?')
   ),
@@ -37,23 +37,21 @@ const plans:Record<VisualProfile,VisualPlan>={
     item('table','Which information classes require provenance, revision, signature, and authority controls?')
   ),
   'work-execution':plan(
-    item('service-blueprint','How do technicians, inspectors, interfaces, services, and records coordinate execution?'),
+    item('lab-work-package','How does controlled work become ready, survive revision, execute, and close into the aircraft record?'),
     item('timeline','Which task states, findings, inspections, and recovery gates control progression?'),
     item('decision-tree','Which conditions release work, open rework, require inspection, or prevent closure?')
   ),
   'maintenance-control':plan(
-    item('architecture','Where do governed evidence, AI assistance, safeguards, and qualified maintenance authority sit?'),
-    item('service-blueprint','How do maintenance control, engineering, stations, materials, and records coordinate the decision?'),
-    item('infographic','Which evidence classes should the decision brief preserve, qualify, cite, or reject?'),
-    item('decision-tree','Which conditions lead to action, more evidence, engineering escalation, or abstention?')
+    item('lab-ai-authority','How can AI assemble a suggestion without crossing the boundary into maintenance authority?'),
+    item('lab-maintenance-swimlane','Where do evidence, work, and authority move during a maintenance-control event?')
   ),
   'defect-investigation':plan(
-    item('timeline','How do the initial discrepancy, corrective action, recurrence, finding, and verification form one case?'),
+    item('lab-defect-lifecycle','How does a recurrent discrepancy become a governed reliability case and return to monitoring?'),
     item('knowledge-graph','Which symptoms, positions, components, tasks, and findings belong to the candidate defect case?'),
     item('table','Which recurrence evidence distinguishes a governed defect case from a superficial similarity?')
   ),
   'reliability-analysis':plan(
-    item('topology','Which aircraft, component, maintenance, and operating relationships define the reliability population?'),
+    item('lab-reliability','Which causes dominate, is the exposure-normalized rate changing, and is evidence sufficient?'),
     item('timeline','How do events, maintenance actions, modification state, and confirmed outcomes relate over time?'),
     item('table','Which exposure, effectivity, finding, and outcome fields are required before comparing cohorts?')
   ),
@@ -95,23 +93,30 @@ const plans:Record<VisualProfile,VisualPlan>={
 function contextText(context:PublicationVisualContext){return `${context.title} ${context.domain} ${context.tags.join(' ')}`.toLowerCase()}
 export function visualProfile(context:PublicationVisualContext):VisualProfile{
   const text=contextText(context);
+  if(/decision brief|chatbot|retrieval|knowledge|copilot/.test(text))return'knowledge-assistance';
   if(/cloud|serverless|aws|event-driven|event stream|telemetry|edge analytics|api modernization|system integration|observability|migration/.test(text))return'cloud-platform';
   if(context.ata.length||/apu|landing gear|flight control|electrical power|pneumatic|fuel system|fire protection|aircraft system/.test(text))return'aircraft-system';
   if(/rotable|component history|part trace|parts trace|custody|serialized part|repair vendor/.test(text))return'component-lifecycle';
   if(/parts demand|material planning|inventory|supply chain|aog|stock|spares|repair cycle/.test(text))return'material-planning';
   if(/technical record|electronic record|document|lineage|configuration|logbook|record completeness/.test(text))return'technical-records';
   if(/task card|work package|work instruction|hangar work|maintenance execution|digital task/.test(text))return'work-execution';
-  if(/maintenance control|dispatch|decision brief|queue|operational disruption|remote engineering/.test(text))return'maintenance-control';
+  if(/maintenance control|dispatch|queue|operational disruption|remote engineering/.test(text))return'maintenance-control';
   if(/repeat defect|chronic defect|no.fault.found|fault isolation|alert correlation|recurrence/.test(text))return'defect-investigation';
   if(/outcome learning|maintenance outcome|feedback loop|closing the loop|program feedback/.test(text))return'outcome-learning';
   if(/computer vision|multimodal|image|visual inspection|remote inspection|corrosion screening|vision-assisted/.test(text))return'inspection-ai';
-  if(/copilot|retrieval|knowledge|nlp|generative ai|assistant|decision brief/.test(text))return'knowledge-assistance';
+  if(/nlp|generative ai|assistant/.test(text))return'knowledge-assistance';
   if(/\bai\b|machine learning|\bml\b|agent|model assurance|predictive model|fault classification/.test(text))return /governance|assurance|safety case/.test(text)?'governance':'ai-assurance';
   if(/reliability|defect|failure|predictive|condition|health|trend|removal|program effectiveness/.test(text))return'reliability-analysis';
   if(/security|cyber|risk|governance|assurance|authority/.test(text))return'governance';
   return'general';
 }
 function articleVariant(slug:string,role:VisualRole):VisualVariant{const seed=[...`${slug}:${role}`].reduce((sum,char)=>sum+char.charCodeAt(0),0);return(['a','b','c'] as const)[seed%3]}
-export function visualSelection(context:PublicationVisualContext,role:VisualRole){const profile=visualProfile(context);const selection=plans[profile][role];return selection?{...selection,variant:articleVariant(context.slug,role),profile}:null}
+export function visualSelection(context:PublicationVisualContext,role:VisualRole){
+  const profile=visualProfile(context);const text=contextText(context);let selection=plans[profile][role];
+  if(profile==='cloud-platform'&&/observability/.test(text))selection=role==='hero'?item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect first?'):role==='evidence'?item('lab-telemetry-sequence','Which success, persistence, validation, and retry paths must remain traceable?'):role==='analysis'?item('table','Which SLO, failure, recovery, and evidence controls require ownership?'):undefined;
+  else if(profile==='cloud-platform'&&/telemetry|event-driven|event stream/.test(text))selection=role==='hero'?item('lab-telemetry-architecture','How does aircraft evidence cross aircraft, transport, cloud, and operational boundaries?'):role==='evidence'?item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?'):role==='analysis'?item('table','Which custody, schema, replay, and consumer controls must be observable?'):undefined;
+  if(profile==='aircraft-system'&&context.ata.some(value=>value==='49'||value.startsWith('49')))selection=role==='hero'?item('lab-aircraft-system','How do APU components, control signals, aircraft messages, and maintenance interpretation relate?'):selection;
+  return selection?{...selection,variant:articleVariant(context.slug,role),profile}:null
+}
 export function publicationMode(context:Pick<PublicationVisualContext,'slug'|'issueDate'>):PublicationMode{const year=Number(context.issueDate.slice(0,4));const month=Number(context.issueDate.slice(5,7));return modes[(year+month)%modes.length]}
 export const visualFamilies=[...new Set(Object.values(plans).flatMap(p=>Object.values(p).filter(Boolean).map(i=>i!.family)))];
