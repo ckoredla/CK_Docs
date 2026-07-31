@@ -1,0 +1,3 @@
+import { Cloud, Plane, RadioTower, Server, Wrench } from 'lucide-react';
+import { VisualFrame } from '../Frame'; import type { FamilyProps } from '../types';
+export function TopologyCanvas(props:FamilyProps){const nodes=[[Plane,'Aircraft'],[RadioTower,'Edge link'],[Cloud,'Cloud ingress'],[Server,'Decision service'],[Wrench,'Maintenance']] as const;return <VisualFrame family="topology" props={props} caption="Physical and logical hops reveal custody, connectivity, and operational handoffs."><div className="pv-topology">{nodes.map(([Icon,label],i)=><div className={`pv-topology-node t${i}`} key={label}><Icon/><span>{label}</span><i>{i<4?'→':''}</i></div>)}</div></VisualFrame>}

@@ -1,0 +1,3 @@
+import { Boxes, Database, ShieldCheck, UserCheck } from 'lucide-react';
+import { VisualFrame, short } from '../Frame'; import type { FamilyProps } from '../types';
+export function ArchitectureCanvas(props:FamilyProps){const nodes=[[Database,'Evidence'],[Boxes,'Context'],[ShieldCheck,'Controls'],[UserCheck,'Authority']] as const;return <VisualFrame family="architecture" props={props} caption="Boundaries distinguish recorded evidence, interpretation, control, and accountable authority."><div className="pv-architecture-map">{nodes.map(([Icon,label],i)=><div className={`pv-arch-node n${i}`} key={label}><Icon/><b>{label}</b><small>{i===0?short(props.domain):props.tags[i-1]||'governed service'}</small></div>)}</div></VisualFrame>}

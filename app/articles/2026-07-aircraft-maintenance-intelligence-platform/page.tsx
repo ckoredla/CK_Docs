@@ -1,13 +1,13 @@
-import { ReferenceArchitecture } from '../../components/ReferenceArchitecture';
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
-import { ArticleVisual } from '../../components/WhitepaperVisuals';
+import { PublicationVisual, type PublicationVisualContext } from '../../../src/components/publication';
 
 const article = getArticle('2026-07-aircraft-maintenance-intelligence-platform');
 export const metadata = { title: article.title, description: article.description, alternates: { canonical: `/articles/${article.slug}` }, openGraph: { type: 'article' as const, title: article.title, description: article.description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt || article.publishedAt } };
 
 export default function ArticlePage() {
+  const visualContext:PublicationVisualContext={slug:article.slug,title:article.title,domain:'aircraft maintenance cloud architecture',tags:article.topicTags,ata:article.ataChapters,issueDate:article.issueDate};
   return (
     <ArticleShell article={article}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
@@ -25,12 +25,12 @@ export default function ArticlePage() {
         <h2 id="architecture">2. Reference architecture</h2>
         <p>The pattern below separates aircraft and airport-edge sources, governed ingestion, operational storage, decision services, and maintenance workflows. The AWS services are representative rather than mandatory. The important design decision is the ownership boundary between evidence, inference, and approved operational action.</p>
 
-        <ReferenceArchitecture id="maintenance-intelligence-platform" title="Aircraft maintenance intelligence platform — system context and decision path" caption="Aircraft and enterprise sources enter a governed decision platform, where evidence custody, context, decision services, and operational consumers remain distinct and inspectable." domain="aircraft maintenance cloud architecture" tags={article.topicTags} ata={article.ataChapters}/>
+        <PublicationVisual context={visualContext} role="hero"/>
 
         <h2>3. Preserve meaning before applying intelligence</h2>
         <p>A fault code without aircraft configuration, flight phase, component position, software standard, and maintenance history is often incomplete evidence. The context layer is therefore one of the most important parts of the platform.</p>
         <p>Every event should preserve source identity, event time, ingestion time, aircraft identity, schema version, and data-quality status. Where possible, component identity and installation history should also be resolved. This is what allows a platform to distinguish a true fleet pattern from a change in configuration, reporting behavior, or data quality.</p>
-        <ArticleVisual slug={article.slug} index={0} />
+        <PublicationVisual context={visualContext} role="evidence"/>
 
         <h2>4. Use the simplest decision method that works</h2>
         <p>Known limits and approved deterministic logic belong in a rules engine. Drift, trend, and outlier problems may be solved with statistical methods. Machine learning becomes useful when the relationship spans many variables, operating environments, or historical outcomes.</p>
@@ -50,7 +50,7 @@ export default function ArticlePage() {
           <li>Require qualified human review for safety-sensitive decisions.</li>
         </ul>
 
-        <ArticleVisual slug={article.slug} index={1} />
+        <PublicationVisual context={visualContext} role="analysis"/>
         <h2>7. Measure operational value</h2>
         <p>Model accuracy alone does not prove that the platform helps the airline. The measures should connect technical performance to maintenance outcomes.</p>
         <ul>
@@ -68,7 +68,7 @@ export default function ArticlePage() {
         <p>Start with one fleet, one maintenance decision, and a limited set of trusted sources. Build the feedback loop before expanding the number of models or use cases. Once evidence quality, workflow adoption, and outcome capture are stable, the platform can extend across fleets and domains.</p>
 
 
-        <ArticleVisual slug={article.slug} index={2} />
+        <PublicationVisual context={visualContext} role="decision"/>
         <h2>Final principle</h2>
         <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>
 

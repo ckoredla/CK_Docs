@@ -46,7 +46,7 @@ for (const article of articles) {
     const structuredSource = source.includes('IssueArticle') ? fs.readFileSync(path.join(root, 'app/components/IssueArticle.tsx'), 'utf8') : source.includes('HistoricalArticle') ? fs.readFileSync(path.join(root, 'app/components/HistoricalArticle.tsx'),'utf8') : source;
     if (!structuredSource.includes('application/ld+json')) errors.push(`${article.slug}: route lacks structured article data`);
     if (!structuredSource.includes('datePublished: article.publishedAt')) errors.push(`${article.slug}: structured datePublished must use publishedAt`);
-    const visualCount = source.includes('IssueArticle') || source.includes('HistoricalArticle') ? 4 : (source.match(/<(?:ArticleVisual|ReferenceArchitecture)/g) || []).length;
+    const visualCount = source.includes('IssueArticle') || source.includes('HistoricalArticle') ? 4 : (source.match(/<PublicationVisual/g) || []).length;
     if (visualCount < 2 || visualCount > 5) errors.push(`${article.slug}: expected 2–5 visual figures, found ${visualCount}`);
   }
 }
@@ -56,6 +56,7 @@ for (const entry of fs.readdirSync(path.join(root, 'app/articles'), { withFileTy
 }
 
 for (const issue of historicalIssues) for (const field of ['challenge','design','failure','practice']) if (!issue[field] || issue[field].length < 40) errors.push(`${issue.slug}: insufficient original ${field} content`);
+const designSystemRoot=path.join(root,'src/components/publication');const requiredFamilies=['Architecture','Topology','Dashboards','Timelines','DecisionTrees','Heatmaps','ServiceBlueprints','JourneyMaps','KnowledgeGraphs','Aircraft','Metrics','Infographics','Risk','Tables'];for(const family of requiredFamilies)if(!fs.existsSync(path.join(designSystemRoot,family,'index.tsx')))errors.push(`publication design-system family missing: ${family}`);
 
 const sourceFiles = [];
 const walk = (directory) => { for (const entry of fs.readdirSync(directory, { withFileTypes: true })) { const target = path.join(directory, entry.name); if (entry.isDirectory()) walk(target); else if (/\.(tsx|ts)$/.test(entry.name)) sourceFiles.push(target); } };

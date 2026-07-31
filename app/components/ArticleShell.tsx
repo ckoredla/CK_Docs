@@ -3,7 +3,9 @@ import Link from 'next/link';
 import type { ArticleRecord } from '../lib/articles';
 import { ArticleHeader, PreviousNextNavigation, RelatedArticles } from './Publication';
 import { ArticleChrome } from './ArticleChrome';
+import { publicationMode } from '../../src/components/publication';
 
 export function ArticleShell({ article, children }: { article: ArticleRecord; children: ReactNode }) {
-  return <main><ArticleChrome/><nav><Link className="brand" href="/">NORTHBOUND LABS</Link><div className="navlinks"><Link href="/">Home</Link><Link href="/#publications">Archive</Link><a href="#references">References</a></div></nav><article className="article"><ArticleHeader article={article} />{children}<RelatedArticles article={article} /><PreviousNextNavigation article={article} /></article></main>;
+  const mode=publicationMode({slug:article.slug,issueDate:article.issueDate});
+  return <main className={`publication-mode publication-mode-${mode}`} data-publication-mode={mode}><ArticleChrome/><nav><Link className="brand" href="/">NORTHBOUND LABS</Link><div className="navlinks"><Link href="/">Home</Link><Link href="/#publications">Archive</Link><a href="#references">References</a></div></nav><article className="article"><ArticleHeader article={article} />{children}<RelatedArticles article={article} /><PreviousNextNavigation article={article} /></article></main>;
 }
