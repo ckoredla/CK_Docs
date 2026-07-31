@@ -1,0 +1,126 @@
+export const metadata = {
+  title: 'Building a Modern Aircraft Maintenance Intelligence Platform | Northbound Labs',
+  description: 'A reference architecture for transforming aircraft telemetry, maintenance history, and operational context into explainable maintenance decisions.'
+};
+
+export default function ArticlePage() {
+  return (
+    <main>
+      <nav><a className="brand" href="/">NORTHBOUND LABS</a><div className="navlinks"><a href="/">Home</a><a href="#architecture">Architecture</a><a href="#references">References</a></div></nav>
+      <article className="article">
+        <div className="kicker">Aviation Maintenance · MRO Modernization · July 2026</div>
+        <h1>Building a Modern Aircraft Maintenance Intelligence Platform</h1>
+        <p className="meta">Reference architecture for engineering, reliability, and maintenance-technology leaders · 14 minute read</p>
+
+        <div className="archive-note"><strong>Archive note:</strong> This publication begins the Northbound Labs monthly retrospective archive. It was published in 2026 and examines the architectural direction of aviation maintenance technology through the lens of current engineering practice.</div>
+
+        <p>Most airlines do not suffer from a shortage of maintenance data. They suffer from data arriving through different channels, carrying different identifiers, moving at different speeds, and reaching the people who need it after too much manual interpretation.</p>
+        <p>A modern maintenance intelligence platform should not be another dashboard placed beside the maintenance system of record. It should create a governed decision path from aircraft signals and operational history to explainable, workflow-ready maintenance insight.</p>
+
+        <div className="callout"><strong>Core principle:</strong> the platform does not replace approved maintenance procedures, licensed professionals, or the system of record. It shortens the distance between weak evidence and a well-supported human decision.</div>
+
+        <h2>1. Begin with the maintenance decision</h2>
+        <p>The architecture should begin with a decision that maintenance control, reliability engineering, planning, or technicians need to make. Useful examples include identifying an emerging repeat defect, prioritizing troubleshooting before arrival, recognizing abnormal component behavior, or assembling relevant evidence before a scheduled check.</p>
+        <p>Starting with the data lake, the model, or the cloud service often produces an elegant platform with no operational owner. Aviation has enough expensive objects that look impressive while sitting still.</p>
+
+        <h2 id="architecture">2. Reference architecture</h2>
+        <p>The following pattern separates ingestion, operational context, analytics, decision support, workflow delivery, and learning feedback. The AWS services are representative rather than mandatory; the boundaries matter more than the logos.</p>
+
+        <div className="diagram"><div className="diagram-title">Aircraft maintenance intelligence flow</div>{`AIRCRAFT + GROUND SOURCES
+  ACARS / AHM / QAR / fault messages / eTechLog / MRO history
+                         │
+                         ▼
+SECURE INGESTION
+  API Gateway · AWS IoT Core · Kinesis · Managed Kafka
+                         │
+                         ▼
+IMMUTABLE OPERATIONAL STORE
+  Amazon S3 raw zones · event time · source lineage · schema version
+                         │
+             ┌───────────┴───────────┐
+             ▼                       ▼
+STREAM PROCESSING             BATCH / HISTORICAL PROCESSING
+  Lambda · ECS/Fargate          Glue · EMR · Athena
+  validation · enrichment       fleet trends · reliability analysis
+             └───────────┬───────────┘
+                         ▼
+AIRCRAFT + COMPONENT CONTEXT
+  tail · fleet · configuration · ATA chapter · installed position
+  flight phase · environment · maintenance history · parts history
+                         │
+             ┌───────────┼───────────┐
+             ▼           ▼           ▼
+RULES ENGINE       STATISTICAL      ML / AI SERVICES
+limits & logic     anomaly/drift    prediction · retrieval · summarization
+             └───────────┼───────────┘
+                         ▼
+EXPLAINABLE MAINTENANCE INSIGHT
+  evidence · confidence · limitations · recommended investigation path
+                         │
+                         ▼
+MRO / MCC / RELIABILITY WORKFLOW
+  alert triage · work package · planning · technician review
+                         │
+                         ▼
+OUTCOME FEEDBACK
+  confirmed condition · action taken · no fault found · useful/not useful
+                         └──────────────► continuous measurement and tuning`}</div>
+
+        <h2>3. Preserve meaning before applying intelligence</h2>
+        <p>A fault code without aircraft configuration, flight phase, component position, software standard, and maintenance history is often incomplete evidence. The context layer is therefore one of the most important parts of the platform.</p>
+        <p>Every event should preserve source identity, event time, ingestion time, aircraft identity, schema version, and data-quality status. Where possible, component identity and installation history should also be resolved. This is what allows a platform to distinguish a true fleet pattern from a change in configuration, reporting behavior, or data quality.</p>
+
+        <h2>4. Use the simplest decision method that works</h2>
+        <p>Known limits and approved deterministic logic belong in a rules engine. Drift, trend, and outlier problems may be solved with statistical methods. Machine learning becomes useful when the relationship spans many variables, operating environments, or historical outcomes.</p>
+        <p>Generative AI can help summarize evidence, retrieve relevant maintenance history, and present a structured investigation brief. It should not invent technical facts, hide uncertainty, or convert a probabilistic pattern into a maintenance instruction.</p>
+
+        <h2>5. Deliver intelligence inside the workflow</h2>
+        <p>The operational product is not an alert. It is a better decision inside a real workflow. Insight should be delivered into the maintenance-control, reliability, planning, engineering, or technician experience with the supporting evidence attached.</p>
+        <p>A useful maintenance insight should answer five questions: what changed, why the system surfaced it, what evidence supports it, how confident the system is, and what human review is expected next.</p>
+
+        <h2>6. Design for traceability and safety</h2>
+        <ul>
+          <li>Keep the authoritative maintenance record in the approved system of record.</li>
+          <li>Separate observed facts, derived features, model output, and generated text.</li>
+          <li>Version schemas, rules, models, prompts, and retrieval sources.</li>
+          <li>Retain lineage from the recommendation back to source evidence.</li>
+          <li>Apply least-privilege access and audit all sensitive maintenance-data use.</li>
+          <li>Require qualified human review for safety-sensitive decisions.</li>
+        </ul>
+
+        <h2>7. Measure operational value</h2>
+        <p>Model accuracy alone does not prove that the platform helps the airline. The measures should connect technical performance to maintenance outcomes.</p>
+        <ul>
+          <li>Advance notice before a confirmed condition</li>
+          <li>False-positive and missed-detection rates</li>
+          <li>Troubleshooting time reduced</li>
+          <li>Repeat-defect recurrence</li>
+          <li>No-fault-found removals avoided</li>
+          <li>Schedule interruption or delay exposure reduced</li>
+          <li>User adoption and usefulness feedback</li>
+          <li>Traceability completeness</li>
+        </ul>
+
+        <h2>8. A practical delivery sequence</h2>
+        <p>Start with one fleet, one maintenance decision, and a limited set of trusted sources. Build the feedback loop before expanding the number of models or use cases. Once evidence quality, workflow adoption, and outcome capture are stable, the platform can extend across fleets and domains.</p>
+
+        <div className="diagram"><div className="diagram-title">Incremental modernization roadmap</div>{`PHASE 1                 PHASE 2                  PHASE 3                 PHASE 4
+Trusted ingestion  →    Context + lineage   →   Decision support   →   Fleet-scale learning
+one use case             governed identity       rules/statistics/ML     reusable platform
+one fleet                quality controls         workflow integration    portfolio governance
+outcome capture          historical joins         explainability          continuous improvement`}</div>
+
+        <h2>Final principle</h2>
+        <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>
+
+        <h2 id="references">Starting references</h2>
+        <ul>
+          <li><a href="https://www.faa.gov/regulations_policies/handbooks_manuals/aviation" target="_blank" rel="noreferrer">FAA aviation handbooks and manuals</a></li>
+          <li><a href="https://ntrs.nasa.gov/" target="_blank" rel="noreferrer">NASA Technical Reports Server</a></li>
+          <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noreferrer">AWS Well-Architected Framework</a></li>
+          <li><a href="https://docs.aws.amazon.com/whitepapers/latest/aws-overview/analytics.html" target="_blank" rel="noreferrer">AWS analytics services overview</a></li>
+        </ul>
+      </article>
+    </main>
+  );
+}
