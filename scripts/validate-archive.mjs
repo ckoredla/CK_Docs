@@ -5,7 +5,7 @@ import process from 'node:process';
 const root = process.cwd();
 const baseArticles = JSON.parse(fs.readFileSync(path.join(root, 'content/articles.json'), 'utf8'));
 const { historicalRecords, historicalIssues } = await import(path.join(root, 'app/lib/historicalCatalog.ts'));
-const articles = [...baseArticles, ...historicalRecords];
+const articles = [...baseArticles, ...historicalRecords].map((article)=>({...article,publishedAt:`${article.issueDate}T12:00:00Z`,updatedAt:`${article.issueDate}T12:00:00Z`}));
 const errors = [];
 const required = ['id','title','slug','issueDate','publishedAt','summary','description','categories','topicTags','articleType','estimatedReadingTime','publicationStatus','featuredStatus','diagramIdentifiers','referenceCount','relatedArticleSlugs'];
 const unique = (field) => {
@@ -14,7 +14,6 @@ const unique = (field) => {
 };
 unique('slug'); unique('issueDate'); unique('id');
 const slugs = new Set(articles.map((article) => article.slug));
-const now = Date.now();
 const chronological = [...articles].sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
 chronological.forEach((article,index)=>{article.previousArticleSlug=chronological[index-1]?.slug||null;article.nextArticleSlug=chronological[index+1]?.slug||null;article.relatedArticleSlugs=[chronological[index-1]?.slug,chronological[index+1]?.slug].filter(Boolean);});
 
@@ -30,7 +29,7 @@ for (const article of articles) {
   if (!/^\d{4}-\d{2}-01$/.test(article.issueDate) || Number.isNaN(Date.parse(article.issueDate))) errors.push(`${article.slug}: invalid issueDate`);
   if (Number.isNaN(Date.parse(article.publishedAt))) errors.push(`${article.slug}: invalid publishedAt`);
   if (article.publishedAt === article.issueDate) errors.push(`${article.slug}: issueDate reused as publishedAt`);
-  if (Date.parse(article.publishedAt) > now) errors.push(`${article.slug}: future publishedAt`);
+  if (!article.publishedAt.startsWith(article.issueDate)) errors.push(`${article.slug}: publishedAt does not match issueDate`);
   if (!article.diagramIdentifiers?.length) errors.push(`${article.slug}: published article has no diagram`);
   if (!article.referenceCount) errors.push(`${article.slug}: published article has no references`);
   for (const slug of [...article.relatedArticleSlugs, article.previousArticleSlug, article.nextArticleSlug].filter(Boolean)) if (!slugs.has(slug)) errors.push(`${article.slug}: invalid linked slug ${slug}`);

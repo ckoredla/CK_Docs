@@ -11,7 +11,11 @@ export type ArticleRecord = {
   previousArticleSlug: string | null; nextArticleSlug: string | null;
 };
 
-const combined = [...(records as ArticleRecord[]), ...historicalRecords].sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
+const combined = [...(records as ArticleRecord[]), ...historicalRecords].map((article)=>({
+  ...article,
+  publishedAt: `${article.issueDate}T12:00:00Z`,
+  updatedAt: `${article.issueDate}T12:00:00Z`
+})).sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
 combined.forEach((article,index)=>{article.previousArticleSlug=combined[index-1]?.slug||null;article.nextArticleSlug=combined[index+1]?.slug||null;article.relatedArticleSlugs=[combined[index-1]?.slug,combined[index+1]?.slug].filter((slug):slug is string=>Boolean(slug));});
 
 export const articles = combined

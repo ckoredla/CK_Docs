@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { articleBySlug, formatIssue, formatPublished, type ArticleRecord } from '../lib/articles';
 
-export const IssueDate = ({ value }: { value: string }) => <span>{formatIssue(value)} Issue</span>;
+export const IssueDate = ({ value }: { value: string }) => <span>Issue: {formatIssue(value)}</span>;
 export const PublishedDate = ({ value }: { value: string }) => <span>Published {formatPublished(value)}</span>;
 export const TopicBadge = ({ children }: { children: ReactNode }) => <span className="topic-badge">{children}</span>;
 export const ATAChapterBadge = ({ children }: { children: ReactNode }) => <span className="ata-badge">ATA {children}</span>;
