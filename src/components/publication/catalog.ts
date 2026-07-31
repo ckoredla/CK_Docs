@@ -13,12 +13,12 @@ const plans:Record<VisualProfile,VisualPlan>={
   'cloud-platform':plan(
     item('aws-architecture','Which AWS, airline, and MRO boundaries carry this workload from intake to an authoritative update?'),
     item('topology','Where does evidence change custody, connectivity, or persistence?','b'),
-    item('dashboard','Which operating signals reveal delay, failure, recovery, and evidence health?')
+    item('table','Which workload, recovery, evidence, and authority controls must be observable?')
   ),
   'aircraft-system':plan(
     item('aircraft','Which aircraft functions, signal paths, and configuration boundaries govern this system?'),
     item('topology','How do energy, commands, responses, and fault effects propagate?','b'),
-    item('metrics','How does observed behavior compare across regime, exposure, and configuration?'),
+    item('table','Which signal, configuration, evidence, and authority controls must be verified?'),
     item('timeline','Which evidence and review gates must be satisfied before maintenance action?')
   ),
   'component-lifecycle':plan(
@@ -28,8 +28,8 @@ const plans:Record<VisualProfile,VisualPlan>={
   ),
   'material-planning':plan(
     item('topology','How do demand, stock, repair, pooling, substitution, and station supply interact?'),
-    item('metrics','What distribution and uncertainty describe demand or repair-cycle exposure?'),
-    item('risk','Which material decisions create AOG, excess-stock, or traceability consequence?')
+    item('timeline','Which demand, allocation, transfer, repair, and replenishment events control availability?'),
+    item('table','Which material decisions require lead-time, traceability, substitution, and service controls?')
   ),
   'technical-records':plan(
     item('knowledge-graph','Which governed identities and relationships connect the technical record?'),
@@ -50,22 +50,22 @@ const plans:Record<VisualProfile,VisualPlan>={
   'defect-investigation':plan(
     item('timeline','How do the initial discrepancy, corrective action, recurrence, finding, and verification form one case?'),
     item('knowledge-graph','Which symptoms, positions, components, tasks, and findings belong to the candidate defect case?'),
-    item('heatmap','Where does recurrence concentrate by tail, position, configuration, station, or action?')
+    item('table','Which recurrence evidence distinguishes a governed defect case from a superficial similarity?')
   ),
   'reliability-analysis':plan(
-    item('metrics','What exposure-normalized distribution or trend establishes the reliability concern?'),
+    item('topology','Which aircraft, component, maintenance, and operating relationships define the reliability population?'),
     item('timeline','How do events, maintenance actions, modification state, and confirmed outcomes relate over time?'),
-    item('heatmap','Where is the concern concentrated by fleet, configuration, position, or operating cohort?')
+    item('table','Which exposure, effectivity, finding, and outcome fields are required before comparing cohorts?')
   ),
   'outcome-learning':plan(
     item('service-blueprint','How does a maintenance decision become a confirmed outcome and a governed learning signal?'),
     item('timeline','Which operational, engineering, and program cadences consume the outcome?'),
-    item('dashboard','Which measures reveal missing linkage, delayed adjudication, and ineffective feedback?')
+    item('knowledge-graph','Which decision, action, component, finding, and operational outcome relationships close the learning loop?')
   ),
   'inspection-ai':plan(
     item('aircraft','Where is the inspection target, and which effectivity, access, and physical scale govern interpretation?'),
     item('journey-map','How do capture quality, localization, model review, measurement, and inspector authority interact?'),
-    item('metrics','How does performance vary by lighting, angle, surface, equipment, and finding class?'),
+    item('table','Which capture, effectivity, equipment, finding, and validation controls bound model use?'),
     item('decision-tree','When is visual evidence sufficient to screen, recapture, escalate, or abstain?')
   ),
   'knowledge-assistance':plan(
@@ -77,13 +77,13 @@ const plans:Record<VisualProfile,VisualPlan>={
   'ai-assurance':plan(
     item('architecture','Where do governed evidence, model inference, tool access, safeguards, and human authority sit?'),
     item('table','Which claims, tests, limitations, owners, and release controls must be traceable?'),
-    item('risk','Which model or agent failures change operational consequence or required control?'),
+    item('service-blueprint','How do evaluation, release, monitoring, incident response, and human review operate together?'),
     item('decision-tree','Which evidence permits recommendation, restricted use, abstention, rollback, or escalation?')
   ),
   governance:plan(
-    item('risk','Which hazards, threats, and uncertainties determine control intensity?'),
+    item('architecture','Where do governed evidence, controls, accountable owners, and release authority sit?'),
     item('table','Which requirement, evidence, owner, control, and review status must remain traceable?'),
-    item('heatmap','Where are assurance or control gaps concentrated across the operating envelope?'),
+    item('service-blueprint','How do assurance evidence, review, restriction, incident response, and corrective action connect?'),
     item('decision-tree','Which evidence permits release, restriction, rollback, or withdrawal?')
   ),
   general:plan(
@@ -111,6 +111,7 @@ export function visualProfile(context:PublicationVisualContext):VisualProfile{
   if(/security|cyber|risk|governance|assurance|authority/.test(text))return'governance';
   return'general';
 }
-export function visualSelection(context:PublicationVisualContext,role:VisualRole){const profile=visualProfile(context);const selection=plans[profile][role];return selection?{...selection,profile}:null}
+function articleVariant(slug:string,role:VisualRole):VisualVariant{const seed=[...`${slug}:${role}`].reduce((sum,char)=>sum+char.charCodeAt(0),0);return(['a','b','c'] as const)[seed%3]}
+export function visualSelection(context:PublicationVisualContext,role:VisualRole){const profile=visualProfile(context);const selection=plans[profile][role];return selection?{...selection,variant:articleVariant(context.slug,role),profile}:null}
 export function publicationMode(context:Pick<PublicationVisualContext,'slug'|'issueDate'>):PublicationMode{const year=Number(context.issueDate.slice(0,4));const month=Number(context.issueDate.slice(5,7));return modes[(year+month)%modes.length]}
 export const visualFamilies=[...new Set(Object.values(plans).flatMap(p=>Object.values(p).filter(Boolean).map(i=>i!.family)))];
