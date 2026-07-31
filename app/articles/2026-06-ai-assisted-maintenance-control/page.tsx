@@ -1,4 +1,4 @@
-import { HumanAuthorityFigure } from '../../components/ArchitectureFigures';
+import { ReferenceArchitecture } from '../../components/ReferenceArchitecture';
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
@@ -23,10 +23,7 @@ export default function ArticlePage() {
         <p>The product should explicitly label observed facts, retrieved records, derived indicators, machine hypotheses, procedural references, and human conclusions. Mixing them into a single paragraph creates speed at the expense of auditability.</p>
 
         <h2 id="operating-model">2. The operating model</h2>
-        <HumanAuthorityFigure
-          title="Maintenance-control decision cycle with a visible human authority boundary"
-          caption="Machine assistance accelerates evidence assembly and pattern recognition. Qualified personnel retain responsibility for interpreting the evidence, selecting approved action, and recording the operational outcome."
-        />
+        <ReferenceArchitecture id="human-authority-workflow" title="Maintenance-control decision system with explicit authority boundaries" caption="Machine services assemble and structure evidence; qualified maintenance-control and engineering roles retain disposition authority and return confirmed outcomes." domain="maintenance control and human authority" tags={article.topicTags} ata={article.ataChapters}/>
         <ArticleVisual slug={article.slug} index={0} />
 
         <h2>3. Design the brief, not merely the chatbot</h2>

@@ -47,7 +47,7 @@ for (const article of articles) {
     const structuredSource = source.includes('IssueArticle') ? fs.readFileSync(path.join(root, 'app/components/IssueArticle.tsx'), 'utf8') : source.includes('HistoricalArticle') ? fs.readFileSync(path.join(root, 'app/components/HistoricalArticle.tsx'),'utf8') : source;
     if (!structuredSource.includes('application/ld+json')) errors.push(`${article.slug}: route lacks structured article data`);
     if (!structuredSource.includes('datePublished: article.publishedAt')) errors.push(`${article.slug}: structured datePublished must use publishedAt`);
-    const visualCount = source.includes('IssueArticle') || source.includes('HistoricalArticle') ? 4 : (source.match(/<(?:ArticleVisual|SystemDiagram|HumanAuthorityFigure|MaintenanceIntelligenceFigure)/g) || []).length;
+    const visualCount = source.includes('IssueArticle') || source.includes('HistoricalArticle') ? 4 : (source.match(/<(?:ArticleVisual|ReferenceArchitecture)/g) || []).length;
     if (visualCount < 2 || visualCount > 5) errors.push(`${article.slug}: expected 2–5 visual figures, found ${visualCount}`);
   }
 }

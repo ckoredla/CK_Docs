@@ -1,8 +1,7 @@
-import { MaintenanceIntelligenceFigure } from '../../components/ArchitectureFigures';
+import { ReferenceArchitecture } from '../../components/ReferenceArchitecture';
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
-import { SystemDiagram } from '../../components/DiagramSystem';
 import { ArticleVisual } from '../../components/WhitepaperVisuals';
 
 const article = getArticle('2026-07-aircraft-maintenance-intelligence-platform');
@@ -26,10 +25,7 @@ export default function ArticlePage() {
         <h2 id="architecture">2. Reference architecture</h2>
         <p>The pattern below separates aircraft and airport-edge sources, governed ingestion, operational storage, decision services, and maintenance workflows. The AWS services are representative rather than mandatory. The important design decision is the ownership boundary between evidence, inference, and approved operational action.</p>
 
-        <MaintenanceIntelligenceFigure
-          title="Aircraft maintenance intelligence platform — system context and decision path"
-          caption="A human-reviewed architecture linking aircraft and ground sources to governed AWS data services, evidence-aware decision support, and operational MRO workflows. Service choices may vary; the traceable path from source evidence to outcome feedback should not."
-        />
+        <ReferenceArchitecture id="maintenance-intelligence-platform" title="Aircraft maintenance intelligence platform — system context and decision path" caption="Aircraft and enterprise sources enter a governed decision platform, where evidence custody, context, decision services, and operational consumers remain distinct and inspectable." domain="aircraft maintenance cloud architecture" tags={article.topicTags} ata={article.ataChapters}/>
 
         <h2>3. Preserve meaning before applying intelligence</h2>
         <p>A fault code without aircraft configuration, flight phase, component position, software standard, and maintenance history is often incomplete evidence. The context layer is therefore one of the most important parts of the platform.</p>
@@ -71,12 +67,6 @@ export default function ArticlePage() {
         <h2>8. A practical delivery sequence</h2>
         <p>Start with one fleet, one maintenance decision, and a limited set of trusted sources. Build the feedback loop before expanding the number of models or use cases. Once evidence quality, workflow adoption, and outcome capture are stable, the platform can extend across fleets and domains.</p>
 
-        <SystemDiagram id="modernization-roadmap" kind="timeline" title="A modernization sequence anchored in operational proof" caption="Each phase earns the next: a trustworthy source path precedes decision support, and captured outcomes precede fleet-scale learning." nodes={[
-          {id:'one',label:'Prove the path',detail:'one fleet · one decision',x:55,y:105,tone:'orange'},
-          {id:'two',label:'Govern context',detail:'identity · quality · lineage',x:285,y:265,tone:'blue'},
-          {id:'three',label:'Support the work',detail:'evidence · workflow · review',x:515,y:105,tone:'purple'},
-          {id:'four',label:'Scale what works',detail:'outcomes · reuse · governance',x:745,y:265,tone:'green'}
-        ]} edges={[{from:'one',to:'two',label:'evidence'},{from:'two',to:'three',label:'trust'},{from:'three',to:'four',label:'outcomes'}]} />
 
         <ArticleVisual slug={article.slug} index={2} />
         <h2>Final principle</h2>

@@ -131,6 +131,23 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
 .state-model > div { position: relative; display: grid; gap: 10px; padding: 18px 12px; border-top: 4px solid var(--ink); background: #faf8f2; }
 .state-model > div:nth-child(even) { margin-top: 35px; border-color: var(--accent); }
 .state-model span { color: var(--muted); font: 10px 'Courier New',monospace; }.state-model strong{font:400 15px Georgia,serif}.state-model i{position:absolute;right:-7px;top:42%;z-index:2;color:var(--accent)}
+.reference-architecture { margin: 70px calc(50% - 48vw); border: 1px solid #cbd5df; background: #fff; box-shadow: 0 20px 60px rgba(15,35,55,.09); }
+.reference-architecture > header { display: grid; grid-template-columns: 220px 1fr; gap: 10px 28px; padding: 26px 30px 22px; border-bottom: 1px solid #cbd5df; }
+.reference-architecture > header span { color: #b54d1f; font: 700 10px 'Courier New',monospace; letter-spacing: .09em; }
+.reference-architecture > header h3 { margin: 0; color: #102a43; font: 600 28px/1.15 Arial,sans-serif; }
+.reference-architecture > header p { grid-column: 2; max-width: 850px; margin: 0; color: #526575; font: 14px/1.55 Arial,sans-serif; }
+.reference-flow { height: min(720px,70vw); min-height: 560px; background: #f8fafc; }
+.reference-architecture > figcaption { display: flex; gap: 18px; margin: 0; padding: 14px 30px; border-top: 1px solid #cbd5df; color: #66798a; font: 12px/1.5 Arial,sans-serif; }
+.reference-architecture > figcaption span { color: #b54d1f; font: 700 9px 'Courier New',monospace; letter-spacing: .08em; }
+.ref-node { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; width: 170px; min-height: 68px; padding: 10px; border: 1px solid #7890a4; border-radius: 5px; background: #fff; box-shadow: 0 4px 10px rgba(21,43,64,.12); font-family: Arial,sans-serif; }
+.ref-node-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 4px; background: #e8f1f7; color: #176b87; }
+.ref-node span { display: block; color: #798b9a; font: 700 7px 'Courier New',monospace; letter-spacing: .08em; }
+.ref-node strong { display: block; margin: 2px 0; color: #102a43; font-size: 11px; line-height: 1.1; }
+.ref-node small { display: block; overflow: hidden; color: #66798a; font-size: 8px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.ref-node .react-flow__handle { width: 6px; height: 6px; border: 1px solid #fff; background: #176b87; }
+.ref-group { border: 1.5px dashed #80a5bc !important; border-radius: 5px !important; background: rgba(230,241,248,.38) !important; color: #176b87 !important; font: 700 10px 'Courier New',monospace !important; letter-spacing: .08em; }
+.ref-group-slate { border-color:#94a3b8 !important;background:rgba(241,245,249,.72)!important;color:#475569!important }.ref-group-green{border-color:#76a88c!important;background:rgba(235,247,239,.65)!important;color:#32634a!important}
+.ref-edge .react-flow__edge-path { stroke: #405b70; stroke-width: 1.6; }.ref-edge-dashed .react-flow__edge-path{stroke-dasharray:7 5;stroke:#b54d1f}.react-flow__edge-text{font-family:Arial,sans-serif}.react-flow__controls{border:1px solid #cbd5df;box-shadow:none}.react-flow__controls-button{border-bottom-color:#dbe3ea!important;color:#334e68}.react-flow__attribution{display:none}
 .article h1 { margin: 20px 0; font-size: clamp(52px, 7vw, 92px); line-height: .92; }
 .article h2 { margin-top: 62px; font-size: 42px; }
 .article p, .article li { color: #343a3d; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 1.72; }
@@ -212,5 +229,7 @@ h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp
   .metric-grid { grid-template-columns: 1fr; }.state-model{grid-template-columns:1fr}.state-model > div:nth-child(even){margin-top:0}.state-model i{transform:rotate(90deg)}
   .sequence-visual { grid-template-columns: 1fr; }.sequence-lanes{display:none}.sequence-event{grid-template-columns:35px 1fr}.sequence-event span{display:none}.sequence-event b{padding-left:0}
   .risk-head,.risk-row { grid-template-columns: 1fr auto; }.risk-head span:last-child,.risk-row span:last-child{grid-column:1/-1}
+  .reference-architecture { margin-right: -18px; margin-left: -18px; }
+  .reference-architecture > header { grid-template-columns: 1fr; padding: 20px 18px; }.reference-architecture > header p{grid-column:1}.reference-flow{height:620px;min-height:620px}.reference-architecture > figcaption{padding:12px 18px}
   .previous-next > div:last-child { text-align: left; }
 }

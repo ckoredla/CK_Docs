@@ -1,7 +1,7 @@
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
 import { getArticle } from '../../lib/articles';
-import { SystemDiagram } from '../../components/DiagramSystem';
+import { ReferenceArchitecture } from '../../components/ReferenceArchitecture';
 import { ArticleVisual } from '../../components/WhitepaperVisuals';
 
 const article = getArticle('ai-aircraft-maintenance');
@@ -24,13 +24,7 @@ export default function ArticlePage() {
 
         <h2>2. Build a trustworthy data path</h2>
         <p>Maintenance intelligence commonly depends on telemetry, fault messages, flight context, configuration, work history, parts data and technician findings. These sources arrive at different speeds and carry different meanings. A reliable architecture preserves event time, aircraft and component identity, source lineage, schema version and data-quality signals.</p>
-        <SystemDiagram id="maintenance-data-path" kind="aircraft-to-cloud" title="A trustworthy evidence path, from aircraft signal to reviewed outcome" caption="Recorded evidence moves through controlled context and proportionate analysis before it reaches qualified review. Confirmed outcomes return as governed feedback." nodes={[
-          {id:'source',label:'Aircraft evidence',detail:'messages + findings',x:35,y:85,tone:'orange'},
-          {id:'context',label:'Context + lineage',detail:'tail · time · effectivity',x:225,y:285,tone:'blue'},
-          {id:'analysis',label:'Proportionate analysis',detail:'rules · statistics · ML',x:415,y:85,tone:'purple'},
-          {id:'brief',label:'Evidence brief',detail:'facts · uncertainty',x:605,y:285,tone:'green'},
-          {id:'review',label:'Qualified review',detail:'action + outcome',x:795,y:85,tone:'red'}
-        ]} edges={[{from:'source',to:'context'},{from:'context',to:'analysis'},{from:'analysis',to:'brief'},{from:'brief',to:'review'}]} />
+        <ReferenceArchitecture id="maintenance-data-path" title="A trustworthy evidence path, from aircraft signal to reviewed outcome" caption="Recorded evidence moves through controlled context and proportionate analysis before it reaches qualified review. Confirmed outcomes return through a governed feedback path." domain="aircraft maintenance intelligence" tags={article.topicTags} ata={article.ataChapters}/>
 
         <h2>3. Combine rules, statistics and machine learning</h2>
         <p>Not every maintenance problem deserves a neural network. Deterministic rules remain valuable when limits are known. Statistical methods are often sufficient for drift and anomaly detection. Machine learning becomes useful when patterns span many variables, operating conditions and historical outcomes.</p>
