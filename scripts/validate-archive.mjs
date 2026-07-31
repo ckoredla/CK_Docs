@@ -15,6 +15,15 @@ const unique = (field) => {
 unique('slug'); unique('issueDate'); unique('id');
 const slugs = new Set(articles.map((article) => article.slug));
 const now = Date.now();
+const chronological = [...articles].sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
+chronological.forEach((article,index)=>{article.previousArticleSlug=chronological[index-1]?.slug||null;article.nextArticleSlug=chronological[index+1]?.slug||null;article.relatedArticleSlugs=[chronological[index-1]?.slug,chronological[index+1]?.slug].filter(Boolean);});
+
+for (let year=2017;year<=2026;year++) {
+  const issues=articles.filter((article)=>article.issueDate.startsWith(`${year}-`));
+  if (issues.length!==12) errors.push(`${year}: expected 12 monthly issues, found ${issues.length}`);
+  for(let month=1;month<=12;month++) if(!issues.some((article)=>article.issueDate===`${year}-${String(month).padStart(2,'0')}-01`)) errors.push(`${year}: missing month ${month}`);
+}
+if (!articles.some((article)=>article.issueDate==='2017-01-01'&&article.slug==='2017-01-technical-record-digitization')) errors.push('January 2017 canonical issue is not reachable');
 
 for (const article of articles) {
   for (const field of required) if (article[field] === undefined || article[field] === '' || article[field] === null) errors.push(`${article.slug}: missing ${field}`);
@@ -25,6 +34,9 @@ for (const article of articles) {
   if (!article.diagramIdentifiers?.length) errors.push(`${article.slug}: published article has no diagram`);
   if (!article.referenceCount) errors.push(`${article.slug}: published article has no references`);
   for (const slug of [...article.relatedArticleSlugs, article.previousArticleSlug, article.nextArticleSlug].filter(Boolean)) if (!slugs.has(slug)) errors.push(`${article.slug}: invalid linked slug ${slug}`);
+  const position=chronological.findIndex((candidate)=>candidate.slug===article.slug);
+  if(article.previousArticleSlug!==(chronological[position-1]?.slug||null)) errors.push(`${article.slug}: incorrect previous navigation`);
+  if(article.nextArticleSlug!==(chronological[position+1]?.slug||null)) errors.push(`${article.slug}: incorrect next navigation`);
   const directRoute = path.join(root, 'app/articles', article.slug, 'page.tsx');
   const dynamicRoute = path.join(root, 'app/articles/[slug]/page.tsx');
   const route = fs.existsSync(directRoute) ? directRoute : dynamicRoute;
