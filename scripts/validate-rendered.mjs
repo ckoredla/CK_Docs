@@ -8,6 +8,7 @@ if(files.length!==140)errors.push(`expected 140 rendered article pages, found ${
 for(const file of files){const html=fs.readFileSync(file,'utf8');const slug=path.basename(file,'.html');const figures=(html.match(/<figure/g)||[]).length;const families=[...html.matchAll(/data-visual-family="([^"]+)"/g)].map(match=>match[1]);const variants=[...html.matchAll(/data-visual-variant="([^"]+)"/g)].map(match=>match[1]);const mode=html.match(/data-publication-mode="([^"]+)"/)?.[1];const text=html.replace(/<script[\s\S]*?<\/script>/g,' ').replace(/<style[\s\S]*?<\/style>/g,' ').replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ');const words=(text.match(/[A-Za-z][A-Za-z'-]*/g)||[]).length;
   if(figures<4||figures>5)errors.push(`${slug}: expected 4–5 rendered figures, found ${figures}`);
   if(families.length!==4)errors.push(`${slug}: expected four design-system visuals, found ${families.length}`);
+  if(/class="publication-visual pv-(?!family-)/.test(html))errors.push(`${slug}: visual frame uses an unnamespaced family class`);
   if(new Set(families).size<3)errors.push(`${slug}: visual story uses fewer than three families (${families.join(', ')})`);
   if(!mode)errors.push(`${slug}: missing publication mode`);else modes.add(mode);
   families.forEach((family,index)=>{familyCoverage.add(family);const familyVariants=variantCoverage.get(family)||new Set();familyVariants.add(variants[index]);variantCoverage.set(family,familyVariants);});signatures.set(slug,`${mode}|${families.map((family,index)=>`${family}:${variants[index]}`).join('|')}`);
