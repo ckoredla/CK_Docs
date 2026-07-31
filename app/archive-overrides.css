@@ -1,0 +1,43 @@
+.month-grid > a,
+.month-grid > span {
+  display: block;
+  padding: 7px 3px;
+  border: 1px solid var(--line);
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-align: center;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+.month-grid .month-link {
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.month-grid .month-link:hover,
+.month-grid .month-link:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.month-grid .month-pending {
+  color: #9a9a91;
+  border-style: dashed;
+  cursor: default;
+}
+
+.month-grid .active-month {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+.month-grid .active-month:hover,
+.month-grid .active-month:focus-visible {
+  background: #b9341f;
+  border-color: #b9341f;
+  color: var(--white);
+}
