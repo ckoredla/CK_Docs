@@ -1,9 +1,22 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './archive-overrides.css';
 
 export const metadata: Metadata = {
-  title: 'Aviation AI Modernization',
-  description: 'Practical research and architecture for airline maintenance, enterprise AI, and AWS modernization.'
+  metadataBase: new URL('https://northboundlabs.ai'),
+  title: {
+    default: 'Northbound Labs',
+    template: '%s | Northbound Labs'
+  },
+  description: 'Independent research on aviation maintenance, MRO modernization, applied AI, aircraft systems, reliability engineering, and cloud architecture.',
+  keywords: ['aviation maintenance', 'MRO modernization', 'aircraft maintenance AI', 'ATA chapters', 'reliability engineering', 'aircraft telemetry', 'AWS aviation architecture'],
+  openGraph: {
+    title: 'Northbound Labs',
+    description: 'Aviation maintenance, MRO modernization, applied AI, aircraft systems, and cloud architecture.',
+    url: 'https://northboundlabs.ai',
+    siteName: 'Northbound Labs',
+    type: 'website'
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
