@@ -38,7 +38,7 @@ main { width: min(1480px, 100%); margin: 0 auto; padding: 0 34px 46px; }
 .hero { grid-column:1/-1; grid-row:1; order:1; }
 .year-rail { grid-column:1; grid-row:2 / span 2; order:2; }
 .research-index { grid-column:2; grid-row:2; order:2; }
-.publications { grid-column:2; grid-row:3; order:3; }
+.publications { grid-column:1/-1; grid-row:3; justify-self:center; width:100%; max-width:1200px; order:3; }
 .hero { position:relative; min-height:0; padding:38px 0 54px; border-bottom:1px solid var(--ink); }
 .issue-line { display: flex; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid var(--line); color: var(--muted); font-family: 'Courier New', monospace; font-size: 13px; }
 .eyebrow { margin: 48px 0 12px; color: var(--accent); font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
