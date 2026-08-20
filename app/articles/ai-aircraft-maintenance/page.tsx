@@ -13,7 +13,7 @@ export default function ArticlePage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, author: { '@type': 'Person', name: 'Chaitanya Koredla' }, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
         <ExecutiveSummary>
         <p>Aircraft maintenance does not need another chatbot wearing an aviation badge. It needs better decisions from fragmented operational data, delivered early enough for people to act.</p>
-        <p>The strongest use of AI is not replacing licensed professionals. It is reducing the time between a weak signal appearing and the right human understanding what it might mean.</p>
+        <p>AI is most useful here when it shortens the time between a weak signal appearing and the right person understanding what it might mean. Licensed professionals still own the judgment.</p>
         </ExecutiveSummary>
 
         <div className="callout"><strong>The useful question:</strong> not “Can AI predict a failure?” but “Can the operation turn a probabilistic signal into a safe, explainable and timely maintenance decision?”</div>
@@ -40,7 +40,7 @@ export default function ArticlePage() {
         <p>Without outcome feedback, the organization owns a prediction machine. With feedback, it begins to own a learning system.</p>
         <PublicationVisual context={visualContext} role="analysis"/>
 
-        <h2>A practical AWS-oriented pattern</h2>
+        <h2>An AWS-oriented implementation pattern</h2>
         <p>A representative implementation can use managed ingestion and streaming, durable object storage for immutable history, cataloged analytical data, container or serverless processing, governed model endpoints, and event-driven delivery into maintenance applications. The exact services matter less than the boundaries: ingestion, storage, context, inference, explanation, workflow and feedback must remain observable and independently evolvable.</p>
 
         <h2>What to measure</h2>
@@ -55,7 +55,7 @@ export default function ArticlePage() {
 
         <PublicationVisual context={visualContext} role="decision"/>
         <h2>From demonstration to an operational product</h2>
-        <p>A credible first deployment should be narrow enough to reconstruct by hand. Choose one fleet, one decision, a defined evidence window, and a named operational owner. Write down the source facts required for the decision, the conditions under which the analytical method is applicable, what the user is permitted to do with the result, and what the system must display when evidence is incomplete. This becomes the product&apos;s operating contract.</p>
+        <p>Keep the first deployment narrow enough to reconstruct by hand: one fleet, one decision, a defined evidence window, and a named operational owner. Write down the source facts the decision requires, when the analytical method applies, what the user may do with the result, and what appears when evidence is incomplete. That document becomes the product&apos;s operating contract.</p>
         <p>Evaluation should replay normal cases and deliberately difficult ones: late telemetry, configuration changes, ambiguous write-ups, conflicting records, sparse outcomes, and conditions not represented during development. Compare the AI-assisted workflow with a deterministic or existing-process baseline. A model that improves an offline score but increases reviewer reconstruction time or hides important contradictions has not improved the maintenance decision.</p>
         <p>Production readiness also requires change control. Data mappings, retrieval policies, rules, prompts, models, and workflow placement should be versioned because each can alter user behavior or the meaning of the output. Monitoring must connect technical health with evidence coverage, user correction, abstention, operational timeliness, and later findings. When those measures leave the validated range, the owner needs a tested way to restrict or withdraw the feature.</p>
         <h2>Final principle</h2>

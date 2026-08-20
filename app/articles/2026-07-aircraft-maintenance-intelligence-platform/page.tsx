@@ -64,7 +64,7 @@ export default function ArticlePage() {
           <li>Traceability completeness</li>
         </ul>
 
-        <h2>8. A practical delivery sequence</h2>
+        <h2>8. Delivery sequence</h2>
         <p>Start with one fleet, one maintenance decision, and a limited set of trusted sources. Build the feedback loop before expanding the number of models or use cases. Once evidence quality, workflow adoption, and outcome capture are stable, the platform can extend across fleets and domains.</p>
 
 

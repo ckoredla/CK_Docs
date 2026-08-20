@@ -13,20 +13,20 @@ export default function ArticlePage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, author: { '@type': 'Person', name: 'Chaitanya Koredla' }, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
         <ExecutiveSummary>
         <p>Maintenance control is not a generic service desk with aircraft terminology added. Its decisions sit inside a regulated operating system shaped by technical evidence, approved procedures, time pressure, network consequences, and professional accountability.</p>
-        <p>That makes maintenance control an attractive place for AI assistance and a dangerous place for careless automation. The useful design question is not whether AI can recommend an action. It is where machine assistance should stop, where qualified review must begin, and how the evidence should travel with the decision.</p>
+        <p>Maintenance control is an attractive place for AI assistance and a dangerous place for careless automation. The real design question is not whether a model can recommend an action. It is where the software stops, where qualified review begins, and whether the evidence survives that handoff.</p>
         </ExecutiveSummary>
 
         <div className="callout"><strong>Operating principle:</strong> AI may assemble evidence, identify patterns, retrieve relevant history, and structure a hypothesis. Authority for maintenance disposition remains inside approved human and organizational controls.</div>
 
         <h2>1. Separate assistance from authority</h2>
-        <p>A model output can be useful without being authoritative. This distinction sounds obvious until a polished interface presents a generated summary beside a confidence score and quietly causes people to treat it as a decision.</p>
+        <p>A model output can be useful without being authoritative. That sounds obvious until a polished interface places a generated summary beside a confidence score and people begin treating it as the decision.</p>
         <p>The product should explicitly label observed facts, retrieved records, derived indicators, machine hypotheses, procedural references, and human conclusions. Mixing them into a single paragraph creates speed at the expense of auditability.</p>
 
         <h2 id="operating-model">2. The operating model</h2>
         <PublicationVisual context={visualContext} role="hero"/>
         <PublicationVisual context={visualContext} role="evidence"/>
 
-        <h2>3. Design the brief, not merely the chatbot</h2>
+        <h2>3. Design the brief, not the chatbot</h2>
         <p>The most valuable interface may not be conversational. A structured maintenance decision brief can be faster to inspect, easier to compare, and more defensible after the event.</p>
         <ul>
           <li><strong>Observed condition:</strong> what was reported or measured, with source and time.</li>
@@ -38,7 +38,7 @@ export default function ArticlePage() {
         </ul>
 
         <h2>4. Retrieval quality is a safety feature</h2>
-        <p>A retrieval system that returns a plausible but obsolete document is not merely inconvenient. Version, applicability, fleet effectivity, and document control belong in the retrieval design.</p>
+        <p>A retrieval system that returns a plausible but obsolete document has failed. Version, applicability, fleet effectivity, and document control belong in the retrieval design.</p>
         <p>The system should prefer approved and effective technical content, surface document status, preserve citations, and reject unsupported generation. In this domain, “the answer sounded right” is not a quality measure. It is often the beginning of an incident review.</p>
 
         <h2>5. Treat confidence carefully</h2>
@@ -70,7 +70,7 @@ export default function ArticlePage() {
         <p>Scenario coverage matters more than a single average score. Test stale or superseded documents, a wrong tail association, conflicting maintenance history, a confident summary built from weak evidence, an unavailable dependency, and an output delivered after the operational decision. The safe response may be a visible abstention, an incomplete-evidence state, or a return to the established manual workflow.</p>
         <p>The product owner also needs continuing controls: access by role, retained source and output versions, monitoring for corrections and over-reliance, incident review, and authority to disable a feature without disabling the maintenance workflow. Assistance earns expansion when it makes evidence easier to inspect and decisions easier to reproduce—not simply when users accept its suggestions.</p>
         <h2>Final principle</h2>
-        <p>The strongest maintenance-control AI system is not the one that appears most autonomous. It is the one that makes evidence easier to inspect, uncertainty harder to hide, human authority unmistakable, and outcomes useful for learning.</p>
+        <p>Judge the system by how well it exposes evidence, uncertainty, and authority—not by how autonomous it appears. If later outcomes cannot be traced back to the assistance, the operation cannot learn from it.</p>
 
         <KeyTakeaways><ul><li>Separate recorded facts, machine hypotheses, and human conclusions.</li><li>Keep qualified approval inside the operational workflow.</li><li>Measure evidence completeness and reviewer corrections, not adoption alone.</li></ul></KeyTakeaways>
 
