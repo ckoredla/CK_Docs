@@ -69,6 +69,10 @@ export default function ArticlePage() {
 
 
         <PublicationVisual context={visualContext} role="decision"/>
+        <h2>Platform boundaries and operating ownership</h2>
+        <p>The platform should not become a second maintenance system of record. Authoritative work status, signatures, configuration transactions, and approved dispositions remain in the systems and processes designated by the operator. The intelligence layer retains immutable source envelopes, versioned interpretations, and enough lineage to reproduce the evidence shown to a reviewer. Integrations publish named observations or workflow events rather than silently changing operational authority.</p>
+        <p>Ownership should follow the decision path. Platform teams can operate shared identity, event, storage, retrieval, model-serving, and observability capabilities, but domain product owners remain accountable for evidence meaning, user workflow, evaluation, and outcome measures. This avoids a central data platform declaring technical success while maintenance users continue reconstructing the case elsewhere.</p>
+        <p>A production-readiness review should demonstrate replay, idempotency, access control, encryption, recovery, lineage, degraded operation, and the ability to identify every decision product affected by a bad source or mapping release. The roadmap should then expand by reusable evidence contracts and proven operational value, not by the number of feeds connected or models deployed.</p>
         <h2>Final principle</h2>
         <p>A maintenance intelligence platform succeeds when it improves a specific operational decision, preserves technical evidence, fits approved maintenance workflows, and becomes more trustworthy through captured outcomes. Cloud services and AI models enable the platform. They are not the platform.</p>
 
@@ -79,6 +83,7 @@ export default function ArticlePage() {
           <li><a href="https://ntrs.nasa.gov/" target="_blank" rel="noreferrer">NASA Technical Reports Server</a></li>
           <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noreferrer">AWS Well-Architected Framework</a></li>
           <li><a href="https://docs.aws.amazon.com/whitepapers/latest/aws-overview/analytics.html" target="_blank" rel="noreferrer">AWS analytics services overview</a></li>
+          <li><a href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentid/328356" target="_blank" rel="noreferrer">FAA AC 120-79A: Continuing Analysis and Surveillance Systems</a></li>
         </ReferenceList>
     </ArticleShell>
   );

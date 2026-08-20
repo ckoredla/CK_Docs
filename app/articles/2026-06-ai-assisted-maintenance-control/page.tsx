@@ -65,6 +65,10 @@ export default function ArticlePage() {
         <p>The platform should make the safe path the easy path. Asking professionals to compensate manually for weak product controls is not governance. It is wishful thinking with a steering committee.</p>
 
         <PublicationVisual context={visualContext} role="decision"/>
+        <h2>Validate the complete controller interaction</h2>
+        <p>Shadow evaluation should reproduce the conditions in which maintenance control actually works: incomplete evidence, interruptions, shift handover, time pressure, competing aircraft, and uncertain applicability. Reviewers should see the same controlled sources available in operations. The evaluation record should capture what they inspected, what they corrected, whether the assistance changed the disposition, and whether later evidence supported that disposition.</p>
+        <p>Scenario coverage matters more than a single average score. Test stale or superseded documents, a wrong tail association, conflicting maintenance history, a confident summary built from weak evidence, an unavailable dependency, and an output delivered after the operational decision. The safe response may be a visible abstention, an incomplete-evidence state, or a return to the established manual workflow.</p>
+        <p>The product owner also needs continuing controls: access by role, retained source and output versions, monitoring for corrections and over-reliance, incident review, and authority to disable a feature without disabling the maintenance workflow. Assistance earns expansion when it makes evidence easier to inspect and decisions easier to reproduce—not simply when users accept its suggestions.</p>
         <h2>Final principle</h2>
         <p>The strongest maintenance-control AI system is not the one that appears most autonomous. It is the one that makes evidence easier to inspect, uncertainty harder to hide, human authority unmistakable, and outcomes useful for learning.</p>
 
@@ -75,6 +79,7 @@ export default function ArticlePage() {
           <li><a href="https://www.faa.gov/about/initiatives/maintenance_hf" target="_blank" rel="noreferrer">FAA maintenance human factors resources</a></li>
           <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noreferrer">NIST AI Risk Management Framework</a></li>
           <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/welcome.html" target="_blank" rel="noreferrer">AWS Machine Learning Lens</a></li>
+          <li><a href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentid/328356" target="_blank" rel="noreferrer">FAA AC 120-79A: Continuing Analysis and Surveillance Systems</a></li>
         </ReferenceList>
     </ArticleShell>
   );

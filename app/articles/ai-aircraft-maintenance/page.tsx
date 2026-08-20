@@ -54,6 +54,10 @@ export default function ArticlePage() {
         </ul>
 
         <PublicationVisual context={visualContext} role="decision"/>
+        <h2>From demonstration to an operational product</h2>
+        <p>A credible first deployment should be narrow enough to reconstruct by hand. Choose one fleet, one decision, a defined evidence window, and a named operational owner. Write down the source facts required for the decision, the conditions under which the analytical method is applicable, what the user is permitted to do with the result, and what the system must display when evidence is incomplete. This becomes the product&apos;s operating contract.</p>
+        <p>Evaluation should replay normal cases and deliberately difficult ones: late telemetry, configuration changes, ambiguous write-ups, conflicting records, sparse outcomes, and conditions not represented during development. Compare the AI-assisted workflow with a deterministic or existing-process baseline. A model that improves an offline score but increases reviewer reconstruction time or hides important contradictions has not improved the maintenance decision.</p>
+        <p>Production readiness also requires change control. Data mappings, retrieval policies, rules, prompts, models, and workflow placement should be versioned because each can alter user behavior or the meaning of the output. Monitoring must connect technical health with evidence coverage, user correction, abstention, operational timeliness, and later findings. When those measures leave the validated range, the owner needs a tested way to restrict or withdraw the feature.</p>
         <h2>Final principle</h2>
         <p>AI modernization succeeds when it improves a real operational decision, fits the existing safety and maintenance process, and earns trust through evidence. The model is only one component. The product is the complete decision system around it.</p>
         <p>That system also needs an owner who can withdraw it when evidence quality changes, a review path that works during disruption, and operating measures that reveal when apparent confidence has moved beyond validated conditions.</p>
@@ -65,6 +69,7 @@ export default function ArticlePage() {
           <li><a href="https://ntrs.nasa.gov/" target="_blank" rel="noreferrer">NASA Technical Reports Server</a></li>
           <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noreferrer">AWS Well-Architected Framework</a></li>
           <li><a href="https://docs.aws.amazon.com/whitepapers/latest/serverless-architectures-lambda/welcome.html" target="_blank" rel="noreferrer">AWS serverless architecture guidance</a></li>
+          <li><a href="https://airc.nist.gov/airmf-resources/airmf/" target="_blank" rel="noreferrer">NIST Artificial Intelligence Risk Management Framework</a></li>
         </ReferenceList>
     </ArticleShell>
   );
