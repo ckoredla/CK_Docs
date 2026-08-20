@@ -4,12 +4,13 @@ import { articleBySlug, formatIssue, formatPublished, type ArticleRecord } from 
 
 export const IssueDate = ({ value }: { value: string }) => <span>Issue: {formatIssue(value)}</span>;
 export const PublishedDate = ({ value }: { value: string }) => <span>Published {formatPublished(value)}</span>;
+export const ArticleAuthor = () => <span>Author: Chaitanya Koredla</span>;
 export const TopicBadge = ({ children }: { children: ReactNode }) => <span className="topic-badge">{children}</span>;
 export const ATAChapterBadge = ({ children }: { children: ReactNode }) => <span className="ata-badge">ATA {children}</span>;
 export const PublicationStatus = ({ status }: { status: string }) => <span className="publication-status">{status}</span>;
 
 export function ArticleMetadata({ article }: { article: ArticleRecord }) {
-  return <div className="article-metadata"><IssueDate value={article.issueDate} /><PublishedDate value={article.publishedAt} /><span>{article.estimatedReadingTime} minute read</span></div>;
+  return <div className="article-metadata"><IssueDate value={article.issueDate} /><PublishedDate value={article.publishedAt} /><ArticleAuthor /><span>{article.estimatedReadingTime} minute read</span></div>;
 }
 
 export function ArticleHeader({ article }: { article: ArticleRecord }) {

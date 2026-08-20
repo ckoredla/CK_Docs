@@ -10,7 +10,7 @@ export default function ArticlePage() {
   const visualContext:PublicationVisualContext={slug:article.slug,title:article.title,domain:'aircraft maintenance intelligence',tags:article.topicTags,ata:article.ataChapters,issueDate:article.issueDate};
   return (
     <ArticleShell article={article}>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, datePublished: article.publishedAt, dateModified: article.updatedAt || article.publishedAt, mainEntityOfPage: `https://northboundlabs.ai/articles/${article.slug}`, author: { '@type': 'Person', name: 'Chaitanya Koredla' }, publisher: { '@type': 'Organization', name: 'Northbound Labs' } }) }} />
         <ExecutiveSummary>
         <p>Aircraft maintenance does not need another chatbot wearing an aviation badge. It needs better decisions from fragmented operational data, delivered early enough for people to act.</p>
         <p>The strongest use of AI is not replacing licensed professionals. It is reducing the time between a weak signal appearing and the right human understanding what it might mean.</p>
