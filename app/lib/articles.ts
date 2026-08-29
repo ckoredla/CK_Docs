@@ -11,7 +11,18 @@ export type ArticleRecord = {
   previousArticleSlug: string | null; nextArticleSlug: string | null;
 };
 
-const combined = [...(records as ArticleRecord[]), ...historicalRecords].map((article)=>({
+const weeklyArticle: ArticleRecord = {
+  id:'nbl-2026-08-28', title:'Build a Maintenance Event Ledger Before You Build More AI', slug:'2026-08-maintenance-event-ledger', issueDate:'2026-08-28',
+  publishedAt:'2026-08-28T19:00:00-05:00', updatedAt:'2026-08-28T19:00:00-05:00',
+  summary:'A reference architecture for creating an immutable, replayable maintenance event backbone before layering analytics and AI over operational workflows.',
+  description:'How airlines can connect maintenance state changes, aircraft evidence, lineage, and downstream intelligence through a governed event ledger.',
+  categories:['MRO Modernization','Data & Cloud Architecture'], topicTags:['Event ledger','Event-driven architecture','Evidence lineage'], ataChapters:[],
+  articleType:'Reference Architecture', estimatedReadingTime:10, publicationStatus:'published', featuredStatus:'featured',
+  diagramIdentifiers:['maintenance-event-ledger'], referenceCount:5, relatedArticleSlugs:['2026-08-maintenance-observability','2026-08-digital-shift-handover'],
+  previousArticleSlug:'2026-08-digital-shift-handover', nextArticleSlug:null
+};
+
+const combined = [weeklyArticle, ...(records as ArticleRecord[]), ...historicalRecords].map((article)=>({
   ...article,
   publishedAt: `${article.issueDate}T12:00:00Z`,
   updatedAt: `${article.issueDate}T12:00:00Z`
