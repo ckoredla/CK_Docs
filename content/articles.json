@@ -1,5 +1,39 @@
 [
   {
+    "id": "nbl-2026-09-25",
+    "title": "Replay Is a Reliability Feature, Not Just a Data Engineering Feature",
+    "slug": "2026-09-replayable-maintenance-intelligence",
+    "issueDate": "2026-09-25",
+    "publishedAt": "2026-09-25T19:00:00-05:00",
+    "updatedAt": "2026-09-25T19:00:00-05:00",
+    "summary": "A governed architecture for replaying aircraft and maintenance evidence when logic, schemas, or late data change, without erasing what engineers knew at decision time.",
+    "description": "A reproducible reliability architecture using immutable evidence, versioned processing, idempotent consumers, replay controls, and decision-time history.",
+    "categories": [
+      "Reliability Engineering",
+      "Data & Cloud Architecture"
+    ],
+    "topicTags": [
+      "Replay",
+      "Event sourcing",
+      "Evidence lineage"
+    ],
+    "ataChapters": [],
+    "articleType": "Reference Architecture",
+    "estimatedReadingTime": 9,
+    "publicationStatus": "published",
+    "featuredStatus": "featured",
+    "diagramIdentifiers": [
+      "replayable-maintenance-intelligence"
+    ],
+    "referenceCount": 5,
+    "relatedArticleSlugs": [
+      "2026-09-reliability-alert-latency",
+      "2026-08-maintenance-event-ledger"
+    ],
+    "previousArticleSlug": "2026-09-reliability-alert-latency",
+    "nextArticleSlug": null
+  },
+  {
     "id": "nbl-2026-08-21",
     "title": "The Maintenance Shift Handover Is a Data Product",
     "slug": "2026-08-digital-shift-handover",
@@ -8,16 +42,30 @@
     "updatedAt": "2026-08-21T19:00:00-05:00",
     "summary": "A human-factors-aware architecture for preserving open maintenance context, evidence, uncertainty, and ownership across shift changes.",
     "description": "A digital handover architecture that improves maintenance continuity without replacing approved records or qualified human communication.",
-    "categories": ["Maintenance Operations", "Human Factors"],
-    "topicTags": ["Shift handover", "Maintenance continuity", "Evidence lineage"],
+    "categories": [
+      "Maintenance Operations",
+      "Human Factors"
+    ],
+    "topicTags": [
+      "Shift handover",
+      "Maintenance continuity",
+      "Evidence lineage"
+    ],
     "ataChapters": [],
     "articleType": "Reference Architecture",
     "estimatedReadingTime": 9,
     "publicationStatus": "published",
     "featuredStatus": "featured",
-    "diagramIdentifiers": ["digital-shift-handover", "handover-evidence-path", "handover-acknowledgement-boundary"],
+    "diagramIdentifiers": [
+      "digital-shift-handover",
+      "handover-evidence-path",
+      "handover-acknowledgement-boundary"
+    ],
     "referenceCount": 6,
-    "relatedArticleSlugs": ["2026-06-ai-assisted-maintenance-control", "2026-08-maintenance-observability"],
+    "relatedArticleSlugs": [
+      "2026-06-ai-assisted-maintenance-control",
+      "2026-08-maintenance-observability"
+    ],
     "previousArticleSlug": "2026-08-exposure-normalized-reliability",
     "nextArticleSlug": null
   },
@@ -30,14 +78,25 @@
     "updatedAt": "2026-08-14T19:00:00-05:00",
     "summary": "An engineering pattern for turning defects, removals, telemetry, and operating exposure into reproducible aircraft reliability signals.",
     "description": "A practical reliability architecture that normalizes maintenance events by exposure without confusing analytics with maintenance authority.",
-    "categories": ["Reliability Engineering", "Aircraft Data"],
-    "topicTags": ["Exposure normalization", "Reliability signals", "Evidence lineage"],
+    "categories": [
+      "Reliability Engineering",
+      "Aircraft Data"
+    ],
+    "topicTags": [
+      "Exposure normalization",
+      "Reliability signals",
+      "Evidence lineage"
+    ],
     "ataChapters": [],
     "articleType": "Engineering Guide",
     "estimatedReadingTime": 8,
     "publicationStatus": "published",
     "featuredStatus": "featured",
-    "diagramIdentifiers": ["exposure-reliability-context", "reliability-evidence-path", "reliability-review-boundary"],
+    "diagramIdentifiers": [
+      "exposure-reliability-context",
+      "reliability-evidence-path",
+      "reliability-review-boundary"
+    ],
     "referenceCount": 5,
     "relatedArticleSlugs": [],
     "previousArticleSlug": null,
@@ -52,14 +111,25 @@
     "updatedAt": "2026-08-07T19:00:00-05:00",
     "summary": "A reference architecture for correlating completed maintenance with subsequent aircraft evidence and qualified review.",
     "description": "A governed validation loop connecting maintenance completion, operating exposure, aircraft evidence, and human disposition.",
-    "categories": ["Maintenance Programs", "Reliability Engineering"],
-    "topicTags": ["Post-maintenance validation", "Outcome evidence", "Human authority"],
+    "categories": [
+      "Maintenance Programs",
+      "Reliability Engineering"
+    ],
+    "topicTags": [
+      "Post-maintenance validation",
+      "Outcome evidence",
+      "Human authority"
+    ],
     "ataChapters": [],
     "articleType": "Reference Architecture",
     "estimatedReadingTime": 8,
     "publicationStatus": "published",
     "featuredStatus": "standard",
-    "diagramIdentifiers": ["post-maintenance-context", "validation-evidence-path", "human-disposition-boundary"],
+    "diagramIdentifiers": [
+      "post-maintenance-context",
+      "validation-evidence-path",
+      "human-disposition-boundary"
+    ],
     "referenceCount": 6,
     "relatedArticleSlugs": [],
     "previousArticleSlug": null,
@@ -74,16 +144,29 @@
     "updatedAt": "2026-07-30T09:00:00-05:00",
     "summary": "A reference architecture for turning aircraft telemetry, maintenance history, and operational context into explainable maintenance decisions.",
     "description": "A governed decision path from aircraft signals and operational history to explainable, workflow-ready maintenance insight.",
-    "categories": ["Aviation Maintenance", "MRO Modernization"],
-    "topicTags": ["Aircraft telemetry", "Decision support", "AWS architecture"],
+    "categories": [
+      "Aviation Maintenance",
+      "MRO Modernization"
+    ],
+    "topicTags": [
+      "Aircraft telemetry",
+      "Decision support",
+      "AWS architecture"
+    ],
     "ataChapters": [],
     "articleType": "Reference Architecture",
     "estimatedReadingTime": 14,
     "publicationStatus": "published",
     "featuredStatus": "featured",
-    "diagramIdentifiers": ["maintenance-intelligence-platform", "modernization-roadmap"],
+    "diagramIdentifiers": [
+      "maintenance-intelligence-platform",
+      "modernization-roadmap"
+    ],
     "referenceCount": 4,
-    "relatedArticleSlugs": ["2026-06-ai-assisted-maintenance-control", "ai-aircraft-maintenance"],
+    "relatedArticleSlugs": [
+      "2026-06-ai-assisted-maintenance-control",
+      "ai-aircraft-maintenance"
+    ],
     "previousArticleSlug": "2026-06-ai-assisted-maintenance-control",
     "nextArticleSlug": "2026-08-maintenance-observability"
   },
@@ -96,16 +179,28 @@
     "updatedAt": "2026-07-30T09:00:00-05:00",
     "summary": "A practical operating model for evidence-aware AI assistance while preserving licensed review, accountability, and approved maintenance authority.",
     "description": "An operating model for airline maintenance control that keeps machine assistance separate from approved human authority.",
-    "categories": ["Maintenance Control", "Human Factors"],
-    "topicTags": ["AI governance", "Human authority", "Decision support"],
+    "categories": [
+      "Maintenance Control",
+      "Human Factors"
+    ],
+    "topicTags": [
+      "AI governance",
+      "Human authority",
+      "Decision support"
+    ],
     "ataChapters": [],
     "articleType": "Operating Model",
     "estimatedReadingTime": 12,
     "publicationStatus": "published",
     "featuredStatus": "standard",
-    "diagramIdentifiers": ["human-authority-workflow"],
+    "diagramIdentifiers": [
+      "human-authority-workflow"
+    ],
     "referenceCount": 4,
-    "relatedArticleSlugs": ["2026-07-aircraft-maintenance-intelligence-platform", "ai-aircraft-maintenance"],
+    "relatedArticleSlugs": [
+      "2026-07-aircraft-maintenance-intelligence-platform",
+      "ai-aircraft-maintenance"
+    ],
     "previousArticleSlug": "ai-aircraft-maintenance",
     "nextArticleSlug": "2026-07-aircraft-maintenance-intelligence-platform"
   },
@@ -118,26 +213,334 @@
     "updatedAt": "2026-07-30T09:00:00-05:00",
     "summary": "A practical guide to using AI in maintenance without confusing prediction with operational truth.",
     "description": "An architecture-led field note about evidence, workflow feedback, and qualified human review.",
-    "categories": ["Applied AI", "Aviation Maintenance"],
-    "topicTags": ["Predictive maintenance", "Operational decisions"],
+    "categories": [
+      "Applied AI",
+      "Aviation Maintenance"
+    ],
+    "topicTags": [
+      "Predictive maintenance",
+      "Operational decisions"
+    ],
     "ataChapters": [],
     "articleType": "Field Note",
     "estimatedReadingTime": 10,
     "publicationStatus": "published",
     "featuredStatus": "standard",
-    "diagramIdentifiers": ["maintenance-data-path"],
+    "diagramIdentifiers": [
+      "maintenance-data-path"
+    ],
     "referenceCount": 4,
-    "relatedArticleSlugs": ["2026-06-ai-assisted-maintenance-control", "2026-07-aircraft-maintenance-intelligence-platform"],
+    "relatedArticleSlugs": [
+      "2026-06-ai-assisted-maintenance-control",
+      "2026-07-aircraft-maintenance-intelligence-platform"
+    ],
     "previousArticleSlug": "2026-04-maintenance-knowledge-retrieval",
     "nextArticleSlug": "2026-06-ai-assisted-maintenance-control"
   },
-  {"id":"nbl-2026-12","title":"From Signals to Decisions: The Maintenance Intelligence Operating System","slug":"2026-12-maintenance-intelligence-operating-system","issueDate":"2026-01-15","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A field operating model that joins aircraft evidence, engineering knowledge, controlled workflows, and outcome learning without creating a second system of record.","description":"How to operate a maintenance intelligence capability as a durable socio-technical system.","categories":["Enterprise Engineering","Maintenance Operations"],"topicTags":["Operating model","Decision systems","Continuous learning"],"ataChapters":[],"articleType":"Operating Blueprint","estimatedReadingTime":16,"publicationStatus":"published","featuredStatus":"featured","diagramIdentifiers":["intelligence-operating-system"],"referenceCount":4,"relatedArticleSlugs":["2026-07-aircraft-maintenance-intelligence-platform","2026-11-maintenance-outcome-learning"],"previousArticleSlug":"2026-11-maintenance-outcome-learning","nextArticleSlug":null},
-  {"id":"nbl-2026-11","title":"Closing the Loop: Learning From Maintenance Outcomes","slug":"2026-11-maintenance-outcome-learning","issueDate":"2026-02-15","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A reliability feedback design that turns findings, removals, no-fault-found events, and repeat discrepancies into governed operational learning.","description":"A practical architecture for maintenance outcome capture and reliability feedback.","categories":["Reliability Engineering","Data Products"],"topicTags":["Outcome capture","Feedback loops","Reliability"],"ataChapters":[],"articleType":"Reliability Practice","estimatedReadingTime":14,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["outcome-feedback-loop"],"referenceCount":4,"relatedArticleSlugs":["2026-10-maintenance-ai-governance","2026-12-maintenance-intelligence-operating-system"],"previousArticleSlug":"2026-10-maintenance-ai-governance","nextArticleSlug":"2026-12-maintenance-intelligence-operating-system"},
-  {"id":"nbl-2026-10","title":"Governing AI in Airline Maintenance Without Freezing Innovation","slug":"2026-10-maintenance-ai-governance","issueDate":"2026-05-15","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A risk-tiered control model for evidence, evaluation, release authority, monitoring, and operational override in maintenance AI products.","description":"A pragmatic governance model for maintenance AI across experimentation and operations.","categories":["AI Governance","Technical Leadership"],"topicTags":["Risk controls","Model evaluation","Release authority"],"ataChapters":[],"articleType":"Governance Framework","estimatedReadingTime":15,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["governance-control-gates"],"referenceCount":4,"relatedArticleSlugs":["2026-06-ai-assisted-maintenance-control","2026-11-maintenance-outcome-learning"],"previousArticleSlug":"2026-09-digital-work-package-orchestration","nextArticleSlug":"2026-11-maintenance-outcome-learning"},
-  {"id":"nbl-2026-09","title":"Orchestrating the Digital Work Package","slug":"2026-09-digital-work-package-orchestration","issueDate":"2026-06-15","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A lifecycle design for assembling, controlling, executing, and closing aircraft work packages across planning, records, materials, and production.","description":"An event-aware operating architecture for digital aircraft work packages.","categories":["MRO Modernization","Work Management"],"topicTags":["Digital work packages","Task control","Records lineage"],"ataChapters":[],"articleType":"Workflow Architecture","estimatedReadingTime":15,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["work-package-swimlane"],"referenceCount":4,"relatedArticleSlugs":["2026-08-maintenance-observability","2026-10-maintenance-ai-governance"],"previousArticleSlug":"2026-08-maintenance-observability","nextArticleSlug":"2026-10-maintenance-ai-governance"},
-  {"id":"nbl-2026-08","title":"Observability for Maintenance-Critical Data Products","slug":"2026-08-maintenance-observability","issueDate":"2026-07-15","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"How engineering teams can observe freshness, lineage, semantic drift, model behavior, and workflow delivery across aircraft maintenance data products.","description":"An observability model for the evidence pipelines behind maintenance decisions.","categories":["Cloud Architecture","Operational Reliability"],"topicTags":["Observability","Data quality","Operational evidence"],"ataChapters":[],"articleType":"Engineering Guide","estimatedReadingTime":14,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["observability-control-room"],"referenceCount":4,"relatedArticleSlugs":["2026-07-aircraft-maintenance-intelligence-platform","2026-09-digital-work-package-orchestration"],"previousArticleSlug":"2026-07-aircraft-maintenance-intelligence-platform","nextArticleSlug":"2026-09-digital-work-package-orchestration"},
-  {"id":"nbl-2026-04","title":"Retrieving Maintenance Knowledge With Evidence, Effectivity, and Restraint","slug":"2026-04-maintenance-knowledge-retrieval","issueDate":"2026-04-01","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A retrieval architecture that treats document control, aircraft effectivity, citations, and abstention as product requirements rather than prompt decoration.","description":"A controlled retrieval design for technical maintenance knowledge.","categories":["Knowledge Systems","Applied AI"],"topicTags":["Retrieval","Technical publications","Effectivity"],"ataChapters":[],"articleType":"Reference Architecture","estimatedReadingTime":14,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["controlled-retrieval-path"],"referenceCount":4,"relatedArticleSlugs":["2026-03-chronic-defect-intelligence","2026-06-ai-assisted-maintenance-control"],"previousArticleSlug":"2026-03-chronic-defect-intelligence","nextArticleSlug":"ai-aircraft-maintenance"},
-  {"id":"nbl-2026-03","title":"Finding Chronic Defects Before the Next Write-Up","slug":"2026-03-chronic-defect-intelligence","issueDate":"2026-03-01","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A case-building method for connecting discrepancies, corrective actions, component history, and operating context without reducing reliability work to keyword matching.","description":"A governed chronic-defect intelligence workflow for reliability teams.","categories":["Reliability Engineering","Defect Intelligence"],"topicTags":["Chronic defects","Case building","Fleet patterns"],"ataChapters":[],"articleType":"Analytical Method","estimatedReadingTime":15,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["chronic-defect-case-builder"],"referenceCount":4,"relatedArticleSlugs":["2026-02-event-driven-aircraft-telemetry","2026-04-maintenance-knowledge-retrieval"],"previousArticleSlug":"2026-02-event-driven-aircraft-telemetry","nextArticleSlug":"2026-04-maintenance-knowledge-retrieval"},
-  {"id":"nbl-2026-02","title":"Designing an Event-Driven Aircraft Telemetry Backbone","slug":"2026-02-event-driven-aircraft-telemetry","issueDate":"2026-02-01","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A resilient event model for preserving aircraft time, identity, ordering, replay, and quality as telemetry moves from the fleet into engineering workflows.","description":"An aircraft-to-cloud event architecture for trustworthy telemetry.","categories":["Aircraft Telemetry","Cloud Architecture"],"topicTags":["Event streaming","Aircraft identity","Replay"],"ataChapters":[],"articleType":"Technical Architecture","estimatedReadingTime":15,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["aircraft-event-backbone"],"referenceCount":4,"relatedArticleSlugs":["2026-01-maintenance-decision-brief","2026-03-chronic-defect-intelligence"],"previousArticleSlug":"2026-01-maintenance-decision-brief","nextArticleSlug":"2026-03-chronic-defect-intelligence"},
-  {"id":"nbl-2026-01","title":"The Maintenance Decision Brief: A Better Interface Than a Chatbot","slug":"2026-01-maintenance-decision-brief","issueDate":"2026-01-01","publishedAt":"2026-07-30T21:30:00-05:00","updatedAt":"2026-07-30T21:30:00-05:00","summary":"A structured evidence product for helping maintenance control inspect conditions, history, uncertainty, and required authority under operational pressure.","description":"A human-centered interface pattern for maintenance decision support.","categories":["Maintenance Control","Product Design"],"topicTags":["Decision briefs","Evidence design","Human factors"],"ataChapters":[],"articleType":"Product Pattern","estimatedReadingTime":13,"publicationStatus":"published","featuredStatus":"standard","diagramIdentifiers":["decision-brief-anatomy"],"referenceCount":4,"relatedArticleSlugs":["2026-02-event-driven-aircraft-telemetry","2026-06-ai-assisted-maintenance-control"],"previousArticleSlug":null,"nextArticleSlug":"2026-02-event-driven-aircraft-telemetry"}
+  {
+    "id": "nbl-2026-12",
+    "title": "From Signals to Decisions: The Maintenance Intelligence Operating System",
+    "slug": "2026-12-maintenance-intelligence-operating-system",
+    "issueDate": "2026-01-15",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A field operating model that joins aircraft evidence, engineering knowledge, controlled workflows, and outcome learning without creating a second system of record.",
+    "description": "How to operate a maintenance intelligence capability as a durable socio-technical system.",
+    "categories": [
+      "Enterprise Engineering",
+      "Maintenance Operations"
+    ],
+    "topicTags": [
+      "Operating model",
+      "Decision systems",
+      "Continuous learning"
+    ],
+    "ataChapters": [],
+    "articleType": "Operating Blueprint",
+    "estimatedReadingTime": 16,
+    "publicationStatus": "published",
+    "featuredStatus": "featured",
+    "diagramIdentifiers": [
+      "intelligence-operating-system"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-07-aircraft-maintenance-intelligence-platform",
+      "2026-11-maintenance-outcome-learning"
+    ],
+    "previousArticleSlug": "2026-11-maintenance-outcome-learning",
+    "nextArticleSlug": null
+  },
+  {
+    "id": "nbl-2026-11",
+    "title": "Closing the Loop: Learning From Maintenance Outcomes",
+    "slug": "2026-11-maintenance-outcome-learning",
+    "issueDate": "2026-02-15",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A reliability feedback design that turns findings, removals, no-fault-found events, and repeat discrepancies into governed operational learning.",
+    "description": "A practical architecture for maintenance outcome capture and reliability feedback.",
+    "categories": [
+      "Reliability Engineering",
+      "Data Products"
+    ],
+    "topicTags": [
+      "Outcome capture",
+      "Feedback loops",
+      "Reliability"
+    ],
+    "ataChapters": [],
+    "articleType": "Reliability Practice",
+    "estimatedReadingTime": 14,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "outcome-feedback-loop"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-10-maintenance-ai-governance",
+      "2026-12-maintenance-intelligence-operating-system"
+    ],
+    "previousArticleSlug": "2026-10-maintenance-ai-governance",
+    "nextArticleSlug": "2026-12-maintenance-intelligence-operating-system"
+  },
+  {
+    "id": "nbl-2026-10",
+    "title": "Governing AI in Airline Maintenance Without Freezing Innovation",
+    "slug": "2026-10-maintenance-ai-governance",
+    "issueDate": "2026-05-15",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A risk-tiered control model for evidence, evaluation, release authority, monitoring, and operational override in maintenance AI products.",
+    "description": "A pragmatic governance model for maintenance AI across experimentation and operations.",
+    "categories": [
+      "AI Governance",
+      "Technical Leadership"
+    ],
+    "topicTags": [
+      "Risk controls",
+      "Model evaluation",
+      "Release authority"
+    ],
+    "ataChapters": [],
+    "articleType": "Governance Framework",
+    "estimatedReadingTime": 15,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "governance-control-gates"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-06-ai-assisted-maintenance-control",
+      "2026-11-maintenance-outcome-learning"
+    ],
+    "previousArticleSlug": "2026-09-digital-work-package-orchestration",
+    "nextArticleSlug": "2026-11-maintenance-outcome-learning"
+  },
+  {
+    "id": "nbl-2026-09",
+    "title": "Orchestrating the Digital Work Package",
+    "slug": "2026-09-digital-work-package-orchestration",
+    "issueDate": "2026-06-15",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A lifecycle design for assembling, controlling, executing, and closing aircraft work packages across planning, records, materials, and production.",
+    "description": "An event-aware operating architecture for digital aircraft work packages.",
+    "categories": [
+      "MRO Modernization",
+      "Work Management"
+    ],
+    "topicTags": [
+      "Digital work packages",
+      "Task control",
+      "Records lineage"
+    ],
+    "ataChapters": [],
+    "articleType": "Workflow Architecture",
+    "estimatedReadingTime": 15,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "work-package-swimlane"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-08-maintenance-observability",
+      "2026-10-maintenance-ai-governance"
+    ],
+    "previousArticleSlug": "2026-08-maintenance-observability",
+    "nextArticleSlug": "2026-10-maintenance-ai-governance"
+  },
+  {
+    "id": "nbl-2026-08",
+    "title": "Observability for Maintenance-Critical Data Products",
+    "slug": "2026-08-maintenance-observability",
+    "issueDate": "2026-07-15",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "How engineering teams can observe freshness, lineage, semantic drift, model behavior, and workflow delivery across aircraft maintenance data products.",
+    "description": "An observability model for the evidence pipelines behind maintenance decisions.",
+    "categories": [
+      "Cloud Architecture",
+      "Operational Reliability"
+    ],
+    "topicTags": [
+      "Observability",
+      "Data quality",
+      "Operational evidence"
+    ],
+    "ataChapters": [],
+    "articleType": "Engineering Guide",
+    "estimatedReadingTime": 14,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "observability-control-room"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-07-aircraft-maintenance-intelligence-platform",
+      "2026-09-digital-work-package-orchestration"
+    ],
+    "previousArticleSlug": "2026-07-aircraft-maintenance-intelligence-platform",
+    "nextArticleSlug": "2026-09-digital-work-package-orchestration"
+  },
+  {
+    "id": "nbl-2026-04",
+    "title": "Retrieving Maintenance Knowledge With Evidence, Effectivity, and Restraint",
+    "slug": "2026-04-maintenance-knowledge-retrieval",
+    "issueDate": "2026-04-01",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A retrieval architecture that treats document control, aircraft effectivity, citations, and abstention as product requirements rather than prompt decoration.",
+    "description": "A controlled retrieval design for technical maintenance knowledge.",
+    "categories": [
+      "Knowledge Systems",
+      "Applied AI"
+    ],
+    "topicTags": [
+      "Retrieval",
+      "Technical publications",
+      "Effectivity"
+    ],
+    "ataChapters": [],
+    "articleType": "Reference Architecture",
+    "estimatedReadingTime": 14,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "controlled-retrieval-path"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-03-chronic-defect-intelligence",
+      "2026-06-ai-assisted-maintenance-control"
+    ],
+    "previousArticleSlug": "2026-03-chronic-defect-intelligence",
+    "nextArticleSlug": "ai-aircraft-maintenance"
+  },
+  {
+    "id": "nbl-2026-03",
+    "title": "Finding Chronic Defects Before the Next Write-Up",
+    "slug": "2026-03-chronic-defect-intelligence",
+    "issueDate": "2026-03-01",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A case-building method for connecting discrepancies, corrective actions, component history, and operating context without reducing reliability work to keyword matching.",
+    "description": "A governed chronic-defect intelligence workflow for reliability teams.",
+    "categories": [
+      "Reliability Engineering",
+      "Defect Intelligence"
+    ],
+    "topicTags": [
+      "Chronic defects",
+      "Case building",
+      "Fleet patterns"
+    ],
+    "ataChapters": [],
+    "articleType": "Analytical Method",
+    "estimatedReadingTime": 15,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "chronic-defect-case-builder"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-02-event-driven-aircraft-telemetry",
+      "2026-04-maintenance-knowledge-retrieval"
+    ],
+    "previousArticleSlug": "2026-02-event-driven-aircraft-telemetry",
+    "nextArticleSlug": "2026-04-maintenance-knowledge-retrieval"
+  },
+  {
+    "id": "nbl-2026-02",
+    "title": "Designing an Event-Driven Aircraft Telemetry Backbone",
+    "slug": "2026-02-event-driven-aircraft-telemetry",
+    "issueDate": "2026-02-01",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A resilient event model for preserving aircraft time, identity, ordering, replay, and quality as telemetry moves from the fleet into engineering workflows.",
+    "description": "An aircraft-to-cloud event architecture for trustworthy telemetry.",
+    "categories": [
+      "Aircraft Telemetry",
+      "Cloud Architecture"
+    ],
+    "topicTags": [
+      "Event streaming",
+      "Aircraft identity",
+      "Replay"
+    ],
+    "ataChapters": [],
+    "articleType": "Technical Architecture",
+    "estimatedReadingTime": 15,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "aircraft-event-backbone"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-01-maintenance-decision-brief",
+      "2026-03-chronic-defect-intelligence"
+    ],
+    "previousArticleSlug": "2026-01-maintenance-decision-brief",
+    "nextArticleSlug": "2026-03-chronic-defect-intelligence"
+  },
+  {
+    "id": "nbl-2026-01",
+    "title": "The Maintenance Decision Brief: A Better Interface Than a Chatbot",
+    "slug": "2026-01-maintenance-decision-brief",
+    "issueDate": "2026-01-01",
+    "publishedAt": "2026-07-30T21:30:00-05:00",
+    "updatedAt": "2026-07-30T21:30:00-05:00",
+    "summary": "A structured evidence product for helping maintenance control inspect conditions, history, uncertainty, and required authority under operational pressure.",
+    "description": "A human-centered interface pattern for maintenance decision support.",
+    "categories": [
+      "Maintenance Control",
+      "Product Design"
+    ],
+    "topicTags": [
+      "Decision briefs",
+      "Evidence design",
+      "Human factors"
+    ],
+    "ataChapters": [],
+    "articleType": "Product Pattern",
+    "estimatedReadingTime": 13,
+    "publicationStatus": "published",
+    "featuredStatus": "standard",
+    "diagramIdentifiers": [
+      "decision-brief-anatomy"
+    ],
+    "referenceCount": 4,
+    "relatedArticleSlugs": [
+      "2026-02-event-driven-aircraft-telemetry",
+      "2026-06-ai-assisted-maintenance-control"
+    ],
+    "previousArticleSlug": null,
+    "nextArticleSlug": "2026-02-event-driven-aircraft-telemetry"
+  }
 ]
