@@ -1,3 +1,4 @@
+import './publication-editorial.css';
 import type { Metadata } from 'next';
 import './globals.css';
 import './archive-overrides.css';
