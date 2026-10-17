@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities -- Legacy editorial prose; preserve publication wording. */
 import type { Metadata } from 'next';
 import { ArticleShell } from '../../components/ArticleShell';
 import { ExecutiveSummary, KeyTakeaways, ReferenceList } from '../../components/Publication';
