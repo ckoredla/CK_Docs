@@ -22,11 +22,10 @@ const weeklyArticle: ArticleRecord = {
   previousArticleSlug:'2026-08-digital-shift-handover', nextArticleSlug:null
 };
 
-const combined = [weeklyArticle, ...(records as ArticleRecord[]), ...historicalRecords].map((article)=>({
-  ...article,
-  publishedAt: `${article.issueDate}T12:00:00Z`,
-  updatedAt: `${article.issueDate}T12:00:00Z`
-})).sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
+// Preserve the real release and revision timestamps supplied by each article.
+// issueDate is an editorial issue label, not the date content was published.
+const combined = [weeklyArticle, ...(records as ArticleRecord[]), ...historicalRecords]
+  .sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
 combined.forEach((article,index)=>{article.previousArticleSlug=combined[index-1]?.slug||null;article.nextArticleSlug=combined[index+1]?.slug||null;article.relatedArticleSlugs=[combined[index-1]?.slug,combined[index+1]?.slug].filter((slug):slug is string=>Boolean(slug));});
 
 export const articles = combined
