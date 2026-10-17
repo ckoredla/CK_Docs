@@ -29,7 +29,7 @@ export function ReferenceList({ children }: { children: ReactNode }) {
 }
 
 export function RelatedArticles({ article }: { article: ArticleRecord }) {
-  return <section className="related-articles"><h2>Related articles</h2><div>{article.relatedArticleSlugs.map((slug) => { const related = articleBySlug.get(slug)!; return <a href={`/articles/${slug}`} key={slug}><span>{related.articleType}</span><strong>{related.title}</strong></a>; })}</div></section>;
+  return <section className="related-articles"><h2>Related articles</h2><div>{article.relatedArticleSlugs.filter((slug) => articleBySlug.has(slug)).map((slug) => { const related = articleBySlug.get(slug)!; return <a href={`/articles/${slug}`} key={slug}><span>{related.articleType}</span><strong>{related.title}</strong></a>; })}</div></section>;
 }
 
 export function PreviousNextNavigation({ article }: { article: ArticleRecord }) {
