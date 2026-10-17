@@ -109,6 +109,27 @@ const raw: Record<string,[string,Shape,string,string,string]> = {
     "Decision rationale|Maintenance performed|Subsequent observation|Reviewed effectiveness feedback",
     "Link action to evidence|Define follow-up window|Separate confounders|Update controls after review",
     "Unknown outcome → pending|Weak causality → no model update"
+  ],
+  "2026-09-telemetry-time-integrity": [
+    "Two-clock telemetry provenance",
+    "event",
+    "Aircraft event timestamp|Network receipt timestamp|Validated event store|Replayable consumer view",
+    "Retain source clock|Capture ingestion time|Bound lateness|Track corrections",
+    "Clock skew → flag|Late event → reconcile|Conflicting sequence → review"
+  ],
+  "2026-09-maintenance-event-contracts": [
+    "Governed maintenance event contracts",
+    "architecture",
+    "Authoritative MRO event|Schema + effectivity validation|Versioned event bus|Independent consumers",
+    "Business event identity|Schema version|Provenance and quality|Consumer idempotency",
+    "Unmapped field → quarantine|Breaking revision → version gate"
+  ],
+  "2026-09-reliability-alert-latency": [
+    "Operational alert decision window",
+    "event",
+    "Aircraft event time|Evidence arrival and validation|Decision window classifier|Reviewed reliability alert",
+    "Source-to-decision latency|Evidence freshness|Aircraft effectivity|Acknowledgement time",
+    "Expired alert → historical analysis|Incomplete evidence → hold review"
   ]
 };
 const specs:Record<string,EditorialSpec>=Object.fromEntries(Object.entries(raw).map(([slug,[heading,shape,stages,checks,exceptions]])=>[slug,{heading,shape,stages:stages.split('|'),checks:checks.split('|'),exceptions:exceptions.split('|')}]));
