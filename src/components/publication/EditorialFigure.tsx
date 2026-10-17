@@ -139,7 +139,7 @@ export function EditorialFigure({context,role}:{context:PublicationVisualContext
   const spec=specs[context.slug];if(!spec)return null;
   const isHero=role==='hero';const lines=isHero?spec.stages:role==='evidence'?spec.checks:role==='analysis'?spec.exceptions:[spec.checks[0], 'Qualified reviewer verifies source and applicability', 'Authorized action and audit record'];
   const layout=role==='hero'?spec.shape:role==='analysis'?'exception':role==='decision'?'authority':'evidence';
-  return <figure className={`nbl-editorial nbl-editorial--${layout}`} aria-label={`${spec.heading}: ${labels[role]}`}>
+  return <figure className={`nbl-editorial nbl-editorial--${layout}`} data-visual-family={`editorial-${spec.shape}-${role}`} data-visual-profile="editorial-curated" data-visual-question={`${spec.heading}: ${labels[role]}`} aria-label={`${spec.heading}: ${labels[role]}`}>
     <figcaption className="nbl-editorial__heading"><span className="nbl-editorial__eyebrow">{labels[role]}</span><strong>{spec.heading}</strong></figcaption>
     <ol className="nbl-editorial__sequence">{lines.map((value,index)=><li key={value} className="nbl-editorial__node">
       <span className="nbl-editorial__index" aria-hidden="true">{String(index+1).padStart(2,'0')}</span>
