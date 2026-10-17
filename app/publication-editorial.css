@@ -1,0 +1,23 @@
+/* Selected article-specific publication figures; no changes to historical visuals. */
+.nbl-editorial{margin:2rem 0;padding:clamp(1rem,3vw,2rem);border:1px solid #bacbdd;border-radius:14px;background:#f6f9fc;color:#152a40;overflow:hidden}
+.nbl-editorial__heading{display:grid;gap:.35rem;margin:0 0 1.4rem;font-size:clamp(1rem,2vw,1.25rem);line-height:1.3}
+.nbl-editorial__eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:750;color:#356587}
+.nbl-editorial__sequence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;list-style:none;padding:0;margin:0}
+.nbl-editorial__node{position:relative;min-width:0;padding:1rem;border:1px solid #b6cad8;border-top:4px solid #2d7898;border-radius:9px;background:#fff;font-size:.9rem;line-height:1.45;overflow-wrap:anywhere;display:grid;align-content:start;gap:.8rem}
+.nbl-editorial__index{font-size:.68rem;letter-spacing:.1em;color:#4c7489;font-weight:800}
+.nbl-editorial__note{font-size:.76rem;color:#476079;line-height:1.5;margin:1.2rem 0 0}
+.nbl-editorial--event .nbl-editorial__node,.nbl-editorial--architecture .nbl-editorial__node{border-top-color:#246b88}
+.nbl-editorial--swimlane .nbl-editorial__sequence,.nbl-editorial--state .nbl-editorial__sequence{grid-template-columns:repeat(2,minmax(0,1fr))}
+.nbl-editorial--swimlane .nbl-editorial__node:nth-child(even),.nbl-editorial--state .nbl-editorial__node:nth-child(even){border-top-color:#ba8546}
+.nbl-editorial--comparison .nbl-editorial__node:nth-child(even),.nbl-editorial--knowledge .nbl-editorial__node:nth-child(even){background:#edf3f9}
+.nbl-editorial--loop .nbl-editorial__sequence{grid-template-columns:repeat(2,minmax(0,1fr))}
+.nbl-editorial--loop .nbl-editorial__node:last-child{border-top-color:#3e927a}
+.nbl-editorial--stack .nbl-editorial__sequence,.nbl-editorial--gate .nbl-editorial__sequence{grid-template-columns:1fr}
+.nbl-editorial--stack .nbl-editorial__node,.nbl-editorial--gate .nbl-editorial__node{padding:.7rem 1rem;display:flex;align-items:center}
+.nbl-editorial--gate .nbl-editorial__node:nth-child(even){border-top-color:#bc8848}
+.nbl-editorial--exception .nbl-editorial__sequence,.nbl-editorial--authority .nbl-editorial__sequence{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.nbl-editorial--exception .nbl-editorial__node{border-top-color:#ae654e}
+.nbl-editorial--authority .nbl-editorial__node:last-child{border-top-color:#3e927a}
+@media(max-width:650px){.nbl-editorial__sequence,.nbl-editorial--comparison .nbl-editorial__sequence,.nbl-editorial--architecture .nbl-editorial__sequence,.nbl-editorial--knowledge .nbl-editorial__sequence{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.nbl-editorial__sequence,.nbl-editorial--swimlane .nbl-editorial__sequence,.nbl-editorial--state .nbl-editorial__sequence,.nbl-editorial--loop .nbl-editorial__sequence{grid-template-columns:1fr}}
+@media print{.nbl-editorial{break-inside:avoid;background:#fff}.nbl-editorial__node{break-inside:avoid}}
