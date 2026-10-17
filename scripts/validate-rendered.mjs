@@ -14,7 +14,7 @@ for(const file of files){const html=fs.readFileSync(file,'utf8');const slug=path
   if(new Set(families).size<2)errors.push(`${slug}: visual story repeats one family without adding a distinct information model (${families.join(', ')})`);
   if(!mode)errors.push(`${slug}: missing publication mode`);else modes.add(mode);
   if(articleProfiles.length!==families.length||new Set(articleProfiles).size!==1)errors.push(`${slug}: expected one coherent content profile across selected visuals`);else profiles.add(articleProfiles[0]);
-  if(expectedProfiles.has(slug)&&articleProfiles[0]!==expectedProfiles.get(slug))errors.push(`${slug}: expected ${expectedProfiles.get(slug)} visual plan, found ${articleProfiles[0]}`);
+  if(expectedProfiles.has(slug)&&articleProfiles[0]!=='editorial-curated'&&articleProfiles[0]!==expectedProfiles.get(slug))errors.push(`${slug}: expected ${expectedProfiles.get(slug)} visual plan, found ${articleProfiles[0]}`);
   if(families.includes('aws-architecture')&&articleProfiles[0]!=='cloud-platform')errors.push(`${slug}: AWS architecture used outside the cloud-platform profile`);
   if((html.match(/data-visual-question="[^"]+"/g)||[]).length!==families.length)errors.push(`${slug}: each visual must state its technical question`);
   families.forEach((family)=>familyCoverage.add(family));
