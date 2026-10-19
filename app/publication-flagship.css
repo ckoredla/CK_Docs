@@ -1,0 +1,7 @@
+.nbl-flagship{margin:2.2rem 0;background:#fbfcfc;border:1px solid #cbd9dc;box-shadow:0 2px 12px rgba(20,45,65,.05);border-radius:12px;overflow:hidden;color:#213d54}
+.nbl-flagship-heading{padding:1.1rem 1.4rem .7rem;border-bottom:1px solid #dbe5e8}
+.nbl-flagship-heading>span{font:700 .66rem/1.5 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#16758a}
+.nbl-flagship-heading h3{margin:.2rem 0;font-size:clamp(1.05rem,2vw,1.5rem);line-height:1.3;color:#213d54}
+.nbl-flagship svg{display:block;width:100%;height:auto;background:radial-gradient(ellipse at center,#fff 30%,#f1f7f8 100%)}
+.nbl-flagship figcaption{border-top:1px solid #dbe5e8;padding:.75rem 1.4rem;font-size:.82rem;color:#4d6677;line-height:1.6}
+@media print{.nbl-flagship{break-inside:avoid;box-shadow:none}}
