@@ -3,7 +3,6 @@ import type { PublicationVisualContext, VisualRole } from './types';
 /** Publication-grade, concept-specific diagrams. No fabricated operational metrics.
  * Each visual answers a distinct technical question. SVG is accessible and scalable. */
 type Props={context:PublicationVisualContext;role:VisualRole};
-type Point={x:number;y:number};
 type Node={x:number;y:number;label:string;detail?:string;kind?:'record'|'human'|'event'|'gate'|'cloud'};
 const titleMap:Record<string,string>={
 '2026-11-maintenance-outcome-learning':'Learning from maintenance outcomes',
