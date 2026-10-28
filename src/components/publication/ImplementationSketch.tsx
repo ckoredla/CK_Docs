@@ -5,7 +5,7 @@ type Sketch={title:string;question:string;technology:string;available:string;cod
 const normalized=(article:ArticleRecord)=>`${article.title} ${article.description} ${article.categories.join(' ')} ${article.topicTags.join(' ')}`.toLowerCase();
 
 function sketchFor(article:ArticleRecord):Sketch|null{
-  if(article.issueDate<'2020-01-01')return null;
+  if(article.issueDate<'2017-01-01')return null;
   const text=normalized(article);
   const bedrockEligible=article.issueDate>='2023-09-28'&&/generative|knowledge|retrieval|copilot|assistant|decision brief/.test(text);
   if(bedrockEligible)return{
@@ -33,7 +33,7 @@ function sketchFor(article:ArticleRecord):Sketch|null{
     )`,
     note:'Conceptual pseudocode. Model IDs, retrieval stores, IAM controls, evaluation criteria, and approved-data boundaries are implementation-specific.',source:{href:'https://aws.amazon.com/blogs/aws/amazon-bedrock-is-now-generally-available-build-and-scale-generative-ai-applications-with-foundation-models/',label:'AWS: Bedrock GA announcement'}};
 
-  if(/machine learning|\bai\b|model|predictive|computer vision|classification|nlp/.test(text))return{
+  if(article.issueDate>='2017-11-29'&&/machine learning|\bai\b|model|predictive|computer vision|classification|nlp/.test(text))return{
     title:'Versioned inference with an explicit review gate',question:'What must be preserved around a model prediction so engineering can challenge it?',technology:'Python pseudocode · Amazon SageMaker eligible',available:'SageMaker available throughout 2020–2026',
     code:`def score_for_review(evidence, model_release):
     require(evidence.source_ids and evidence.effectivity)
@@ -55,7 +55,7 @@ function sketchFor(article:ArticleRecord):Sketch|null{
     return SendForQualifiedReview(result)`,
     note:'Conceptual pseudocode. A model may prioritize or classify evidence; it does not approve maintenance action or return an aircraft to service.',source:{href:'https://aws.amazon.com/about-aws/whats-new/2017/11/introducing-amazon-sagemaker/',label:'AWS: SageMaker launch announcement'}};
 
-  if(/event|telemetry|stream|integration|cloud|api|observability|message/.test(text))return{
+  if(article.issueDate>='2019-07-11'&&/event|telemetry|stream|integration|cloud|api|observability|message/.test(text))return{
     title:'Idempotent event intake and quarantine',question:'How should a consumer preserve evidence when delivery is duplicated or invalid?',technology:'Python pseudocode · Amazon EventBridge pattern',available:'EventBridge available throughout 2020–2026',
     code:`def handle_maintenance_event(envelope):
     assert envelope.event_id and envelope.schema_version
@@ -71,6 +71,41 @@ function sketchFor(article:ArticleRecord):Sketch|null{
     processed_events.record(envelope.event_id)
     publish("evidence.accepted", envelope.trace_context)`,
     note:'Conceptual pseudocode. Production designs must define ordering, retries, dead-letter handling, encryption, replay authorization, and reconciliation with the authoritative MRO record.',source:{href:'https://aws.amazon.com/about-aws/whats-new/2019/07/introducing-amazon-eventbridge/',label:'AWS: EventBridge launch announcement'}};
+
+  if(/machine learning|\bai\b|model|predictive|computer vision|classification|nlp/.test(text))return{
+    title:'Traceable model evaluation before operational use',question:'How can a model experiment remain reproducible without implying an unavailable managed service?',technology:'Python pseudocode · service-neutral ML',available:'Historically neutral method',
+    code:`def evaluate_candidate_model(training_release, validation_cohort):
+    require(training_release.source_lineage)
+    require(validation_cohort.is_time_separated)
+    require(validation_cohort.configuration_labels)
+
+    model = train(training_release.features, training_release.labels)
+    results = evaluate_by_operating_context(model, validation_cohort)
+    if results.has_unsupported_cohort or results.safety_error_rate > limit:
+        return RestrictUse(reason="validation boundary not satisfied")
+    return ReviewPackage(
+        model_version=model.version,
+        dataset_versions=[training_release.id, validation_cohort.id],
+        metrics=results.segmented_metrics,
+        authority="engineering and qualified operational review",
+    )`,
+    note:'Conceptual, service-neutral pseudocode for pre-SageMaker publications. Thresholds, cohorts, labels, and operational release criteria require documented validation.'};
+
+  if(/event|telemetry|stream|integration|cloud|api|observability|message/.test(text))return{
+    title:'Durable event processing without service assumptions',question:'How can evidence remain replayable when a publication predates a referenced managed service?',technology:'Python pseudocode · service-neutral events',available:'Historically neutral method',
+    code:`def accept_event(envelope):
+    require(envelope.event_id and envelope.source_time)
+    if deduplication_store.seen(envelope.event_id):
+        return AlreadyApplied(envelope.event_id)
+    if not contract_is_valid(envelope):
+        quarantine.append(envelope, preserve_original=True)
+        return NeedsReview(envelope.event_id)
+
+    immutable_log.append(envelope)
+    projection.apply(envelope)
+    deduplication_store.record(envelope.event_id)
+    return Accepted(envelope.event_id)`,
+    note:'Conceptual, service-neutral pseudocode. Transport, storage, retry, security, audit, and replay controls depend on the historically available platform and the operator’s system boundaries.'};
 
   if(/reliability|defect|failure|health|removal|no.fault|trend|outcome/.test(text))return{
     title:'Exposure-normalized reliability comparison',question:'How can an analytical signal preserve population, exposure, and uncertainty?',technology:'Python pseudocode · service-neutral',available:'Historically neutral method',

@@ -12,6 +12,7 @@
     "test": "npm run validate",
     "validate": "node scripts/validate-archive.mjs",
     "validate:visual": "node scripts/validate-visual-lab.mjs",
+    "audit:publication": "node scripts/audit-publication-quality.mjs",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
