@@ -2,11 +2,16 @@ import type { ArticleRecord } from '../../../app/lib/articles';
 
 type Sketch={title:string;question:string;technology:string;available:string;code:string;note:string;source?:{href:string;label:string}};
 
-const normalized=(article:ArticleRecord)=>`${article.title} ${article.description} ${article.categories.join(' ')} ${article.topicTags.join(' ')}`.toLowerCase();
+// Use authored subject metadata, not the generic catalog description. The
+// latter mentions failure modes for every article and previously caused an
+// unrelated reliability snippet to appear in knowledge-graph publications.
+const normalized=(article:ArticleRecord)=>`${article.title} ${article.categories.join(' ')} ${article.topicTags.join(' ')}`.toLowerCase();
 
 function sketchFor(article:ArticleRecord):Sketch|null{
   if(article.issueDate<'2017-01-01')return null;
   const text=normalized(article);
+  const implementationRelevant=/\bai\b|machine learning|\bml\b|model|predictive|computer vision|generative|agent|event|telemetry|stream|integration|cloud|\bapi\b|observability|data platform|data product|knowledge graph|digital twin|algorithm|forecast|correlation|normalization|orchestration|contract|ledger|retrieval|cybersecurity|exposure|statistical/.test(text);
+  if(!implementationRelevant)return null;
   const bedrockEligible=article.issueDate>='2023-09-28'&&/generative|knowledge|retrieval|copilot|assistant|decision brief/.test(text);
   if(bedrockEligible)return{
     title:'Cited synthesis with an abstention path',question:'How can generated language remain subordinate to governed evidence?',technology:'Python pseudocode · Amazon Bedrock eligible',available:'Bedrock GA from September 2023',
@@ -32,6 +37,26 @@ function sketchFor(article:ArticleRecord):Sketch|null{
         authority="qualified human review required",
     )`,
     note:'Conceptual pseudocode. Model IDs, retrieval stores, IAM controls, evaluation criteria, and approved-data boundaries are implementation-specific.',source:{href:'https://aws.amazon.com/blogs/aws/amazon-bedrock-is-now-generally-available-build-and-scale-generative-ai-applications-with-foundation-models/',label:'AWS: Bedrock GA announcement'}};
+
+  if(/knowledge graph/.test(text))return{
+    title:'Effective-dated relationships with source provenance',question:'How can a graph distinguish a recorded relationship from an inferred one?',technology:'Python pseudocode · service-neutral graph contract',available:'Historically neutral method',
+    code:`def add_relationship(graph, subject, predicate, object_, evidence):
+    require(evidence.source_record_id)
+    require(evidence.recorded_at and evidence.effective_from)
+
+    edge = Relationship(
+        subject_id=subject.governed_id,
+        predicate=predicate,
+        object_id=object_.governed_id,
+        effective_from=evidence.effective_from,
+        effective_to=evidence.effective_to,
+        source_record_id=evidence.source_record_id,
+        assertion="recorded" if evidence.authoritative else "inferred",
+        confidence=None if evidence.authoritative else evidence.confidence,
+    )
+    graph.append(edge)          # corrections supersede; they do not erase
+    return edge`,
+    note:'Conceptual pseudocode. Identity resolution, effectivity, source authority, correction semantics, and access controls require operator-specific governance.'};
 
   if(article.issueDate>='2017-11-29'&&/machine learning|\bai\b|model|predictive|computer vision|classification|nlp/.test(text))return{
     title:'Versioned inference with an explicit review gate',question:'What must be preserved around a model prediction so engineering can challenge it?',technology:'Python pseudocode · Amazon SageMaker eligible',available:'SageMaker available throughout 2020–2026',
