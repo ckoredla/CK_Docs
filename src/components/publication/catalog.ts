@@ -124,9 +124,35 @@ export function visualProfile(context:PublicationVisualContext):VisualProfile{
   if(/security|cyber|risk|governance|assurance|authority/.test(text))return'governance';
   return'general';
 }
-function articleVariant(slug:string,role:VisualRole):VisualVariant{const seed=[...`${slug}:${role}`].reduce((sum,char)=>sum+char.charCodeAt(0),0);return(['a','b','c'] as const)[seed%3]}
+function articleVariant(_slug:string,role:VisualRole):VisualVariant{return ({hero:'a',evidence:'b',analysis:'c',decision:'a'} as const)[role]}
+function contentStory(profile:VisualProfile,text:string){
+  const pool=storyPools[profile];if(!pool?.length)return plans[profile];
+  // Select an information model from the article's engineering concern. This is
+  // deliberately explicit: publication visuals must never vary because a slug,
+  // date, or hash happened to produce a different number.
+  if(profile==='technical-records'){
+    if(/workflow|work instruction|remote review/.test(text))return pool[Math.min(2,pool.length-1)];
+    if(/completeness|logbook|publication|nlp/.test(text))return pool[Math.min(3,pool.length-1)];
+    if(/lineage|etl|data/.test(text))return pool[Math.min(1,pool.length-1)];
+  }
+  if(profile==='general'){
+    if(/feedback|program|effectiveness/.test(text))return pool[Math.min(4,pool.length-1)];
+    if(/fault|context|relationship/.test(text))return pool[Math.min(2,pool.length-1)];
+    if(/resilien|readiness|degraded/.test(text))return pool[Math.min(1,pool.length-1)];
+    if(/platform|operating system|architecture/.test(text))return pool[Math.min(5,pool.length-1)];
+  }
+  if(/authority|abstain|human review|qualified/.test(text))return pool[Math.min(2,pool.length-1)];
+  if(/failure|exception|retry|replay|recovery|incident|defect|fault/.test(text))return pool[Math.min(3,pool.length-1)];
+  if(/identity|effectivity|lineage|provenance|trace|record|document/.test(text))return pool[Math.min(1,pool.length-1)];
+  if(/architecture|platform|cloud|integration|network|system of systems/.test(text))return pool[Math.min(5,pool.length-1)];
+  if(/workflow|work package|service|handover|operations|execution/.test(text))return pool[Math.min(3,pool.length-1)];
+  if(/lifecycle|sequence|timeline|program|change|evolution/.test(text))return pool[Math.min(4,pool.length-1)];
+  if(/data|evidence|knowledge|relationship|configuration/.test(text))return pool[Math.min(2,pool.length-1)];
+  if(/decision|control|governance|assurance|risk/.test(text))return pool[Math.min(1,pool.length-1)];
+  return pool[0];
+}
 export function visualSelection(context:PublicationVisualContext,role:VisualRole){
-  const profile=visualProfile(context);const text=contextText(context);const pool=storyPools[profile];const storySeed=[...context.slug].reduce((sum,char)=>sum+char.charCodeAt(0),0);let selection=(context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:pool?pool[storySeed%pool.length]:plans[profile])[role];
+  const profile=visualProfile(context);const text=contextText(context);let selection=(context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text))[role];
   if(profile==='cloud-platform'&&/observability/.test(text))selection=role==='hero'?item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect first?'):role==='evidence'?item('lab-telemetry-sequence','Which success, persistence, validation, and retry paths must remain traceable?'):role==='analysis'?item('table','Which SLO, failure, recovery, and evidence controls require ownership?'):undefined;
   else if(profile==='cloud-platform'&&/telemetry|event-driven|event stream/.test(text))selection=role==='hero'?item('lab-telemetry-architecture','How does aircraft evidence cross aircraft, transport, cloud, and operational boundaries?'):role==='evidence'?item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?'):role==='analysis'?item('table','Which custody, schema, replay, and consumer controls must be observable?'):undefined;
   if(profile==='aircraft-system'&&context.ata.some(value=>value==='49'||value.startsWith('49')))selection=role==='hero'?item('lab-aircraft-system','How do APU components, control signals, aircraft messages, and maintenance interpretation relate?'):selection;

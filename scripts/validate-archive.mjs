@@ -66,12 +66,16 @@ const walk = (directory) => { for (const entry of fs.readdirSync(directory, { wi
 walk(path.join(root, 'app'));
 for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8');
+  if (/<pre[^>]*(?:architecture|diagram)[^>]*>/i.test(source)) errors.push(`${path.relative(root,file)}: ASCII/preformatted architecture is prohibited; use the publication design system`);
   for (const match of source.matchAll(/href=["'](\/[^"'#?]*)/g)) {
     const href = match[1];
     if (href === '/') continue;
     if (href.startsWith('/articles/') && !slugs.has(href.slice('/articles/'.length))) errors.push(`${path.relative(root, file)}: broken internal link ${href}`);
   }
 }
+
+const visualCatalogSource=fs.readFileSync(path.join(designSystemRoot,'catalog.ts'),'utf8');
+if (/charCodeAt|storySeed|slugSeed/.test(visualCatalogSource)) errors.push('publication visual selection must not use slug-, date-, or hash-randomized layout selection');
 
 if (errors.length) { console.error(`Archive validation failed (${errors.length})\n- ${errors.join('\n- ')}`); process.exit(1); }
 console.log(`Archive validation passed: ${articles.length} routes, unique issues, diagrams, references, and links verified.`);
