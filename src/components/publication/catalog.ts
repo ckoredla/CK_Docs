@@ -90,7 +90,7 @@ const plans:Record<VisualProfile,VisualPlan>={
   )
 };
 
-// The latest fifty publications form the premium visual tier. These plans use
+// Publications from 2020 onward form the premium visual tier. These plans use
 // commissioned laboratory canvases and official AWS architecture components;
 // generic card, matrix, and decorative dashboard families are intentionally
 // excluded. The cutoff is verified by rendered-publication validation.
@@ -111,6 +111,36 @@ const premiumPlans:Record<VisualProfile,VisualPlan>={
   governance:plan(item('lab-ai-authority','Where do governed evidence, controls, owners, and release authority sit?'),item('lab-observability','Which assurance, drift, incident, or control signals require action?','b'),item('lab-maintenance-swimlane','How do review, restriction, rollback, and corrective action cross accountable roles?','c')),
   general:plan(item('lab-work-package','Which actors, evidence, systems, and gates define the operating model?'),item('lab-reliability','Which evidence and uncertainty distinctions drive the engineering conclusion?','b'),item('lab-observability','Where can the operating model fail, and who owns recovery?','c'))
 };
+
+function premiumStory(profile:VisualProfile,text:string):VisualPlan{
+  if(profile==='cloud-platform'){
+    if(/observability|monitor|slo|latency/.test(text))return plan(item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect?'),item('lab-telemetry-sequence','Which telemetry, persistence, failure, and retry paths must remain traceable?','b'),item('lab-maintenance-swimlane','How do detection, diagnosis, recovery, and accountable review cross teams?','c'));
+    if(/telemetry|event|stream|message/.test(text))return plan(item('lab-telemetry-architecture','How does evidence cross aircraft, transport, cloud, and operational boundaries?'),item('lab-telemetry-sequence','What happens on success, validation failure, retry, and replay?','b'),item('lab-observability','Which broken contract, delayed event, or failed consumer changes the operational response?','c'));
+    if(/migration|modernization|api|integration/.test(text))return plan(item('aws-architecture','Which legacy, AWS, migration, and operational boundaries define the workload?'),item('lab-work-package','Which migration states and evidence gates control release?','b'),item('lab-observability','How is parity, cutover, rollback, and reconciliation observed?','c'));
+  }
+  if(profile==='aircraft-system'){
+    if(/fault|troubleshoot|message|isolation/.test(text))return plan(item('lab-aircraft-system','How do physical functions, signals, and fault effects propagate?'),item('lab-defect-lifecycle','How does observed evidence become a governed troubleshooting case?','b'),item('lab-observability','Which missing signal or configuration context invalidates isolation?','c'));
+    if(/health|condition|predictive|trend/.test(text))return plan(item('lab-aircraft-system','Which installed functions and evidence establish aircraft-system condition?'),item('lab-reliability','Which exposure and causal evidence establish an engineering concern?','b'),item('lab-defect-lifecycle','How does the condition progress from observation to confirmed outcome?','c'));
+  }
+  if(profile==='technical-records'){
+    if(/lineage|identity|configuration|trace/.test(text))return plan(item('lab-telemetry-architecture','How do source identity, effectivity, lineage, and record custody remain traceable?'),item('lab-work-package','Which revision and approval states establish record status?','b'),item('lab-observability','Where can synchronization, provenance, or signature fail?','c'));
+    if(/workflow|instruction|review|signature/.test(text))return plan(item('lab-maintenance-swimlane','Which roles create, review, correct, sign, and accept the record?'),item('lab-work-package','Which controlled states establish completion?','b'),item('lab-observability','Which evidence gap prevents record acceptance?','c'));
+    if(/nlp|publication|completeness|logbook|electronic record/.test(text))return plan(item('lab-work-package','Which source, revision, applicability, and acceptance states establish the digital record?'),item('lab-telemetry-sequence','How do capture, validation, exception, correction, and acceptance progress?','b'),item('lab-observability','Which completeness, effectivity, or synchronization failure prevents reliance?','c'));
+  }
+  if(profile==='reliability-analysis'){
+    if(/repeat|chronic|defect|recurrence|no.fault/.test(text))return plan(item('lab-defect-lifecycle','How does recurrence become a governed reliability case?'),item('lab-reliability','Which population, exposure, and causal evidence support the case?','b'),item('lab-observability','Where can identity, correlation, or outcome evidence break the analysis?','c'));
+    if(/program|effectiveness|outcome|feedback/.test(text))return plan(item('lab-reliability','Which outcome evidence establishes program effectiveness?'),item('lab-maintenance-swimlane','How do reliability, engineering, operations, and records adjudicate a change?','b'),item('lab-observability','Which missing follow-up or biased population weakens the conclusion?','c'));
+  }
+  if(profile==='ai-assurance'||profile==='governance'){
+    if(/evaluation|model|drift|classification|predictive/.test(text))return plan(item('lab-ai-authority','Where do inference, evaluation, safeguards, and human authority remain separate?'),item('lab-reliability','Which validation population, errors, and uncertainty bound use?','b'),item('lab-observability','Which drift, incident, or control evidence requires restriction?','c'));
+  }
+  if(profile==='general'){
+    if(/resilien|readiness|continuity|recovery/.test(text))return plan(item('lab-telemetry-architecture','Which systems, dependencies, degraded modes, and recovery boundaries define resilience?'),item('lab-work-package','Which readiness evidence and release gates control recovery?','b'),item('lab-observability','Where can the operating model fail, and who owns restoration?','c'));
+    if(/workforce|human|collaboration|remote/.test(text))return plan(item('lab-maintenance-swimlane','How do people, evidence, systems, and authority coordinate this work?'),item('lab-work-package','Which handoffs and controlled states preserve accountability?','b'),item('lab-observability','Where does workload, context, or communication fail?','c'));
+    if(/program|effectiveness|feedback|learning/.test(text))return plan(item('lab-defect-lifecycle','How does operational evidence become a governed improvement cycle?'),item('lab-reliability','Which outcomes distinguish improvement from coincidence?','b'),item('lab-maintenance-swimlane','Which roles adjudicate and release the resulting change?','c'));
+  }
+  return premiumPlans[profile];
+}
 
 // Alternate stories stay inside a topic's valid visual vocabulary. They prevent a
 // category template from becoming the illustration for every article in it.
@@ -174,7 +204,7 @@ function contentStory(profile:VisualProfile,text:string){
   return pool[0];
 }
 export function visualSelection(context:PublicationVisualContext,role:VisualRole){
-  const profile=visualProfile(context);const text=contextText(context);const isPremiumTier=context.issueDate>='2023-12-01';let selection=(isPremiumTier?premiumPlans[profile]:context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text))[role];
+  const profile=visualProfile(context);const text=contextText(context);const isPremiumTier=context.issueDate>='2020-01-01';let selection=(isPremiumTier?premiumStory(profile,text):context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text))[role];
   if(!isPremiumTier&&profile==='cloud-platform'&&/observability/.test(text))selection=role==='hero'?item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect first?'):role==='evidence'?item('lab-telemetry-sequence','Which success, persistence, validation, and retry paths must remain traceable?'):role==='analysis'?item('table','Which SLO, failure, recovery, and evidence controls require ownership?'):undefined;
   else if(!isPremiumTier&&profile==='cloud-platform'&&/telemetry|event-driven|event stream/.test(text))selection=role==='hero'?item('lab-telemetry-architecture','How does aircraft evidence cross aircraft, transport, cloud, and operational boundaries?'):role==='evidence'?item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?'):role==='analysis'?item('table','Which custody, schema, replay, and consumer controls must be observable?'):undefined;
   if(profile==='aircraft-system'&&context.ata.some(value=>value==='49'||value.startsWith('49')))selection=role==='hero'?item('lab-aircraft-system','How do APU components, control signals, aircraft messages, and maintenance interpretation relate?'):selection;
