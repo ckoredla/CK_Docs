@@ -8,6 +8,14 @@ type VisualPlan=Partial<Record<VisualRole,RolePlan>>;
 const modes:PublicationMode[]=['research','briefing','handbook','field-guide','technical-manual','playbook','decision-record','case-study'];
 const plan=(hero:RolePlan,evidence?:RolePlan,analysis?:RolePlan,decision?:RolePlan):VisualPlan=>({hero,evidence,analysis,decision});
 const item=(family:VisualFamily,question:string,variant:VisualVariant='a'):RolePlan=>({family,question,variant});
+const commissionedAwsArchitectures=new Set([
+  '2018-02-maintenance-system-integration','2018-11-mro-cloud-adoption','2019-08-mro-api-modernization',
+  '2021-09-cloud-maintenance-integration','2023-01-maintenance-event-streaming','2023-05-aws-event-driven-maintenance',
+  '2024-11-serverless-maintenance-integration','2025-10-mro-cloud-migration',
+  '2026-07-aircraft-maintenance-intelligence-platform','2026-08-digital-shift-handover',
+  '2026-08-exposure-normalized-reliability','2026-08-maintenance-event-ledger',
+  '2026-08-post-maintenance-validation','2026-09-reliability-alert-latency','2026-09-telemetry-time-integrity'
+]);
 
 const plans:Record<VisualProfile,VisualPlan>={
   'cloud-platform':plan(
@@ -228,6 +236,7 @@ function contentStory(profile:VisualProfile,text:string){
 }
 export function visualSelection(context:PublicationVisualContext,role:VisualRole){
   const profile=visualProfile(context);const text=contextText(context);const isPremiumTier=context.issueDate>='2017-01-01';let selection=(isPremiumTier?premiumStory(profile,text):context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text))[role];
+  if(role==='hero'&&commissionedAwsArchitectures.has(context.slug))selection=item('aws-architecture','Which AWS, airline, MRO, evidence, failure-recovery, and human-authority boundaries implement this article’s specific workload?');
   if(!isPremiumTier&&profile==='cloud-platform'&&/observability/.test(text))selection=role==='hero'?item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect first?'):role==='evidence'?item('lab-telemetry-sequence','Which success, persistence, validation, and retry paths must remain traceable?'):role==='analysis'?item('table','Which SLO, failure, recovery, and evidence controls require ownership?'):undefined;
   else if(!isPremiumTier&&profile==='cloud-platform'&&/telemetry|event-driven|event stream/.test(text))selection=role==='hero'?item('lab-telemetry-architecture','How does aircraft evidence cross aircraft, transport, cloud, and operational boundaries?'):role==='evidence'?item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?'):role==='analysis'?item('table','Which custody, schema, replay, and consumer controls must be observable?'):undefined;
   if(profile==='aircraft-system'&&context.ata.some(value=>value==='49'||value.startsWith('49')))selection=role==='hero'?item('lab-aircraft-system','How do APU components, control signals, aircraft messages, and maintenance interpretation relate?'):selection;
