@@ -17,6 +17,15 @@ const commissionedAwsArchitectures=new Set([
   '2026-08-post-maintenance-validation','2026-09-reliability-alert-latency','2026-09-telemetry-time-integrity'
 ]);
 
+// Articles outside the maintenance domain commission their own visual story so
+// shared profile plans never attach airline or MRO framing to their figures.
+const commissionedPlans:Record<string,VisualPlan>={
+  '2026-11-ai-dlc-brownfield-feature-flags':plan(
+    item('aws-architecture','Which AWS services, owners, and failure paths separate the code deploy from the release decision?'),
+    item('decision-tree','What does the Lambda seam return for every possible flag-read outcome?','b'),
+    item('timeline','When can new behavior reach users, and where can an alarm or a person reverse it?','c'))
+};
+
 const plans:Record<VisualProfile,VisualPlan>={
   'cloud-platform':plan(
     item('aws-architecture','Which AWS, airline, and MRO boundaries carry this workload from intake to an authoritative update?'),
@@ -235,7 +244,7 @@ function contentStory(profile:VisualProfile,text:string){
   return pool[0];
 }
 export function visualSelection(context:PublicationVisualContext,role:VisualRole){
-  const profile=visualProfile(context);const text=contextText(context);const isPremiumTier=context.issueDate>='2017-01-01';let selection=(isPremiumTier?premiumStory(profile,text):context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text))[role];
+  const profile=visualProfile(context);const text=contextText(context);const isPremiumTier=context.issueDate>='2017-01-01';let selection=(commissionedPlans[context.slug]??(isPremiumTier?premiumStory(profile,text):context.slug==='2026-06-ai-assisted-maintenance-control'?plans['maintenance-control']:context.slug==='2026-01-maintenance-decision-brief'?plans['knowledge-assistance']:contentStory(profile,text)))[role];
   if(role==='hero'&&commissionedAwsArchitectures.has(context.slug))selection=item('aws-architecture','Which AWS, airline, MRO, evidence, failure-recovery, and human-authority boundaries implement this article’s specific workload?');
   if(!isPremiumTier&&profile==='cloud-platform'&&/observability/.test(text))selection=role==='hero'?item('lab-observability','Where is the decision path unhealthy, and which failed event should an operator inspect first?'):role==='evidence'?item('lab-telemetry-sequence','Which success, persistence, validation, and retry paths must remain traceable?'):role==='analysis'?item('table','Which SLO, failure, recovery, and evidence controls require ownership?'):undefined;
   else if(!isPremiumTier&&profile==='cloud-platform'&&/telemetry|event-driven|event stream/.test(text))selection=role==='hero'?item('lab-telemetry-architecture','How does aircraft evidence cross aircraft, transport, cloud, and operational boundaries?'):role==='evidence'?item('lab-telemetry-sequence','What happens to an event on success, validation failure, persistence, and retry?'):role==='analysis'?item('table','Which custody, schema, replay, and consumer controls must be observable?'):undefined;

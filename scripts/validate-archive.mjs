@@ -18,11 +18,13 @@ const slugs = new Set(articles.map((article) => article.slug));
 const chronological = [...articles].sort((a,b)=>a.issueDate.localeCompare(b.issueDate));
 chronological.forEach((article,index)=>{article.previousArticleSlug=chronological[index-1]?.slug||null;article.nextArticleSlug=chronological[index+1]?.slug||null;article.relatedArticleSlugs=[chronological[index-1]?.slug,chronological[index+1]?.slug].filter(Boolean);});
 
+// Months the editors chose not to publish. Every other month up to the latest issue must have one.
+const editorialGaps = new Set(['2026-10']);
 for (let year=2017;year<=2026;year++) {
   const issues=articles.filter((article)=>article.issueDate.startsWith(`${year}-`));
   if (issues.length<14) errors.push(`${year}: expected at least 14 issues, found ${issues.length}`);
   const requiredMonthCount = year === Number(today.slice(0,4)) ? Math.max(0, ...issues.map(article=>Number(article.issueDate.slice(5,7)))) : 12;
-  for(let month=1;month<=requiredMonthCount;month++) if(!issues.some((article)=>article.issueDate.startsWith(`${year}-${String(month).padStart(2,'0')}-`))) errors.push(`${year}: missing month ${month}`);
+  for(let month=1;month<=requiredMonthCount;month++) if(!editorialGaps.has(`${year}-${String(month).padStart(2,'0')}`)&&!issues.some((article)=>article.issueDate.startsWith(`${year}-${String(month).padStart(2,'0')}-`))) errors.push(`${year}: missing month ${month}`);
 }
 if (!articles.some((article)=>article.issueDate==='2017-01-01'&&article.slug==='2017-01-technical-record-digitization')) errors.push('January 2017 canonical issue is not reachable');
 

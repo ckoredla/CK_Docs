@@ -1,5 +1,38 @@
 [
   {
+    "id": "nbl-2026-11-24",
+    "title": "AI-DLC Meets Brownfield: Shipping AI-Built Changes Without Breaking Production",
+    "slug": "2026-11-ai-dlc-brownfield-feature-flags",
+    "issueDate": "2026-11-24",
+    "publishedAt": "2026-11-24T19:00:00-06:00",
+    "updatedAt": "2026-11-24T19:00:00-06:00",
+    "summary": "How to pair the AWS AI-Driven Development Lifecycle with AWS AppConfig feature flags so an AI agent can change a live application while people keep the release decision.",
+    "description": "A release-gate pattern for AI-built changes to existing applications, with Terraform and Python you can deploy to your own AWS account.",
+    "categories": [
+      "AI-Driven Development",
+      "Release Engineering"
+    ],
+    "topicTags": [
+      "AI-DLC",
+      "Feature flags",
+      "AWS AppConfig"
+    ],
+    "ataChapters": [],
+    "articleType": "Engineering Guide",
+    "estimatedReadingTime": 14,
+    "publicationStatus": "published",
+    "featuredStatus": "featured",
+    "diagramIdentifiers": [
+      "feature-flag-release-gate"
+    ],
+    "referenceCount": 7,
+    "relatedArticleSlugs": [
+      "2026-09-reliability-alert-latency"
+    ],
+    "previousArticleSlug": "2026-09-reliability-alert-latency",
+    "nextArticleSlug": null
+  },
+  {
     "id": "nbl-2026-09-18",
     "title": "A Reliability Alert Is Only Useful If It Arrives in the Decision Window",
     "slug": "2026-09-reliability-alert-latency",

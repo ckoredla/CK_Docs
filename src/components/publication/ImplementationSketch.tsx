@@ -7,7 +7,12 @@ type Sketch={title:string;question:string;technology:string;available:string;cod
 // unrelated reliability snippet to appear in knowledge-graph publications.
 const normalized=(article:ArticleRecord)=>`${article.title} ${article.categories.join(' ')} ${article.topicTags.join(' ')}`.toLowerCase();
 
+// Articles that ship tested companion code show that code in the body, so a
+// generated pseudocode sketch would duplicate it with unrelated domain examples.
+const articlesWithCompanionCode=new Set(['2026-11-ai-dlc-brownfield-feature-flags']);
+
 function sketchFor(article:ArticleRecord):Sketch|null{
+  if(articlesWithCompanionCode.has(article.slug))return null;
   if(article.issueDate<'2017-01-01')return null;
   const text=normalized(article);
   const implementationRelevant=/\bai\b|machine learning|\bml\b|model|predictive|computer vision|generative|agent|event|telemetry|stream|integration|cloud|\bapi\b|observability|data platform|data product|knowledge graph|digital twin|algorithm|forecast|correlation|normalization|orchestration|contract|ledger|retrieval|cybersecurity|exposure|statistical/.test(text);
