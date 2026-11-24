@@ -6,3 +6,14 @@ out/
 !.env.example
 .DS_Store
 npm-debug.log*
+
+# Blog article code
+__pycache__/
+.pytest_cache/
+.venv/
+blog/**/terraform/.terraform/
+blog/**/terraform/build/
+*.tfstate
+*.tfstate.*
+*.tfplan
+blog/**/response.json

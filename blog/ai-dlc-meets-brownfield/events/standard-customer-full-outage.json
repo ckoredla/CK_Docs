@@ -1,0 +1,7 @@
+{
+  "ticket_id": "TCK-1001",
+  "customer_tier": "standard",
+  "users_affected": 250,
+  "service_down": true,
+  "hours_open": 2
+}

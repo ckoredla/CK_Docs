@@ -1,0 +1,36 @@
+name: Blog code
+on:
+  push:
+    paths: ['blog/**', '.github/workflows/blog-code.yml']
+  pull_request:
+    paths: ['blog/**', '.github/workflows/blog-code.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        article: [ai-dlc-meets-brownfield]
+    defaults:
+      run:
+        working-directory: blog/${{ matrix.article }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform format
+        run: terraform -chdir=terraform fmt -check -diff
+      - name: Terraform validate
+        run: |
+          terraform -chdir=terraform init -backend=false -input=false
+          terraform -chdir=terraform validate
+      - name: Python tests
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -q -r requirements-dev.txt
+          .venv/bin/pytest -q

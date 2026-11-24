@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "flags": {
+    "new_priority_scoring": {
+      "name": "new_priority_scoring",
+      "description": "Impact-based ticket priority built with AI-DLC. Short-lived release flag."
+    }
+  },
+  "values": {
+    "new_priority_scoring": { "enabled": false }
+  }
+}
